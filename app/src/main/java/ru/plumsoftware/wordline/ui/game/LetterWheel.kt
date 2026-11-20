@@ -15,7 +15,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.*
-import androidx.compose.ui.platform.LocalAccessibilityManager
+import android.content.Context
+import android.view.accessibility.AccessibilityManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
@@ -37,7 +39,7 @@ fun LetterWheel(level: Level, session: Session, tapInput: Boolean, largeLetters:
     val currentDragging by rememberUpdatedState(onDragging)
     val currentEnabled by rememberUpdatedState(enabled)
     val density=LocalDensity.current
-    val accessible=LocalAccessibilityManager.current?.isTouchExplorationEnabled==true
+    val accessible=rememberTouchExplorationEnabled()
     val bigLayout=density.fontScale>1.5f
     val tapOnly=tapInput || accessible || bigLayout
     val order=session.order
@@ -143,6 +145,24 @@ fun LetterWheel(level: Level, session: Session, tapInput: Boolean, largeLetters:
             TextButton(onClick=::clear,enabled=enabled) { Text("Очистить") }
         }
     }
+}
+
+@Composable
+private fun rememberTouchExplorationEnabled(): Boolean {
+    val context = LocalContext.current.applicationContext
+    val manager = remember(context) {
+        context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+    }
+    var enabled by remember(manager) { mutableStateOf(manager.isTouchExplorationEnabled) }
+    DisposableEffect(manager) {
+        val listener = AccessibilityManager.TouchExplorationStateChangeListener { value ->
+            enabled = value
+        }
+        manager.addTouchExplorationStateChangeListener(listener)
+        enabled = manager.isTouchExplorationEnabled
+        onDispose { manager.removeTouchExplorationStateChangeListener(listener) }
+    }
+    return enabled
 }
 @Composable
 private fun Token(letter: Char, token: Int, total: Int, selected: Boolean, enabled: Boolean,

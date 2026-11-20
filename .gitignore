@@ -1,15 +1,42 @@
+# Local Android Studio, Gradle and Kotlin state
+.idea/
+.gradle/
+.kotlin/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
 local.properties
+
+# Generated build output and captures
+**/build/
+.externalNativeBuild/
+.cxx/
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.hprof
+*.log
+
+# Python authoring-tool cache
+__pycache__/
+*.py[cod]
+
+# Local credentials, signing keys and personal game exports
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+signing.properties
+*.wordsave
+
+# macOS metadata
+.DS_Store
+._*
+
+# Keep Gradle Wrapper, dependency locks and app/schemas/ under version control.

@@ -6,7 +6,7 @@ plugins {
 
 // Independent production ad units per store. Fill these later or override with -Pwordline.<store>.*.
 val storeAdUnits = mapOf(
-    "rustore" to ("" to ""),            // rewarded, interstitial
+    "rustore" to ("R-M-20460787-2" to "R-M-20460787-1"), // rewarded, interstitial
     "googlePlay" to ("" to ""),
     "huaweiAppGallery" to ("" to "")
 )

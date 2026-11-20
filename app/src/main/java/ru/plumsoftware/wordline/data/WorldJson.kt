@@ -19,7 +19,20 @@ fun World.toJson(): JSONObject = JSONObject().apply {
     put("adShowings",JSONArray().apply {adShowings.forEach { a ->put(JSONObject().put("date",a.date).put("wallMillis",a.wallMillis).put("activeMillis",a.activeMillis).put("rewarded",a.rewarded).put("ticketId",a.ticketId)) }})
     put("lastExportAt",lastExportAt);put("clockNotice",clockNotice);put("dailyReport",JSONArray(dailyReport))
 }
-fun worldFromJson(o: JSONObject): World = World(
+fun worldFromJson(o: JSONObject): World {
+    val showings = o.optJSONArray("adShowings")?.let { array ->
+        (0 until array.length()).map { index ->
+            val showing = array.getJSONObject(index)
+            AdShowing(
+                date = showing.getString("date"),
+                wallMillis = showing.getLong("wallMillis"),
+                activeMillis = showing.getLong("activeMillis"),
+                rewarded = showing.getBoolean("rewarded"),
+                ticketId = showing.optString("ticketId"),
+            )
+        }
+    } ?: emptyList()
+    return World(
     generation=o.getString("generation"),effectiveDate=o.getString("effectiveDate"),visits=o.stringSet("visits"),
     streakRun=o.getString("streakRun"),streak=o.getInt("streak"),bestStreak=o.getInt("bestStreak"),giftStep=o.getInt("giftStep"),claims=o.stringSet("claims"),
     dailyAssignments=o.optJSONObject("dailyAssignments")?.let {a ->a.keys().asSequence().associateWith {a.getInt(it)}} ?: emptyMap(),dailyCompleted=o.stringSet("dailyCompleted"),
@@ -28,5 +41,6 @@ fun worldFromJson(o: JSONObject): World = World(
     noHintLevels=o.optJSONArray("noHintLevels")?.let {a ->(0 until a.length()).map {a.getInt(it)}.toSet()} ?: emptySet(),trailEvents=o.stringSet("trailEvents"),collectibles=o.stringSet("collectibles"),
     acknowledgedLocations=o.optJSONArray("acknowledgedLocations")?.let {a ->(0 until a.length()).map {a.getInt(it)}.toSet()} ?: setOf(0),activeMillis=o.getLong("activeMillis"),winsSinceInterstitial=o.getInt("winsSinceInterstitial"),
     adTickets=o.objectMap("adTickets").mapValues { (key,a) ->AdTicket(key,a.getString("generation"),a.getString("placement"),a.getString("date"),if(a.isNull("resultId")) null else a.getString("resultId"),a.getLong("reward"),a.getString("status")) },
-    adShowings=o.optJSONArray("adShowings")?.let {a ->(0 until a.length()).map {i ->a.getJSONObject(i).let {AdShowing(it.getString("date"),it.getLong("wallMillis"),it.getLong("activeMillis"),it.getBoolean("rewarded"),it.optString("ticketId"))}} ?: emptyList(),
+    adShowings = showings,
     lastExportAt=o.optLong("lastExportAt"),clockNotice=o.optBoolean("clockNotice"),dailyReport=o.optJSONArray("dailyReport")?.stringList() ?: emptyList())
+}

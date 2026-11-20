@@ -118,10 +118,10 @@ private fun HintButtons(session: Session, economy: Economy, enabled: Boolean, ha
 @Composable
 private fun HintDialog(level: Level, session: Session, kind: Hint, economy: Economy, coins: Long, onDismiss: () -> Unit, onConfirm: (String) -> Unit, onVideo: (()->Unit)? = null, videoReason: String? = null) {
     var target by remember(kind) {mutableStateOf<String?>(null)}
-    var selected by remember(kind) {mutableStateOf<Cell?>(null)}
+    var selectedCell by remember(kind) {mutableStateOf<Cell?>(null)}
     val visible=visibleCells(level,session)
     val candidates=if(kind==Hint.LETTER) level.cells.keys.filter { it.key !in visible }.sortedWith(compareBy<Cell> {it.row}.thenBy {it.column}).map { it.key to "Строка ${it.row+1}, столбец ${it.column+1}" }
-        else level.slots.filter {it.id !in session.solved && (selected==null || selected in it.cells)}.map { slot ->
+        else level.slots.filter {it.id !in session.solved && (selectedCell==null || selectedCell in it.cells)}.map { slot ->
             val mask=slot.cells.mapIndexed { i,c ->if(c.key in visible) slot.word[i] else '□'}.joinToString(" ")
             slot.id to "$mask · ${if(slot.direction==Direction.ACROSS) "горизонтально" else "вертикально"}"
         }
@@ -131,17 +131,17 @@ private fun HintDialog(level: Level, session: Session, kind: Hint, economy: Econ
             Text(if(session.replay) "Подсказки бесплатны. Они учитываются в оценке за повтор." else "Баланс: $coins монет. Списание — только после подтверждения.")
             Text("Нажми клетку на поле или выбери из списка ниже.")
             CrosswordBoard(level,session,false,onCell={cell ->
-                if(kind==Hint.LETTER) {if(cell.key !in visible) {target=cell.key;selected=cell}}
+                if(kind==Hint.LETTER) {if(cell.key !in visible) {target=cell.key;selectedCell=cell}}
                 else {
-                    selected=cell
+                    selectedCell=cell
                     val slots=level.slots.filter {it.id !in session.solved && cell in it.cells}
                     target=slots.singleOrNull()?.id
                 }
-            },selectedCell=selected?.key)
-            if(selected!=null && kind!=Hint.LETTER) TextButton(onClick={selected=null;target=null}) {Text("Показать все направления")}
+            },selectedCell=selectedCell?.key)
+            if(selectedCell!=null && kind!=Hint.LETTER) TextButton(onClick={selectedCell=null;target=null}) {Text("Показать все направления")}
             candidates.forEach { (id,label) ->
                 Surface(onClick={target=id},color=if(target==id) PaleGreen else MaterialTheme.colorScheme.surface,
-                    shape=androidx.compose.foundation.shape.RoundedCornerShape(12.dp),modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).semantics { selected=target==id }) {
+                    shape=androidx.compose.foundation.shape.RoundedCornerShape(12.dp),modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).semantics { this.selected=target==id }) {
                     Row(Modifier.padding(12.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         RadioButton(selected=target==id,onClick=null)
                         Text(label,Modifier.weight(1f))

@@ -13,7 +13,7 @@ room = "2.8.4"
 datastore = "1.2.0"
 navigation = "2.9.7"
 jsonTest = "20240303"
-yandexAds = "8.7.0"
+yandexAds = "8.6.0"
 
 [libraries]
 yandex-ads = { module = "com.yandex.android:mobileads", version.ref = "yandexAds" }
