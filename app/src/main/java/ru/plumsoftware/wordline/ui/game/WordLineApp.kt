@@ -3,6 +3,7 @@ package ru.plumsoftware.wordline.ui.game
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -47,7 +48,18 @@ fun WordLineApp(vm: GameViewModel) {
     val background=state.settings.background.coerceIn(0,(count/100).coerceAtMost(9))
     val configuredTheme=state.settings.theme
     val theme=if(configuredTheme=="evening" && count<50 || configuredTheme=="forest" && count<100 || configuredTheme=="trail" && (state.snapshot?.world?.trailEvents?.size ?: 0)<30) "day" else configuredTheme
+    var launchPresented by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(900)
+        launchPresented = true
+    }
     GameTheme(state.settings.highContrast,theme) {
+        val initialSnapshot = state.snapshot
+        if (!launchPresented || state.loading || state.campaign == null ||
+            initialSnapshot?.profile == null || initialSnapshot.world.effectiveDate.isBlank()) {
+            LaunchScreen(error = state.error, onRetry = vm::load)
+            return@GameTheme
+        }
         Landscape(state.settings.highContrast,background,theme) {
             val nav=rememberNavController()
             val backStack by nav.currentBackStackEntryAsState()
@@ -69,14 +81,9 @@ fun WordLineApp(vm: GameViewModel) {
                     generation=current
                 }
             }
-            Box(Modifier.fillMaxSize().safeDrawingPadding(),contentAlignment=Alignment.TopCenter) {
+            Box(Modifier.fillMaxSize().then(if(route=="home") Modifier else Modifier.safeDrawingPadding()),contentAlignment=Alignment.TopCenter) {
                 val campaign=state.campaign;val snapshot=state.snapshot
-                if(state.loading || campaign==null || snapshot?.profile==null || snapshot.world.effectiveDate.isBlank()) {
-                    Column(Modifier.align(Alignment.Center).padding(24.dp),horizontalAlignment=Alignment.CenterHorizontally) {
-                        Text("Соедини слова",style=MaterialTheme.typography.headlineLarge);Spacer(Modifier.height(12.dp))
-                        if(state.error==null) CircularProgressIndicator() else {Text(state.error!!);Button(onClick=vm::load) {Text("Попробовать снова")}}
-                    }
-                } else {
+                if(campaign!=null && snapshot?.profile!=null && snapshot.world.effectiveDate.isNotBlank()) {
                     val game:(String)->Unit={id ->nav.navigate("game/$id") {launchSingleTop=true}}
                     fun home() {nav.navigate("home") {popUpTo("home") {inclusive=true}}}
                     Column(Modifier.widthIn(max=1000.dp).fillMaxSize()) {
@@ -84,7 +91,7 @@ fun WordLineApp(vm: GameViewModel) {
                             enterTransition={androidx.compose.animation.EnterTransition.None},exitTransition={androidx.compose.animation.ExitTransition.None}) {
                             composable("entry") {LaunchedEffect(Unit) {nav.navigate(if(state.settings.onboardingCompleted) "home" else "welcome") {popUpTo("entry") {inclusive=true}}}}
                             composable("welcome") {WelcomeScreen(state.busy,onStart={vm.onboard(true) {id ->nav.navigate("home") {popUpTo("welcome") {inclusive=true}};if(id!=null) game(id)}},onSkip={vm.onboard(false) {nav.navigate("home") {popUpTo("welcome") {inclusive=true}}}},onPrivacy={nav.navigate("article/privacy")})}
-                            composable("home") {HomeScreen(state,play={vm.start(navigate=game)},map={nav.navigate("map")},settings={nav.navigate("settings")},help={nav.navigate("help")},tasks={nav.navigate("tasks")},gift={nav.navigate("gift")},daily={nav.navigate("calendar")},wallet={nav.navigate("wallet")})}
+                            composable("home") {HomeScreen(state,play={vm.start(navigate=game)},map={nav.navigate("map")},settings={nav.navigate("settings")},tasks={nav.navigate("tasks")},gift={nav.navigate("gift")},wallet={nav.navigate("wallet")})}
                             composable("tasks") {TasksScreen(state,vm,calendar={nav.navigate("calendar")},trail={nav.navigate("trail")},gift={nav.navigate("gift")},streak={nav.navigate("streak")},resume=game)}
                             composable("collection") {CollectionScreen(state,achievements={nav.navigate("achievements")},statistics={nav.navigate("statistics")},appearance={nav.navigate("appearance")},open={nav.navigate("postcard/$it")},openExtra={nav.navigate("extraPostcard/$it")})}
                             composable("map") {MapScreen(state,back={nav.popBackStack()},play={level,replay ->vm.start(level,replay,game)})}
@@ -130,10 +137,8 @@ fun WordLineApp(vm: GameViewModel) {
                                 },onHome={home()},reward={vm.reward("win_extra",id)},daily={nav.navigate("calendar")})
                             }
                         }
-                        if(route in setOf("home","tasks","collection")) NavigationBar {
-                            listOf(Triple("home","Путь",R.drawable.game_ic_map),Triple("tasks","Задания",R.drawable.game_ic_tasks),Triple("collection","Коллекция",R.drawable.game_ic_collection)).forEach { (target,label,icon) ->
-                                NavigationBarItem(selected=route==target,onClick={if(route!=target) nav.navigate(target) {popUpTo("home") {saveState=true};launchSingleTop=true;restoreState=true}},icon={GameIcon(icon)},label={Text(label)})
-                            }
+                        if(route in setOf("home","tasks","collection")) HomeNavigation(route) {target ->
+                            if(route!=target) nav.navigate(target) {popUpTo("home") {saveState=true};launchSingleTop=true;restoreState=true}
                         }
                     }
                 }

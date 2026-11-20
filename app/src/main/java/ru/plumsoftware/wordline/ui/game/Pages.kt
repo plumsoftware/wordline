@@ -27,48 +27,6 @@ import ru.plumsoftware.wordline.game.levelFor
 import ru.plumsoftware.wordline.game.locationNames
 
 @Composable
-fun HomeScreen(state: AppState, play: () -> Unit, map: () -> Unit, settings: () -> Unit, help: () -> Unit, tasks: () -> Unit = {}, gift: () -> Unit = {}, daily: () -> Unit = {}, wallet: () -> Unit = {}) {
-    val snapshot=requireNotNull(state.snapshot);val campaign=requireNotNull(state.campaign)
-    val count=snapshot.completions.size
-    val active=snapshot.profile?.campaignSessionId?.let { snapshot.sessions[it] }
-    Column(Modifier.fillMaxSize().padding(horizontal=20.dp)) {
-        Row(Modifier.fillMaxWidth().padding(vertical=8.dp),horizontalArrangement=Arrangement.SpaceBetween,verticalAlignment=Alignment.CenterVertically) {
-            Box(Modifier.clickable(onClick=wallet)) {Balance(snapshot.profile?.coins ?: 0)}
-            Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                ToolButton(R.drawable.game_ic_help,"Как играть",onClick=help)
-                ToolButton(R.drawable.game_ic_settings,"Настройки",onClick=settings)
-            }
-        }
-        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).fillMaxWidth(),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(12.dp)) {
-            Spacer(Modifier.height(24.dp))
-            Paper(Modifier.widthIn(max=440.dp)) {
-                Text("СОЕДИНИ СЛОВА",Modifier.fillMaxWidth(),textAlign=TextAlign.Center,fontSize=30.sp,lineHeight=34.sp,fontWeight=FontWeight.Black)
-                Text("К Р О С С В О Р Д Ы",Modifier.fillMaxWidth(),textAlign=TextAlign.Center,color=Green,fontSize=14.sp,fontWeight=FontWeight.Bold)
-            }
-            Spacer(Modifier.height(100.dp))
-            Paper(Modifier.widthIn(max=480.dp).fillMaxWidth()) {
-                Text("ОСТАНОВКА ${(count/100+1).coerceAtMost(10)}",color=Green,fontSize=12.sp,fontWeight=FontWeight.Bold)
-                Text(locationNames[(count/100).coerceAtMost(9)],style=MaterialTheme.typography.headlineMedium,fontWeight=FontWeight.Bold)
-                Text("Немного тишины. Ещё одно открытие.")
-                LinearProgressIndicator(progress={if(count==campaign.levels.size) 1f else (count%100).toFloat()/100},modifier=Modifier.fillMaxWidth(),color=Green)
-                Text("Пройдено $count из ${campaign.levels.size} уровней",style=MaterialTheme.typography.bodyMedium)
-                val complete=count==campaign.levels.size
-                MainButton(if(active?.completed==true) "Результат уровня ${active.levelId}" else if(complete) "Кампания пройдена" else if(active!=null) "Продолжить · уровень ${active.levelId}" else "Играть · уровень ${count+1}",enabled=!state.busy,onClick=if(complete && active==null) map else play)
-                OutlinedButton(onClick=map,Modifier.fillMaxWidth().heightIn(min=48.dp)) {
-                    GameIcon(R.drawable.game_ic_map);Spacer(Modifier.width(8.dp));Text("Карта пути")
-                }
-            }
-            Paper(Modifier.widthIn(max=480.dp).fillMaxWidth()) {
-                OutlinedButton(onClick=daily,modifier=Modifier.fillMaxWidth()) {Text("Ежедневный кроссворд")}
-                OutlinedButton(onClick=tasks,modifier=Modifier.fillMaxWidth()) {Text("Задания дня")}
-                OutlinedButton(onClick=gift,modifier=Modifier.fillMaxWidth()) {Text(if("gift:${snapshot.world.effectiveDate}" in snapshot.world.claims) "Подарок получен · завтра новый" else "Подарок дня")}
-            }
-            Text("Работает без интернета",Modifier.background(MaterialTheme.colorScheme.surface).padding(8.dp),color=Ink,style=MaterialTheme.typography.bodySmall)
-            Spacer(Modifier.height(16.dp))
-        }
-    }
-}
-@Composable
 fun WelcomeScreen(busy: Boolean, onStart: () -> Unit, onSkip: () -> Unit, onPrivacy: ()->Unit = {}) {
     Column(Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(20.dp)) {
         Spacer(Modifier.height(36.dp))
