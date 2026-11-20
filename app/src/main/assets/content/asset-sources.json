@@ -1,0 +1,493 @@
+{
+  "archive": "soedini-slova-tz-assets-v1.1-complete.zip",
+  "files": [
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-lake-day.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_lake_day.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/drawable/ic_word_launcher_foreground.xml",
+      "target": "app/src/main/res/drawable/ic_word_launcher_foreground.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/drawable/ic_word_launcher_monochrome.xml",
+      "target": "app/src/main/res/drawable/ic_word_launcher_monochrome.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "target": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "target": "app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/mipmap-anydpi-v33/ic_launcher.xml",
+      "target": "app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/mipmap-anydpi-v33/ic_launcher_round.xml",
+      "target": "app/src/main/res/mipmap-anydpi-v33/ic_launcher_round.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/branding/android/res/values/colors.xml",
+      "target": "app/src/main/res/values/game_launcher_colors.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_accessibility.xml",
+      "target": "app/src/main/res/drawable/game_ic_accessibility.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_back.xml",
+      "target": "app/src/main/res/drawable/game_ic_back.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_bookmark.xml",
+      "target": "app/src/main/res/drawable/game_ic_bookmark.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_calendar.xml",
+      "target": "app/src/main/res/drawable/game_ic_calendar.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_chart.xml",
+      "target": "app/src/main/res/drawable/game_ic_chart.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_check.xml",
+      "target": "app/src/main/res/drawable/game_ic_check.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_chevron_down.xml",
+      "target": "app/src/main/res/drawable/game_ic_chevron_down.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_chevron_left.xml",
+      "target": "app/src/main/res/drawable/game_ic_chevron_left.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_chevron_right.xml",
+      "target": "app/src/main/res/drawable/game_ic_chevron_right.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_clear_letter.xml",
+      "target": "app/src/main/res/drawable/game_ic_clear_letter.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_clock.xml",
+      "target": "app/src/main/res/drawable/game_ic_clock.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_close.xml",
+      "target": "app/src/main/res/drawable/game_ic_close.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_cloud_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_cloud_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_coin.xml",
+      "target": "app/src/main/res/drawable/game_ic_coin.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_collapse.xml",
+      "target": "app/src/main/res/drawable/game_ic_collapse.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_collection.xml",
+      "target": "app/src/main/res/drawable/game_ic_collection.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_contrast.xml",
+      "target": "app/src/main/res/drawable/game_ic_contrast.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_copy.xml",
+      "target": "app/src/main/res/drawable/game_ic_copy.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_directions.xml",
+      "target": "app/src/main/res/drawable/game_ic_directions.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_expand.xml",
+      "target": "app/src/main/res/drawable/game_ic_expand.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_export.xml",
+      "target": "app/src/main/res/drawable/game_ic_export.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_external_link.xml",
+      "target": "app/src/main/res/drawable/game_ic_external_link.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_eye.xml",
+      "target": "app/src/main/res/drawable/game_ic_eye.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_eye_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_eye_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_file.xml",
+      "target": "app/src/main/res/drawable/game_ic_file.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_file_error.xml",
+      "target": "app/src/main/res/drawable/game_ic_file_error.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_gift.xml",
+      "target": "app/src/main/res/drawable/game_ic_gift.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_help.xml",
+      "target": "app/src/main/res/drawable/game_ic_help.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_home.xml",
+      "target": "app/src/main/res/drawable/game_ic_home.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_import.xml",
+      "target": "app/src/main/res/drawable/game_ic_import.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_info.xml",
+      "target": "app/src/main/res/drawable/game_ic_info.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_leaf.xml",
+      "target": "app/src/main/res/drawable/game_ic_leaf.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_letter.xml",
+      "target": "app/src/main/res/drawable/game_ic_letter.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_license.xml",
+      "target": "app/src/main/res/drawable/game_ic_license.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_lightbulb.xml",
+      "target": "app/src/main/res/drawable/game_ic_lightbulb.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_lock.xml",
+      "target": "app/src/main/res/drawable/game_ic_lock.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_mail.xml",
+      "target": "app/src/main/res/drawable/game_ic_mail.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_map.xml",
+      "target": "app/src/main/res/drawable/game_ic_map.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_minus.xml",
+      "target": "app/src/main/res/drawable/game_ic_minus.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_moon.xml",
+      "target": "app/src/main/res/drawable/game_ic_moon.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_more.xml",
+      "target": "app/src/main/res/drawable/game_ic_more.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_motion.xml",
+      "target": "app/src/main/res/drawable/game_ic_motion.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_mountain.xml",
+      "target": "app/src/main/res/drawable/game_ic_mountain.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_music.xml",
+      "target": "app/src/main/res/drawable/game_ic_music.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_music_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_music_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_pause.xml",
+      "target": "app/src/main/res/drawable/game_ic_pause.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_play.xml",
+      "target": "app/src/main/res/drawable/game_ic_play.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_plus.xml",
+      "target": "app/src/main/res/drawable/game_ic_plus.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_retry.xml",
+      "target": "app/src/main/res/drawable/game_ic_retry.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_save.xml",
+      "target": "app/src/main/res/drawable/game_ic_save.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_search.xml",
+      "target": "app/src/main/res/drawable/game_ic_search.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_settings.xml",
+      "target": "app/src/main/res/drawable/game_ic_settings.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_share.xml",
+      "target": "app/src/main/res/drawable/game_ic_share.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_shield.xml",
+      "target": "app/src/main/res/drawable/game_ic_shield.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_shuffle.xml",
+      "target": "app/src/main/res/drawable/game_ic_shuffle.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_sound_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_sound_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_sound_on.xml",
+      "target": "app/src/main/res/drawable/game_ic_sound_on.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_star.xml",
+      "target": "app/src/main/res/drawable/game_ic_star.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_sun.xml",
+      "target": "app/src/main/res/drawable/game_ic_sun.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_tasks.xml",
+      "target": "app/src/main/res/drawable/game_ic_tasks.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_timer.xml",
+      "target": "app/src/main/res/drawable/game_ic_timer.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_touch.xml",
+      "target": "app/src/main/res/drawable/game_ic_touch.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_trophy.xml",
+      "target": "app/src/main/res/drawable/game_ic_trophy.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_undo.xml",
+      "target": "app/src/main/res/drawable/game_ic_undo.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_vibration.xml",
+      "target": "app/src/main/res/drawable/game_ic_vibration.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_vibration_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_vibration_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_warning.xml",
+      "target": "app/src/main/res/drawable/game_ic_warning.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_wifi.xml",
+      "target": "app/src/main/res/drawable/game_ic_wifi.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_wifi_off.xml",
+      "target": "app/src/main/res/drawable/game_ic_wifi_off.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/ui-icons/android/ic_word.xml",
+      "target": "app/src/main/res/drawable/game_ic_word.xml"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-autumn-valley.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_autumn_valley.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-canyon.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_canyon.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-flower-meadow.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_flower_meadow.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-forest-river.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_forest_river.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-lake-day.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_lake_day.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-lake-evening.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_lake_evening.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-lotus-lake.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_lotus_lake.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-night-mountains.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_night_mountains.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-sea-coast.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_sea_coast.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/backgrounds/webp/bg-snow-valley.webp",
+      "target": "app/src/main/res/drawable-nodpi/game_snow_valley.webp"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/badge-autumn.png",
+      "target": "app/src/main/res/drawable-nodpi/item_badge_autumn.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/badge-forest.png",
+      "target": "app/src/main/res/drawable-nodpi/item_badge_forest.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/badge-mountain.png",
+      "target": "app/src/main/res/drawable-nodpi/item_badge_mountain.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/badge-sea.png",
+      "target": "app/src/main/res/drawable-nodpi/item_badge_sea.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/chest-closed.png",
+      "target": "app/src/main/res/drawable-nodpi/item_chest_closed.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/chest-open.png",
+      "target": "app/src/main/res/drawable-nodpi/item_chest_open.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/cloud.png",
+      "target": "app/src/main/res/drawable-nodpi/item_cloud.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/coin-pile.png",
+      "target": "app/src/main/res/drawable-nodpi/item_coin_pile.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/coin-stack.png",
+      "target": "app/src/main/res/drawable-nodpi/item_coin_stack.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/coin.png",
+      "target": "app/src/main/res/drawable-nodpi/item_coin.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/compass.png",
+      "target": "app/src/main/res/drawable-nodpi/item_compass.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/envelope.png",
+      "target": "app/src/main/res/drawable-nodpi/item_envelope.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/file-check.png",
+      "target": "app/src/main/res/drawable-nodpi/item_file_check.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/gift.png",
+      "target": "app/src/main/res/drawable-nodpi/item_gift.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/leaf-token.png",
+      "target": "app/src/main/res/drawable-nodpi/item_leaf_token.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/lightbulb.png",
+      "target": "app/src/main/res/drawable-nodpi/item_lightbulb.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/magnifier.png",
+      "target": "app/src/main/res/drawable-nodpi/item_magnifier.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/medal.png",
+      "target": "app/src/main/res/drawable-nodpi/item_medal.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/open-book.png",
+      "target": "app/src/main/res/drawable-nodpi/item_open_book.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/star.png",
+      "target": "app/src/main/res/drawable-nodpi/item_star.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/stars-three.png",
+      "target": "app/src/main/res/drawable-nodpi/item_stars_three.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/streak-flame.png",
+      "target": "app/src/main/res/drawable-nodpi/item_streak_flame.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/trophy.png",
+      "target": "app/src/main/res/drawable-nodpi/item_trophy.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/items/png-128/video-clapper.png",
+      "target": "app/src/main/res/drawable-nodpi/item_video_clapper.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-autumn-valley-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_autumn_valley.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-canyon-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_canyon.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-flower-meadow-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_flower_meadow.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-forest-river-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_forest_river.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-lake-day-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_lake_day.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-lake-evening-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_lake_evening.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-lotus-lake-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_lotus_lake.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-night-mountains-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_night_mountains.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-sea-coast-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_sea_coast.png"
+    },
+    {
+      "source": "soedini-slova-tz-v1.1/assets/postcards/bg-snow-valley-postcard.png",
+      "target": "app/src/main/res/drawable-nodpi/postcard_snow_valley.png"
+    }
+  ]
+}

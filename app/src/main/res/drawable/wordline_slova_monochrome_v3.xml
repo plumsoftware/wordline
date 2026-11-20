@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Five tile silhouettes; even-odd glyph contours remain transparent under system tint. -->
+    <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd"
+        android:pathData="M29,35 H41 Q43,35 43,37 V51 Q43,53 41,53 H29 Q27,53 27,51 V37 Q27,35 29,35 Z M39,39 H34 L31,42 V47 L34,50 H39 V47 H35 L34,46 V43 L35,42 H39 Z M48,35 H60 Q62,35 62,37 V51 Q62,53 60,53 H48 Q46,53 46,51 V37 Q46,35 48,35 Z M49,49 L52,39 H57 L59,49 H56 L54.5,42 H53.5 L52,49 Z M67,35 H79 Q81,35 81,37 V51 Q81,53 79,53 H67 Q65,53 65,51 V37 Q65,35 67,35 Z M73,38 C66.5,38 66.5,50 73,50 C79.5,50 79.5,38 73,38 Z M73,41 C75.5,41 75.5,47 73,47 C70.5,47 70.5,41 73,41 Z M38,56 H50 Q52,56 52,58 V72 Q52,74 50,74 H38 Q36,74 36,72 V58 Q36,56 38,56 Z M40,60 V70 H45 C49,70 50,66 47,65 C49.5,63 48,60 45,60 Z M43,62 H45 Q47,62 45,64 H43 Z M43,66 H45 Q48,67 45,68 H43 Z M57,56 H69 Q71,56 71,58 V72 Q71,74 69,74 H57 Q55,74 55,72 V58 Q55,56 57,56 Z M58,70 L61,60 H65 L68,70 H65 L64.4,68 H61.6 L61,70 Z M62.2,65 H63.8 L63,62 Z" />
+</vector>
