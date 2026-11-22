@@ -21,6 +21,9 @@ private fun JSONArray.objects(): List<JSONObject> = (0 until length()).map {getJ
 data class SaveCandidate(val root: JSONObject, val payload: JSONObject, val coins: Long, val completed: Int, val exportedAt: String)
 class SaveRepository(private val context: Context, private val game: GameRepository) {
     private val backupDir=File(context.filesDir,"save-backups")
+    private val v2Content by lazy {
+        context.assets.open("content/content-v2-compat.json").bufferedReader().use {JSONObject(it.readText())}
+    }
     suspend fun exportBytes(settings: GameSettings): ByteArray = game.exclusive {encode(settings)}
     private suspend fun encode(settings: GameSettings): ByteArray {
         val w=game.world()
@@ -67,6 +70,29 @@ class SaveRepository(private val context: Context, private val game: GameReposit
             val state=o.getJSONObject("state")
             listOf("solved","revealed","bonus","clues").forEach {key ->val a=state.getJSONArray(key);require(a.stringList().distinct().size==a.length()) {"Повтор записи $key"}}
         }
+        val migrateWords=game.campaign.version>=3 && root.getInt("contentVersion")<3
+        if(migrateWords) {
+            val originalWorld=payload.getJSONObject("world")
+            listOf("visits","claims","dailyCompleted","uniqueWords","noHintLevels","trailEvents","collectibles","acknowledgedLocations").forEach {key ->
+                val values=originalWorld.getJSONArray(key)
+                require((0 until values.length()).map {values.get(it)}.distinct().size==values.length()) {"Повтор записи $key"}
+            }
+            // Verify the old order/pool before adapting. The original checksum was checked above.
+            payload.getJSONArray("sessions").objects().forEach {o ->
+                val original=SessionRow(o.getString("id"),o.getInt("levelId"),o.getBoolean("replay"),o.getJSONObject("state").toString()).toDomain()
+                val current=game.campaign.levelFor(original)
+                val prior=v2Content.getJSONObject(if(original.mode==Mode.DAILY) "dailyLevels" else "levels").optJSONObject(original.levelId.toString())
+                val count=prior?.getInt("letterCount") ?: current.letters.size
+                val oldPool=prior?.getJSONArray("bonusPool")?.stringList()?.toSet() ?: current.bonusPool
+                require(original.revision>=0)
+                require(original.order.sorted()==(0 until count).toList()) {"Неверный порядок букв"}
+                require(original.bonus.all {it in oldPool}) {"Неверные дополнительные слова"}
+                o.put("state",JSONObject(original.adaptToContent(game.campaign).toRow().json))
+            }
+            val oldWorld=worldFromJson(payload.getJSONObject("world"))
+            require(oldWorld.uniqueWords.all {it in game.campaign.dictionary || it in retiredContentWords}) {"Неизвестные найденные слова"}
+            payload.put("world",oldWorld.copy(uniqueWords=oldWorld.uniqueWords.intersect(game.campaign.dictionary.keys)).toJson())
+        }
         val sessions=payload.getJSONArray("sessions").objects().map {SessionRow(it.getString("id"),it.getInt("levelId"),it.getBoolean("replay"),it.getJSONObject("state").toString()).toDomain()}
         require(sessions.map {it.id}.distinct().size==sessions.size)
         sessions.forEach {s ->
@@ -108,6 +134,10 @@ class SaveRepository(private val context: Context, private val game: GameReposit
         w.adTickets.values.forEach {ticket ->require(ledger.any {it.getString("id")=="ad:${ticket.id}"})}
 
         Instant.parse(root.getString("exportedAtUtc"))
+        if(migrateWords) {
+            root.put("contentVersion",game.campaign.version).put("dictionaryVersion",game.campaign.version)
+                .put("payloadSha256",sha256(canonicalJson(payload).toByteArray()))
+        }
         return SaveCandidate(root,payload,coins,completed.size,root.getString("exportedAtUtc"))
     }
     private fun validateWorld(w: World) {
@@ -121,6 +151,11 @@ class SaveRepository(private val context: Context, private val game: GameReposit
         w.days.values.forEach {require(it.words>=0 && it.wins>=0 && it.bonus>=0 && it.daily>=0 && it.activeMillis>=0)}
         require(w.collectibles.all {id ->id.matches(Regex("location:[0-9]|trail:(10|20|30)|month:[0-9]{4}-[0-9]{2}"))})
         require(w.adTickets.values.all {it.status=="committed" && it.reward in 0..game.economy.cap && LocalDate.parse(it.date)<=date})
+        require(w.adTickets.values.all {ticket ->
+            if(ticket.placement=="hint") ticket.reward==0L && ticket.hintKind!=null && !ticket.resultId.isNullOrBlank() &&
+                ticket.hintTarget?.let {it.length in 1..64}==true && ticket.hintDefinition?.let {it.length in 1..4000}==true
+            else ticket.hintKind==null && ticket.hintTarget==null && ticket.hintDefinition==null
+        }) {"Неверная награда за подсказку"}
         w.adShowings.forEach {require(it.wallMillis>=0 && it.activeMillis in 0..w.activeMillis && LocalDate.parse(it.date)<=date)}
     }
     suspend fun apply(candidate: SaveCandidate, settings: GameSettings) {

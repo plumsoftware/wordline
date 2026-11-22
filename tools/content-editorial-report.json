@@ -1,9 +1,11 @@
 {
   "campaign": 1000,
   "daily": 365,
-  "dictionary": 438,
-  "uniqueTargetConfigurations": 1365,
+  "dictionary": 434,
+  "uniqueTargetConfigurations": 1360,
   "repeatedBagsWithin20": [],
   "editorialStatus": "pending",
-  "note": "All definitions are original. Structural validation is independent from editorial review and device QA."
+  "note": "All definitions are original. Content v3 excludes the four requested words. Target combinations and bags were recounted after replacements; editorial and device review remain separate.",
+  "contentVersion": 3,
+  "wordRemovalReport": "docs/word-removal-v3.json"
 }

@@ -1,8 +1,8 @@
 {
-  "contentVersion": 2,
-  "dictionaryVersion": 2,
+  "contentVersion": 3,
+  "dictionaryVersion": 3,
   "levels": 1000,
   "dailyLevels": 365,
-  "dictionaryEntries": 438,
-  "sha256": "a10261ff3327bd776fb78f5f56634c97a75ae1052e5b0f472472e7a926921497"
+  "dictionaryEntries": 434,
+  "sha256": "bedd10f71fe6f17de769437737f698bfd541a7a6522e68b6e79def3ef857d2c5"
 }

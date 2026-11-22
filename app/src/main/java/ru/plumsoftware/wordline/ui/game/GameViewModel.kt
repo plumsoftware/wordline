@@ -14,10 +14,15 @@ import ru.plumsoftware.wordline.files.*
 import ru.plumsoftware.wordline.game.*
 import java.util.UUID
 
+data class ClueNotice(val sessionId: String,val text: String)
+data class RewardOpening(val id: String,val gift: Boolean,val amount: Long)
+
 data class AppState(
     val campaign: Campaign?=null,val snapshot: GameSnapshot?=null,val settings: GameSettings=GameSettings(),
     val loading: Boolean=true,val busy: Boolean=false,val error: String?=null,val feedback: String="",
     val economy: Economy=Economy(),val filePhase: String="idle",val candidate: SaveCandidate?=null,
+    val clueNotice: ClueNotice?=null,
+    val rewardOpening: RewardOpening?=null,
 )
 class GameViewModel(application: Application): AndroidViewModel(application) {
     private val app=application as WordLineApplication
@@ -65,30 +70,56 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     fun next(id: String,navigate: (String?)->Unit) {
         val repo=repository ?: return
         val s=_state.value.snapshot?.sessions?.get(id) ?: return
-        ads.transition(repo,!s.replay && s.mode==Mode.CAMPAIGN) {command {navigate(it.next(id))}}
+        ads.transition(repo,if(!s.replay && s.mode==Mode.CAMPAIGN && s.completed) s.levelId else null) {command {navigate(it.next(id))}}
     }
     fun submit(id: String,word: String)=command {repo ->
+        val previous=repo.dao.session(id)?.toDomain()
+        val chestKey="chest:$id:${(previous?.bonus?.size ?: 0)/5+1}"
+        val chestExisted=repo.dao.ledgerEntry(chestKey)!=null
         val message=repo.submitWord(id,word,UUID.randomUUID().toString(),_state.value.snapshot?.sessions?.get(id)?.revision)
         _state.update {it.copy(feedback=message)}
         _cues.tryEmit(when(message) {"Слово найдено!"->Cue.SUCCESS;"Дополнительное слово!"->Cue.BONUS;else->Cue.NEUTRAL})
+        if(!chestExisted) repo.dao.ledgerEntry(chestKey)?.let {openReward(it.amount,false)}
     }
     fun purchase(id: String,hint: Hint,target: String)=command {repo ->
         val message=repo.purchaseHint(id,hint,target,UUID.randomUUID().toString(),_state.value.snapshot?.sessions?.get(id)?.revision)
-        _state.update {it.copy(feedback=message)};_cues.tryEmit(Cue.SUCCESS)
+        val session=_state.value.snapshot?.sessions?.get(id)
+        val expectedDefinition=if(hint==Hint.CLUE && session!=null) {
+            repo.campaign.levelFor(session).slots.firstOrNull {it.id==target}?.word?.let {repo.campaign.dictionary[it]?.definition}
+        } else null
+        if(expectedDefinition!=null && message==expectedDefinition) {
+            _state.update {it.copy(feedback="",clueNotice=ClueNotice(id,message))}
+        } else _state.update {it.copy(feedback=message)}
+        _cues.tryEmit(Cue.SUCCESS)
     }
+    fun dismissClue() {_state.update {it.copy(clueNotice=null)}}
     fun shuffle(id: String) {
         val now=SystemClock.elapsedRealtime();if(now-lastShuffle<300 || _state.value.busy) return
         lastShuffle=now;command {it.shuffle(id)}
     }
     fun setting(setting: Setting,value: Boolean)=command {app.settings.set(setting,value)}
+    fun markSeen(keys: Set<String>) {
+        if(keys.isEmpty()) return
+        viewModelScope.launch {
+            try {app.settings.markSeen(keys)}
+            catch(e: CancellationException) {throw e}
+            catch(e: Exception) {_state.update {it.copy(error="Не удалось сохранить отметку просмотра")}}
+        }
+    }
     fun onboard(start: Boolean,navigate: (String?)->Unit)=command {repo ->
         app.settings.set(Setting.TUTORIAL,start);app.settings.set(Setting.ONBOARDING,true)
         navigate(if(start) repo.tutorial() else null)
     }
     fun claimTask(id: String)=command {it.claimTask(id);_cues.tryEmit(Cue.REWARD)}
-    fun claimGift()=command {it.claimGift();_cues.tryEmit(Cue.REWARD)}
-    fun claimStreak()=command {it.claimStreak();_cues.tryEmit(Cue.REWARD)}
-    fun claimTrail(milestone: Int)=command {it.claimTrail(milestone);_cues.tryEmit(Cue.REWARD)}
+    private fun openReward(amount: Long?,gift: Boolean) {
+        if(amount==null) return
+        _state.update {it.copy(rewardOpening=RewardOpening(UUID.randomUUID().toString(),gift,amount))}
+        _cues.tryEmit(Cue.REWARD)
+    }
+    fun dismissRewardOpening() {_state.update {it.copy(rewardOpening=null)}}
+    fun claimGift()=command {openReward(it.claimGift(),true)}
+    fun claimStreak()=command {openReward(it.claimStreak(),false)}
+    fun claimTrail(milestone: Int)=command {openReward(it.claimTrail(milestone),milestone==20)}
     fun claimAchievement(id: String)=command {it.claimAchievement(id);_cues.tryEmit(Cue.REWARD)}
     fun dismissReport()=command {it.dismissReport()}
     fun clockNotice()=command {it.dismissClockNotice()}
@@ -101,10 +132,17 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         app.settings.appearance(background,theme);app.settings.set(Setting.CONTRAST,theme=="contrast")
     }
     fun reward(placement: String,resultId: String?=null) {repository?.let {ads.rewarded(it,placement,resultId)}}
+    fun rewardHint(id: String,kind: Hint,target: String) {repository?.let {ads.rewarded(it,"hint",id,kind,target)}}
     fun prepareExport(onReady: ()->Unit)=command {
         _state.update {it.copy(filePhase="preparing")}
-        exportBytes=withContext(Dispatchers.IO) {requireNotNull(saves).exportBytes(_state.value.settings)}
-        _state.update {it.copy(filePhase="ready")};onReady()
+        try {
+            exportBytes=withContext(Dispatchers.IO) {requireNotNull(saves).exportBytes(_state.value.settings)}
+            _state.update {it.copy(filePhase="ready")};onReady()
+        } catch(e: Exception) {
+            exportBytes=null
+            _state.update {it.copy(filePhase="idle")}
+            throw e
+        }
     }
     fun exportTo(uri: Uri?) {
         if(uri==null) {exportBytes=null;_state.update {it.copy(filePhase="idle")};return}

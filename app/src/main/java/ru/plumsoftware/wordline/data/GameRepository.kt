@@ -36,6 +36,10 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
             dao.save(ProfileRow(coins=0))
             record("profile:init","initial","profile",economy.initial)
         }
+        if(campaign.version>=3) dao.sessions().forEach {row ->
+            val previous=row.toDomain();val adapted=previous.adaptToContent(campaign)
+            if(adapted!=previous) dao.save(adapted.toRow())
+        }
         if(dao.world()==null) {
             // Explicit v1 -> v2 data migration, retaining every original table and receipt.
             val sessions=dao.sessions().map {it.toDomain()}.filter {!it.replay}
@@ -46,7 +50,7 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
                 trailEvents=completions.take(30).map {"campaign:${it.levelId}"}.toSet(),
                 collectibles=completions.filter {(it.levelId-20)%100==0}.map {"location:${(it.levelId-20)/100}"}.toSet()))
         }
-        val current=day()
+        val current=day().let {w ->if(campaign.version>=3) w.copy(uniqueWords=w.uniqueWords.intersect(campaign.dictionary.keys)) else w}
         processStartActive=current.activeMillis
         save(current.copy(adTickets=current.adTickets.mapValues {(_,a) ->if(a.status in setOf("pending","shown","dismissed")) a.copy(status="interrupted") else a}))
     }
@@ -150,7 +154,9 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
             val event=if(s.mode==Mode.DAILY) "daily:${s.dateKey}" else "campaign:${s.levelId}"
             if(world.trailEvents.size<30) world=world.copy(trailEvents=world.trailEvents+event)
         }
-        return s.copy(reward=reward) to world
+        // Bonus receipts were already credited while playing; include them in the result, never pay twice.
+        val bonus=if(s.replay) 0L else dao.sessionBonusReward(s.id)
+        return s.copy(reward=reward+bonus) to world
     }
     suspend fun submitWord(id: String, word: String, operationId: String, expectedRevision: Long? = null): String = exclusive {
         var w=day()
@@ -167,8 +173,14 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
                 w=w.withDay(w.effectiveDate) {it.copy(words=it.words+addedWords.size,bonus=it.bonus+extra)}
                     .copy(totalWords=w.totalWords+addedWords.size,uniqueWords=w.uniqueWords+addedWords,bonusWords=w.bonusWords+extra)
                 if(result.session.bonus.size/5>s.bonus.size/5) {
-                    record("chest:$id:${result.session.bonus.size/5}","bonus-chest",id,economy.chest)
-                    w=w.copy(chests=w.chests+1)
+                    val chestKey="chest:$id:${result.session.bonus.size/5}"
+                    if(dao.operation(chestKey)==null) {
+                        record(chestKey,"bonus-chest",id,economy.chest)
+                        w=w.copy(chests=w.chests+1)
+                    }
+                }
+                if(extra>0 && level.bonusPool.isNotEmpty() && result.session.bonus.size==level.bonusPool.size) {
+                    record("bonus-complete:$id","bonus-complete",id,economy.chest)
                 }
             }
             val (next,world)=finish(result.session.copy(revision=s.revision+1),w)
@@ -207,19 +219,22 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
         require(task.progress>=task.target) {"Задание ещё не завершено"}
         if(key !in w.claims) {record(key,"task",w.effectiveDate,task.reward);save(w.copy(claims=w.claims+key))}
     }
-    suspend fun claimGift() = exclusive {
+    suspend fun claimGift(): Long? = exclusive {
         val w=day();val key="gift:${w.effectiveDate}"
-        if(key !in w.claims) {record(key,"gift",w.effectiveDate,economy.gifts[w.giftStep]);save(w.copy(giftStep=(w.giftStep+1)%economy.gifts.size,claims=w.claims+key))}
+        if(key in w.claims) null else {
+            val amount=record(key,"gift",w.effectiveDate,economy.gifts[w.giftStep])
+            save(w.copy(giftStep=(w.giftStep+1)%economy.gifts.size,claims=w.claims+key));amount
+        }
     }
-    suspend fun claimStreak() = exclusive {
+    suspend fun claimStreak(): Long? = exclusive {
         val w=day();val milestone=w.streak/7*7;require(milestone>0)
         val key="streak:${w.streakRun}:$milestone"
-        if(key !in w.claims) {record(key,"streak",w.streakRun,50);save(w.copy(claims=w.claims+key))}
+        if(key in w.claims) null else {val amount=record(key,"streak",w.streakRun,50);save(w.copy(claims=w.claims+key));amount}
     }
-    suspend fun claimTrail(milestone: Int) = exclusive {
+    suspend fun claimTrail(milestone: Int): Long? = exclusive {
         val w=day();require(milestone in trailRewards && w.trailEvents.size>=milestone)
         val key="trail:$milestone"
-        if(key !in w.claims) {record(key,"trail",key,trailRewards.getValue(milestone));save(w.copy(claims=w.claims+key,collectibles=w.collectibles+"trail:$milestone"))}
+        if(key in w.claims) null else {val amount=record(key,"trail",key,trailRewards.getValue(milestone));save(w.copy(claims=w.claims+key,collectibles=w.collectibles+"trail:$milestone"));amount}
     }
     suspend fun claimAchievement(id: String) = exclusive {
         val w=day();val a=achievements(w,dao.completions().size).first {it.id==id};require(a.progress>=a.target)
@@ -227,23 +242,25 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
         if(key !in w.claims) {record(key,"achievement",id,a.reward);save(w.copy(claims=w.claims+key))}
     }
     suspend fun markExported() = exclusive {val w=world();save(w.copy(lastExportAt=clock.millis()))}
-    suspend fun reserveAd(placement: String, resultId: String?): AdTicket = exclusive {
+    suspend fun reserveAd(placement: String, resultId: String?,hintKind: Hint?=null,hintTarget: String?=null): AdTicket = exclusive {
         val w=day()
-        require(placement in setOf("hint_coins","wallet_coins","win_extra"))
-        if(placement=="hint_coins") {
+        require(placement in setOf("hint","wallet_coins","win_extra"))
+        if(placement=="hint") {
             val session=requireNotNull(resultId?.let {dao.session(it)}).toDomain()
             require(!session.completed && !session.replay && session.mode!=Mode.TUTORIAL) {"Видео недоступно в этой сессии"}
+            require(hint(campaign.levelFor(session),session,requireNotNull(hintKind),requireNotNull(hintTarget),economy,campaign.dictionary)!=null) {"Выбери доступную подсказку"}
+        } else {
+            require(hintKind==null && hintTarget==null)
         }
         require(w.adTickets.values.none {it.status in setOf("pending","shown")}) {"Другое видео ещё открыто"}
         require(w.adTickets.values.count {it.date==w.effectiveDate && it.status in setOf("pending","shown","committed")}<economy.rewardedMax) {"Бонусные видео на сегодня закончились"}
-        val last=w.adShowings.lastOrNull {it.rewarded}
-        require(last==null || w.activeMillis-last.activeMillis>=60_000) {"Следующее видео будет доступно после минуты игры"}
         if(placement=="win_extra") {
             val s=requireNotNull(resultId?.let {dao.session(it)}).toDomain()
             require(s.completed && !s.replay && s.mode!=Mode.TUTORIAL)
             require(w.adTickets.values.none {it.resultId==resultId && it.placement==placement && it.status=="committed"}) {"Бонус уже получен"}
         }
-        val a=AdTicket(UUID.randomUUID().toString(),w.generation,placement,w.effectiveDate,resultId,if(placement=="win_extra") economy.winExtra else economy.rewarded)
+        val a=AdTicket(UUID.randomUUID().toString(),w.generation,placement,w.effectiveDate,resultId,
+            when(placement) {"hint"->0L;"win_extra"->economy.winExtra;else->economy.rewarded},hintKind=hintKind,hintTarget=hintTarget)
         save(w.copy(adTickets=w.adTickets+(a.id to a)));a
     }
     suspend fun adShown(ticket: AdTicket) = exclusive {
@@ -261,21 +278,47 @@ class GameRepository(internal val db: GameDatabase, val campaign: Campaign,
         val w=world();check(w.generation==ticket.generation) {"Профиль изменился"}
         val a=w.adTickets[ticket.id] ?: return@exclusive 0L
         if(a.status=="committed" || a.status in setOf("failed","interrupted","cancelled")) return@exclusive 0L
+        if(a.placement=="hint") {
+            val kind=requireNotNull(a.hintKind)
+            val session=requireNotNull(a.resultId?.let {dao.session(it)}).toDomain()
+            val level=campaign.levelFor(session)
+            val alternatives=if(kind==Hint.LETTER) level.cells.keys.map {it.key} else level.slots.map {it.id}
+            val result=(listOfNotNull(a.hintTarget)+alternatives).distinct().firstNotNullOfOrNull {
+                hint(level,session,kind,it,economy,campaign.dictionary)
+            }
+            record("ad:${a.id}","rewarded-hint",a.placement,0)
+            val note: String
+            val updated: World
+            if(result!=null) {
+                val progress=w.copy(hints=w.hints+(result.session.hintCount-session.hintCount))
+                val (next,finished)=finish(result.session.copy(revision=session.revision+1),progress)
+                dao.save(next.toRow());updated=finished
+                note=result.definition ?: if(kind==Hint.LETTER) "Буква открыта на поле" else "Слово открыто на поле"
+            } else {updated=w;note="Кроссворд уже пройден. Подсказка больше не нужна."}
+            save(updated.copy(adTickets=updated.adTickets+(a.id to a.copy(status="committed",hintDefinition=note))))
+            return@exclusive 0L
+        }
         val amount=record("ad:${ticket.id}","rewarded",ticket.placement,ticket.reward)
         save(w.copy(adTickets=w.adTickets+(a.id to a.copy(status="committed"))));amount
     }
-    suspend fun interstitialAllowed(): Boolean = exclusive {
-        val w=day();val rule=economy.ads;val count=dao.completions().size
-        val last=w.adShowings.lastOrNull {!it.rewarded};val rewarded=w.adShowings.lastOrNull {it.rewarded}
-        val wall=maxOf(clock.millis(),w.adShowings.lastOrNull()?.wallMillis ?: 0)
-        count>=rule.firstLevels && w.activeMillis>=rule.firstSeconds*1000 && w.winsSinceInterstitial>=rule.minWins &&
-            w.activeMillis-processStartActive>=rule.minSeconds*1000 && (last==null || w.activeMillis-last.activeMillis>=rule.minSeconds*1000) &&
-            (rewarded==null || w.activeMillis-rewarded.activeMillis>=rule.rewardedCooldown*1000) &&
-            w.adShowings.count {!it.rewarded && wall-it.wallMillis in 0..3_599_999}<rule.hourMax &&
-            w.adShowings.count {!it.rewarded && it.date==w.effectiveDate}<rule.dayMax
+    suspend fun committedAdReward(ticket: AdTicket): LedgerRow? = exclusive {
+        check(world().generation==ticket.generation) {"Профиль изменился"}
+        dao.ledgerEntry("ad:${ticket.id}")
     }
-    suspend fun interstitialShown(impressionId: String) = exclusive {
-        val w=day();if(w.adShowings.any {it.ticketId==impressionId}) return@exclusive;save(w.copy(winsSinceInterstitial=0,adShowings=(w.adShowings+AdShowing(w.effectiveDate,maxOf(clock.millis(),w.adShowings.lastOrNull()?.wallMillis ?: 0),w.activeMillis,false,impressionId)).takeLast(200)))
+    suspend fun committedHintText(ticket: AdTicket): String? = exclusive {
+        val w=world();check(w.generation==ticket.generation) {"Профиль изменился"}
+        w.adTickets[ticket.id]?.takeIf {it.status=="committed"}?.hintDefinition
+    }
+    suspend fun interstitialAllowed(levelId: Int): Boolean = exclusive {
+        val w=day();val count=dao.completions().size
+        val grace=economy.ads.firstLevels;val interval=economy.ads.minWins.coerceAtLeast(1)
+        levelId==count && levelId<campaign.levels.size && count>grace && (count-grace)%interval==0 &&
+            "interstitial:level:$levelId" !in w.claims
+    }
+    suspend fun interstitialShown(impressionId: String,levelId: Int) = exclusive {
+        val w=day();if(w.adShowings.any {it.ticketId==impressionId}) return@exclusive
+        save(w.copy(winsSinceInterstitial=0,claims=w.claims+"interstitial:level:$levelId",
+            adShowings=(w.adShowings+AdShowing(w.effectiveDate,maxOf(clock.millis(),w.adShowings.lastOrNull()?.wallMillis ?: 0),w.activeMillis,false,impressionId)).takeLast(200)))
     }
 }
 data class GameSnapshot(val profile: ProfileRow?, val completions: Map<Int,CompletionRow>, val sessions: Map<String,Session>, val world: World = World())

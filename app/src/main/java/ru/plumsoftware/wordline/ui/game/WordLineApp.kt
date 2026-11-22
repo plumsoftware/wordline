@@ -23,6 +23,7 @@ import ru.plumsoftware.wordline.game.*
 
 @Composable
 fun WordLineApp(vm: GameViewModel) {
+    ImmersiveGameScreen()
     val state by vm.state.collectAsStateWithLifecycle()
     val ad by vm.ads.state.collectAsStateWithLifecycle()
     val online by vm.online.collectAsStateWithLifecycle()
@@ -40,7 +41,7 @@ fun WordLineApp(vm: GameViewModel) {
         onDispose {owner.lifecycle.removeObserver(observer);audio.release()}
     }
     LaunchedEffect(vm,audio) {vm.cues.collect {cue ->audio.play(cue);if(latestSettings.vibration) view.performHapticFeedback(android.view.HapticFeedbackConstants.KEYBOARD_TAP)}}
-    LaunchedEffect(state.settings.adsAllowed) {vm.ads.configure(state.settings.adsAllowed);if(state.settings.adsAllowed) vm.ads.warmUp()}
+    LaunchedEffect(state.settings.adsAllowed) {vm.ads.configure(state.settings.adsAllowed)}
     LaunchedEffect(foreground,state.loading) {if(foreground && !state.loading) while(true) {delay(60_000);vm.foreground()}}
     var showProgress by remember {mutableStateOf(false)}
     LaunchedEffect(state.busy) {showProgress=false;if(state.busy) {delay(150);showProgress=true}}
@@ -53,17 +54,17 @@ fun WordLineApp(vm: GameViewModel) {
         delay(900)
         launchPresented = true
     }
-    GameTheme(state.settings.highContrast,theme) {
+    GameTheme(state.settings.highContrast,theme,reduceMotion=state.settings.reduceMotion) {
         val initialSnapshot = state.snapshot
         if (!launchPresented || state.loading || state.campaign == null ||
             initialSnapshot?.profile == null || initialSnapshot.world.effectiveDate.isBlank()) {
-            LaunchScreen(error = state.error, onRetry = vm::load)
+            LaunchScreen(error = state.error, onRetry = vm::load, reduceMotion = state.settings.reduceMotion)
             return@GameTheme
         }
-        Landscape(state.settings.highContrast,background,theme) {
-            val nav=rememberNavController()
-            val backStack by nav.currentBackStackEntryAsState()
-            val route=backStack?.destination?.route.orEmpty()
+        val nav=rememberNavController()
+        val backStack by nav.currentBackStackEntryAsState()
+        val route=backStack?.destination?.route.orEmpty()
+        Landscape(state.settings.highContrast,background,theme,animate=route in setOf("article/{kind}","wallet","help","debugAds","extraPostcard/{id}")) {
             var gameUnpaused by remember {mutableStateOf(true)}
             val adActive=ad.phase in setOf("loading","showing","committing","storageError")
             val audioActive=foreground && !adActive && state.filePhase !in setOf("reading","applying","preparing") && route!="save" && (route!="game/{id}" || gameUnpaused)
@@ -81,32 +82,48 @@ fun WordLineApp(vm: GameViewModel) {
                     generation=current
                 }
             }
-            Box(Modifier.fillMaxSize().then(if(route=="home") Modifier else Modifier.safeDrawingPadding()),contentAlignment=Alignment.TopCenter) {
+            Box(Modifier.fillMaxSize(),contentAlignment=Alignment.TopCenter) {
                 val campaign=state.campaign;val snapshot=state.snapshot
                 if(campaign!=null && snapshot?.profile!=null && snapshot.world.effectiveDate.isNotBlank()) {
                     val game:(String)->Unit={id ->nav.navigate("game/$id") {launchSingleTop=true}}
                     fun home() {nav.navigate("home") {popUpTo("home") {inclusive=true}}}
-                    Column(Modifier.widthIn(max=1000.dp).fillMaxSize()) {
-                        NavHost(navController=nav,startDestination="entry",modifier=Modifier.weight(1f).fillMaxWidth(),
+                    HubFrame(state,route,{target ->
+                        nav.navigate(target) {
+                            if(target in setOf("home","tasks","collection")) {popUpTo("home") {saveState=true};restoreState=true}
+                            launchSingleTop=true
+                        }
+                    },vm::markSeen) {navModifier ->
+                        NavHost(navController=nav,startDestination="entry",modifier=navModifier,
                             enterTransition={androidx.compose.animation.EnterTransition.None},exitTransition={androidx.compose.animation.ExitTransition.None}) {
                             composable("entry") {LaunchedEffect(Unit) {nav.navigate(if(state.settings.onboardingCompleted) "home" else "welcome") {popUpTo("entry") {inclusive=true}}}}
                             composable("welcome") {WelcomeScreen(state.busy,onStart={vm.onboard(true) {id ->nav.navigate("home") {popUpTo("welcome") {inclusive=true}};if(id!=null) game(id)}},onSkip={vm.onboard(false) {nav.navigate("home") {popUpTo("welcome") {inclusive=true}}}},onPrivacy={nav.navigate("article/privacy")})}
-                            composable("home") {HomeScreen(state,play={vm.start(navigate=game)},map={nav.navigate("map")},settings={nav.navigate("settings")},tasks={nav.navigate("tasks")},gift={nav.navigate("gift")},wallet={nav.navigate("wallet")})}
-                            composable("tasks") {TasksScreen(state,vm,calendar={nav.navigate("calendar")},trail={nav.navigate("trail")},gift={nav.navigate("gift")},streak={nav.navigate("streak")},resume=game)}
-                            composable("collection") {CollectionScreen(state,achievements={nav.navigate("achievements")},statistics={nav.navigate("statistics")},appearance={nav.navigate("appearance")},open={nav.navigate("postcard/$it")},openExtra={nav.navigate("extraPostcard/$it")})}
+                            composable("home") {HomeScreen(state,play={vm.start(navigate=game)},map={nav.navigate("map")},settings={nav.navigate("settings")},tasks={nav.navigate("tasks")},gift={nav.navigate("gift")},wallet={nav.navigate("wallet")},collection={nav.navigate("collection")})}
+                            composable("tasks") {TasksScreen(state,vm,calendar={nav.navigate("calendar")},trail={nav.navigate("trail")},gift={nav.navigate("gift")},streak={nav.navigate("streak")},resume=game,back={nav.popBackStack()},settings={nav.navigate("settings")})}
+                            composable("collection") {CollectionScreen(state,achievements={nav.navigate("achievements")},statistics={nav.navigate("statistics")},appearance={nav.navigate("appearance")},open={nav.navigate("postcard/$it")},openExtra={nav.navigate("extraPostcard/$it")},settings={nav.navigate("settings")},back={nav.popBackStack()})}
                             composable("map") {MapScreen(state,back={nav.popBackStack()},play={level,replay ->vm.start(level,replay,game)})}
                             composable("calendar") {CalendarScreen(state,back={nav.popBackStack()},play={vm.daily(it,game)})}
                             composable("gift") {GiftScreen(state,vm,back={nav.popBackStack()})}
                             composable("streak") {StreakScreen(state,vm,back={nav.popBackStack()})}
-                            composable("trail") {TrailScreen(state,vm,back={nav.popBackStack()})}
+                            composable("trail") {TrailScreen(state,vm,back={nav.popBackStack()},play={if(snapshot.completions.size>=campaign.levels.size) nav.navigate("calendar") else vm.start(navigate=game)})}
                             composable("achievements") {AchievementsScreen(state,vm,back={nav.popBackStack()})}
                             composable("statistics") {StatisticsScreen(state,back={nav.popBackStack()})}
                             composable("appearance") {AppearanceScreen(state,vm,back={nav.popBackStack()})}
                             composable("postcard/{index}",arguments=listOf(navArgument("index") {type=NavType.IntType})) {entry ->
                                 val index=requireNotNull(entry.arguments).getInt("index")
-                                if(index in 0..9 && "location:$index" in snapshot.world.collectibles) PostcardScreen(state,index,vm,back={nav.popBackStack()})
+                                if(index in 0..9 && "location:$index" in snapshot.world.collectibles) {
+                                    val key="${snapshot.world.generation}|collectible:location:$index"
+                                    LaunchedEffect(key) {vm.markSeen(setOf(key))}
+                                    PostcardScreen(state,index,vm,back={nav.popBackStack()})
+                                }
                             }
-                            composable("extraPostcard/{id}") {entry ->val id=entry.arguments?.getString("id").orEmpty();if(id in snapshot.world.collectibles) ExtraPostcardScreen(state,id,vm,back={nav.popBackStack()})}
+                            composable("extraPostcard/{id}") {entry ->
+                                val id=entry.arguments?.getString("id").orEmpty()
+                                if(id in snapshot.world.collectibles) {
+                                    val key="${snapshot.world.generation}|collectible:$id"
+                                    LaunchedEffect(key) {vm.markSeen(setOf(key))}
+                                    ExtraPostcardScreen(state,id,vm,back={nav.popBackStack()})
+                                }
+                            }
                             composable("unlock/{index}",arguments=listOf(navArgument("index") {type=NavType.IntType})) {entry ->
                                 val index=requireNotNull(entry.arguments).getInt("index")
                                 UnlockScreen(index) {vm.locationSeen(index) {nav.navigate("map") {popUpTo("home")}}}
@@ -114,7 +131,7 @@ fun WordLineApp(vm: GameViewModel) {
                             composable("settings") {SettingsScreen(state,back={nav.popBackStack()},change=vm::setting,help={nav.navigate("help")},save={nav.navigate("save")},about={nav.navigate("about")},accessibility={nav.navigate("accessibility")})}
                             composable("accessibility") {AccessibilityScreen(state,vm,back={nav.popBackStack()})}
                             composable("save") {SaveScreen(state,vm,back={nav.popBackStack()})}
-                            composable("about") {AboutScreen(back={nav.popBackStack()},article={nav.navigate("article/$it")},help={nav.navigate("help")},debug={nav.navigate("debugAds")})}
+                            composable("about") {AboutScreen(back={nav.popBackStack()},article={nav.navigate("article/$it")},help={nav.navigate("help")},debug={nav.navigate("debugAds")},highContrast=state.settings.highContrast)}
                             if(ru.plumsoftware.wordline.BuildConfig.DEBUG) composable("debugAds") {DebugAdsScreen(state,ad,back={nav.popBackStack()})}
                             composable("article/{kind}") {entry ->ArticleScreen(entry.arguments?.getString("kind") ?: "privacy",back={nav.popBackStack()})}
                             composable("wallet") {WalletScreen(state,vm,back={nav.popBackStack()})}
@@ -122,10 +139,19 @@ fun WordLineApp(vm: GameViewModel) {
                             composable("game/{id}",arguments=listOf(navArgument("id") {type=NavType.StringType})) {entry ->
                                 val id=requireNotNull(entry.arguments?.getString("id"));val session=snapshot.sessions[id]
                                 if(session!=null) {
-                                    LaunchedEffect(session.completed) {if(session.completed) nav.navigate("result/$id") {popUpTo("game/$id") {inclusive=true};launchSingleTop=true}}
+                                    val enteredCompleted=remember(session.id) {session.completed}
+                                    LaunchedEffect(session.completed,state.settings.reduceMotion) {
+                                        if(session.completed) {
+                                            if(!enteredCompleted && !state.settings.reduceMotion) {
+                                                val letters=campaign.levelFor(session).slots.maxOfOrNull {it.word.length} ?: 1
+                                                delay((300L+letters*70L).coerceAtMost(1600L))
+                                            }
+                                            nav.navigate("result/$id") {popUpTo("game/$id") {inclusive=true};launchSingleTop=true}
+                                        }
+                                    }
                                     GameScreen(state,session,onBack={nav.popBackStack()},onMap={if(session.mode==Mode.DAILY) nav.navigate("calendar") {popUpTo("home")} else nav.navigate("map") {popUpTo("home")}},
                                         onSubmit={vm.submit(id,it)},onShuffle={vm.shuffle(id)},onHint={kind,target ->vm.purchase(id,kind,target)},
-                                        onActive={gameUnpaused=it},onVideo={vm.reward("hint_coins",id)},online=online)
+                                        onActive={gameUnpaused=it},onVideo={kind,target->vm.rewardHint(id,kind,target)},online=online,changeSetting=vm::setting,adPhase=ad.phase,onClueRead=vm::dismissClue)
                                 } else Box(Modifier.fillMaxSize(),contentAlignment=Alignment.Center) {CircularProgressIndicator()}
                             }
                             composable("result/{id}",arguments=listOf(navArgument("id") {type=NavType.StringType})) {entry ->
@@ -137,20 +163,18 @@ fun WordLineApp(vm: GameViewModel) {
                                 },onHome={home()},reward={vm.reward("win_extra",id)},daily={nav.navigate("calendar")})
                             }
                         }
-                        if(route in setOf("home","tasks","collection")) HomeNavigation(route) {target ->
-                            if(route!=target) nav.navigate(target) {popUpTo("home") {saveState=true};launchSingleTop=true;restoreState=true}
-                        }
+
                     }
                 }
                 if(showProgress) LinearProgressIndicator(Modifier.fillMaxWidth().align(Alignment.TopCenter))
             }
             if(state.error!=null && !state.loading && state.campaign!=null) AlertDialog(onDismissRequest=vm::clearError,title={Text("Действие не выполнено")},text={Text(state.error!!)},confirmButton={TextButton(onClick=vm::clearError) {Text("Понятно")}})
             if(state.snapshot?.world?.clockNotice==true && ad.phase=="idle" && state.error==null) AlertDialog(onDismissRequest={vm.clockNotice()},title={Text("Дата на устройстве изменилась")},text={Text("Календарь и дневные награды продолжатся с ${state.snapshot!!.world.effectiveDate}. Обычная игра доступна.")},confirmButton={TextButton(onClick={vm.clockNotice()}) {Text("Понятно")}})
-            if(state.snapshot?.world?.dailyReport?.isNotEmpty()==true && state.snapshot?.world?.clockNotice!=true && route=="home" && ad.phase=="idle" && state.error==null) AlertDialog(onDismissRequest={vm.dismissReport()},title={Text("Награды прошлого дня")},text={Text(state.snapshot!!.world.dailyReport.joinToString("\n"))},confirmButton={TextButton(onClick={vm.dismissReport()}) {Text("Понятно")}})
-            if(ad.phase !in setOf("idle","showing")) AlertDialog(onDismissRequest={if(ad.phase=="loading") vm.ads.cancelLoading() else vm.ads.clear()},title={Text(when(ad.phase) {"loading"->"Готовим видео";"reward"->"Бонус получен";"incomplete"->"Просмотр не завершён";"committing"->"Сохраняем награду";"storageError"->"Не удалось сохранить награду";else->"Видео недоступно"})},
-                text={Column {Text(ad.message);if(ad.reward>0) Text("+${ad.reward} монет · Реклама");if(ad.phase in setOf("loading","committing")) CircularProgressIndicator()}},
-                dismissButton={if(ad.phase=="incomplete") TextButton(onClick=vm.ads::retryRewarded) {Text("Смотреть снова · Реклама")}},
-                confirmButton={if(ad.phase=="storageError") TextButton(onClick=vm.ads::commitReward) {Text("Повторить сохранение")} else if(ad.phase!="committing") TextButton(onClick={if(ad.phase=="loading") vm.ads.cancelLoading() else vm.ads.clear()}) {Text(if(ad.phase=="loading") "Отмена" else "Продолжить")}})
+            if(state.snapshot?.world?.dailyReport?.isNotEmpty()==true && state.snapshot?.world?.clockNotice!=true && route=="home" && ad.phase=="idle" && state.error==null) {
+                DailyReportPanel(state.snapshot!!.world.dailyReport,state.busy,state.economy.cap,vm::dismissReport)
+            }
+            AdStatusPanel(ad,state,vm.ads::clear,vm.ads::retryRewarded,vm.ads::commitReward,vm.ads::loadingPresented)
+            if(ad.phase=="idle") state.rewardOpening?.let {RewardOpeningPanel(it,vm::dismissRewardOpening)}
         }
     }
 }

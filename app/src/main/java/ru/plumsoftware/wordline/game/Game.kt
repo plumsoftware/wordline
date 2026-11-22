@@ -35,8 +35,8 @@ data class Economy(val version: Int = 1, val initial: Long = 200, val victory: L
                    val daily: Long = 30, val rewarded: Long = 30, val winExtra: Long = 20,
                    val rewardedMax: Int = 10, val gifts: List<Long> = giftRewards,
                    val ads: AdRules = AdRules())
-data class AdRules(val firstLevels: Int = 10, val firstSeconds: Long = 600, val minWins: Int = 4,
-                   val minSeconds: Long = 180, val rewardedCooldown: Long = 120, val hourMax: Int = 3, val dayMax: Int = 12)
+data class AdRules(val firstLevels: Int = 3, val firstSeconds: Long = 0, val minWins: Int = 2,
+                   val minSeconds: Long = 0, val rewardedCooldown: Long = 0, val hourMax: Int = 0, val dayMax: Int = 0)
 enum class Mode { CAMPAIGN, DAILY, TUTORIAL }
 
 data class Session(
@@ -116,6 +116,7 @@ fun hint(level: Level, session: Session, kind: Hint, target: String, economy: Ec
 
 /** Static content constraints are also checked when the package is loaded. */
 fun validateCampaign(campaign: Campaign) {
+    if(campaign.version>=3) require(campaign.dictionary.keys.none {it in retiredContentWords}) {"В словаре есть исключённые слова"}
     require(campaign.levels.isNotEmpty()) { "Нет уровней" }
     require(campaign.levels.map { it.id } == (1..campaign.levels.size).toList()) { "Неверная последовательность уровней" }
     campaign.levels.forEach { level ->

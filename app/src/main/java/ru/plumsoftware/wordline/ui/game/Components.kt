@@ -37,17 +37,19 @@ val Gold=Color(0xFFF4B43B)
 val Mist=Color(0xFFE7F0E9)
 
 @Composable
-fun GameTheme(highContrast: Boolean, theme: String = "day", content: @Composable () -> Unit) {
+fun GameTheme(highContrast: Boolean, theme: String = "day", reduceMotion: Boolean = false, content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalGameMotion provides !reduceMotion) {
     MaterialTheme(colorScheme=lightColorScheme(primary=if(theme=="evening") Color(0xFF3B508C) else Green,onPrimary=Color.White,
         primaryContainer=PaleGreen,onPrimaryContainer=Ink,background=Cream,
         surface=if(highContrast) Color.White else Cream,onSurface=Ink,onBackground=Ink,
         secondary=Color(0xFF6520AF),onSecondary=Color.White,outline=Color(0xFF586B72)), content=content)
+    }
 }
 @Composable
-fun Landscape(highContrast: Boolean, background: Int = 0, theme: String = "day", content: @Composable BoxScope.() -> Unit) {
+fun Landscape(highContrast: Boolean, background: Int = 0, theme: String = "day", animate: Boolean=true, content: @Composable BoxScope.() -> Unit) {
     Box(Modifier.fillMaxSize().background(Cream)) {
         if(!highContrast) {
-            Image(painterResource(if(theme=="evening") R.drawable.game_lake_evening else backgroundResources[background.coerceIn(0,9)]),null,Modifier.fillMaxSize(),contentScale=ContentScale.Crop)
+            AnimatedScenery(if(theme=="evening") R.drawable.game_lake_evening else backgroundResources[background.coerceIn(0,9)],Modifier.fillMaxSize(),contentScale=ContentScale.Crop,animate=animate)
             Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color.White.copy(alpha=.18f),Color.Transparent,Cream.copy(alpha=.93f)))))
         }
         content()
@@ -88,7 +90,7 @@ fun Paper(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> 
 }
 @Composable
 fun PageHeader(title: String, coins: Long? = null, back: () -> Unit) {
-    Row(Modifier.fillMaxWidth().padding(vertical=8.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+    Row(Modifier.fillMaxWidth().padding(top=gameHeaderClearance()).padding(vertical=8.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
         ToolButton(R.drawable.game_ic_back,"Назад",onClick=back)
         Text(title,Modifier.weight(1f),style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)
         if(coins!=null) Balance(coins)

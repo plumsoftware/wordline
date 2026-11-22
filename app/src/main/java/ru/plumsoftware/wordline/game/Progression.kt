@@ -14,7 +14,8 @@ object DeviceClock : GameClock {
 }
 data class DayStats(val words: Int = 0, val wins: Int = 0, val bonus: Int = 0, val daily: Int = 0, val activeMillis: Long = 0)
 data class AdTicket(val id: String, val generation: String, val placement: String, val date: String,
-                    val resultId: String?, val reward: Long, val status: String = "pending")
+                    val resultId: String?, val reward: Long, val status: String = "pending",
+                    val hintKind: Hint? = null,val hintTarget: String? = null,val hintDefinition: String? = null)
 data class AdShowing(val date: String, val wallMillis: Long, val activeMillis: Long, val rewarded: Boolean, val ticketId: String = "")
 data class World(
     val generation: String = UUID.randomUUID().toString(),
@@ -55,7 +56,7 @@ fun achievements(world: World, campaignWins: Int): List<AchievementSpec> = listO
 
 val giftRewards=listOf(20L,25L,30L,35L,40L,50L,75L)
 val trailRewards=mapOf(10 to 50L,20 to 75L,30 to 100L)
-val locationNames=listOf("Озёрный край","Лесная река","Вечернее озеро","Осенняя долина","Ночные горы","Морское побережье","Каньон","Цветочная поляна","Озеро лотосов","Снежная долина")
+val locationNames=listOf("Алтайское озеро","Бамбуковый лес","Пески Сахары","Красная площадь","Северное сияние","Лазурный берег","Красный каньон","Холмы Тосканы","Тропический водопад","Снежные Альпы")
 val backgroundNames=listOf("lake_day","forest_river","lake_evening","autumn_valley","night_mountains","sea_coast","canyon","flower_meadow","lotus_lake","snow_valley")
 fun dailyIndex(date: LocalDate, size: Int): Int = Math.floorMod(ChronoUnit.DAYS.between(LocalDate.of(2026,1,1),date),size.toLong()).toInt()
 fun effectiveDay(previous: String, candidate: LocalDate): LocalDate = maxOf(if(previous.isBlank()) candidate else LocalDate.parse(previous),candidate)

@@ -17,22 +17,27 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import ru.plumsoftware.wordline.R
+import ru.plumsoftware.wordline.data.Setting
 import ru.plumsoftware.wordline.game.*
 
 @Composable
 fun GameScreen(state: AppState, session: Session, onBack: () -> Unit, onMap: () -> Unit,
                onSubmit: (String) -> Unit, onShuffle: () -> Unit, onHint: (Hint,String) -> Unit,
-               onActive: (Boolean)->Unit = {}, onVideo: ()->Unit = {}, online: Boolean = true) {
+               onActive: (Boolean)->Unit = {}, onVideo: (Hint,String)->Unit = {_,_->}, online: Boolean = true,
+               changeSetting: (Setting,Boolean)->Unit = {_,_->}, adPhase: String = "idle", onClueRead: ()->Unit = {}) {
     val campaign=requireNotNull(state.campaign)
     val level=campaign.levelFor(session)
     var pause by rememberSaveable(session.id) { mutableStateOf(false) }
     var bonus by rememberSaveable(session.id) { mutableStateOf(false) }
     var hintKind by remember(session.id) { mutableStateOf<Hint?>(null) }
+    // Keep this baseline above the idle-only panel: advertising temporarily removes that panel.
+    val hintVideoReceived=rememberRewardReceived(state,"hint",session.id,hintKind)
     var inputEpoch by remember { mutableIntStateOf(0) }
     var dragging by remember { mutableStateOf(false) }
     var tutorialDismissed by rememberSaveable(session.id) { mutableStateOf(false) }
     val owner=LocalLifecycleOwner.current
     val focused=LocalWindowInfo.current.isWindowFocused
+    val clueNotice=state.clueNotice?.takeIf {it.sessionId==session.id}
     DisposableEffect(owner,session.id) {
         val observer=LifecycleEventObserver { _,event ->
             if(event==Lifecycle.Event.ON_STOP) {inputEpoch++;dragging=false}
@@ -44,113 +49,35 @@ fun GameScreen(state: AppState, session: Session, onBack: () -> Unit, onMap: () 
     fun showPause() {inputEpoch++;pause=true}
     BackHandler {
         when {
+            clueNotice!=null -> onClueRead()
             hintKind!=null -> hintKind=null
             bonus -> bonus=false
             else -> {inputEpoch++;pause=!pause}
         }
     }
-    val enabled=!state.busy && !pause && !bonus && hintKind==null && !session.completed && focused
-    SideEffect {onActive(focused && !pause && !bonus && hintKind==null && !session.completed)}
-    val visible=visibleCells(level,session)
-    Column(Modifier.fillMaxSize().padding(horizontal=16.dp)) {
-        PageHeader(if(session.mode==Mode.DAILY) "Ежедневный" else if(session.mode==Mode.TUTORIAL) "Учимся играть" else "Уровень ${level.id}",state.snapshot?.profile?.coins ?: 0,back=::showPause)
-        if(!online) Text("Офлайн · игра доступна, видео может быть недоступно",style=MaterialTheme.typography.bodySmall)
-        if(session.mode==Mode.DAILY) Text(session.dateKey.orEmpty())
-        if(session.replay) Text("Повтор · без наград",fontWeight=FontWeight.Bold,color=Green)
-        Text("Найдено ${session.solved.size} из ${level.slots.size} слов",Modifier.padding(vertical=4.dp))
-        if(session.mode==Mode.TUTORIAL && !tutorialDismissed) {
-            Surface(shape=androidx.compose.foundation.shape.RoundedCornerShape(16.dp),color=PaleGreen) {
-                Column(Modifier.padding(12.dp)) {
-                    Text(if(session.solved.isEmpty()) "Собери К → О → Т одним жестом или нажми буквы и «Проверить»." else if(session.order==level.letters.indices.toList()) "Общая буква уже открыта. Попробуй бесплатное перемешивание в центре круга." else if(!session.tutorialLetterUsed) "Теперь попробуй первую бесплатную букву. Она не снижает учебные звёзды." else "Осталось закончить последнее слово. Все дальнейшие уровни сохраняются автоматически.")
-                    TextButton(onClick={tutorialDismissed=true}) { Text("Понятно") }
-                }
+    val enabled=adPhase=="idle" && !state.busy && state.rewardOpening==null && !pause && !bonus && hintKind==null && clueNotice==null && !session.completed && focused
+    SideEffect {onActive(focused && state.rewardOpening==null && !pause && !bonus && hintKind==null && clueNotice==null && !session.completed)}
+    LaunchedEffect(session.solved) {
+        if(session.solved.isNotEmpty()) {
+            if(session.mode==Mode.TUTORIAL && !tutorialDismissed && !state.settings.reduceMotion) {
+                kotlinx.coroutines.delay((300L+(level.slots.maxOfOrNull {it.word.length} ?: 1)*70L).coerceAtMost(1600L))
             }
-        }
-        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
-            val wide=maxWidth>=600.dp || (maxHeight<470.dp && maxWidth>420.dp)
-            val board: @Composable ColumnScope.() -> Unit = {
-                CrosswordBoard(level,session,state.settings.largeLetters,Modifier.padding(vertical=12.dp))
-                OutlinedButton(onClick={inputEpoch++;bonus=true},enabled=!dragging && !state.busy,modifier=Modifier.align(Alignment.CenterHorizontally)) {
-                    GameIcon(R.drawable.game_ic_bookmark);Spacer(Modifier.width(8.dp))
-                    Text("Дополнительные слова: ${session.bonus.size} из ${level.bonusPool.size}")
-                }
-            }
-            val tools: @Composable ColumnScope.() -> Unit = {
-                LetterWheel(level,session,state.settings.tapInput,state.settings.largeLetters,enabled,inputEpoch,
-                    onSubmit=onSubmit,onShuffle=onShuffle,onDragging={dragging=it})
-                Text(state.feedback.ifBlank { "Без штрафов и спешки" },Modifier.fillMaxWidth().padding(vertical=4.dp).semantics { liveRegion=LiveRegionMode.Polite })
-                HintButtons(session,state.economy,enabled && !dragging,visible.size<level.cells.size) {inputEpoch++;hintKind=it}
-                Spacer(Modifier.height(12.dp))
-            }
-            if(wide) Row(Modifier.fillMaxSize(),horizontalArrangement=Arrangement.spacedBy(24.dp)) {
-                Column(Modifier.weight(1f).verticalScroll(rememberScrollState(),enabled=!dragging),horizontalAlignment=Alignment.CenterHorizontally,content=board)
-                Column(Modifier.weight(1f).verticalScroll(rememberScrollState(),enabled=!dragging),horizontalAlignment=Alignment.CenterHorizontally,content=tools)
-            } else Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState(),enabled=!dragging),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(8.dp)) {board();tools()}
+            tutorialDismissed=true
         }
     }
-    if(pause) AlertDialog(onDismissRequest={pause=false},title={Text("Передохнём?")},text={Text("Все найденные слова и раскрытые буквы сохранены.")},confirmButton={TextButton(onClick={pause=false}) {Text("Продолжить")}},dismissButton={TextButton(onClick={pause=false;onMap()}) {Text("На карту")}})
-    if(bonus) AlertDialog(onDismissRequest={bonus=false},title={Text("Дополнительные слова")},text={
-        Column(Modifier.heightIn(max=400.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-            if(session.bonus.isEmpty()) Text("Здесь появятся слова, которые можно собрать из букв, но которых нет в сетке.")
-            session.bonus.sorted().forEach {key -> Text("${campaign.dictionary.getValue(key).display} — ${campaign.dictionary.getValue(key).definition}")}
-            if(level.bonusPool.size>=5) Text("Сундуки: ${session.bonus.size/5}. До следующего: ${session.bonus.size%5} из 5. Награда — ${state.economy.chest} монет${if(session.replay) ", только при первом прохождении" else ""}.")
-            else Text("Найдено ${session.bonus.size} из ${level.bonusPool.size} дополнительных слов. На этом уровне нет сундука.")
-        }
-    },confirmButton={TextButton(onClick={bonus=false}) {Text("К игре")}})
-    hintKind?.let { kind -> HintDialog(level,session,kind,state.economy,state.snapshot?.profile?.coins ?: 0,
-        onDismiss={hintKind=null},onConfirm={target ->hintKind=null;onHint(kind,target)},onVideo=if(session.replay || session.mode==Mode.TUTORIAL) null else onVideo,videoReason=adUnavailable(state,"hint_coins",session.id)) }
-}
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun HintButtons(session: Session, economy: Economy, enabled: Boolean, hasCells: Boolean, select: (Hint) -> Unit) {
-    FlowRow(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(8.dp,Alignment.CenterHorizontally),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-        val freeTutorial=session.mode==Mode.TUTORIAL && !session.tutorialLetterUsed
-        listOf(Triple(Hint.LETTER,"Буква",if(freeTutorial) 0L else economy.letter),Triple(Hint.WORD,"Слово",economy.word),Triple(Hint.CLUE,"Намёк",economy.clue)).forEach { (kind,label,price) ->
-            OutlinedButton(onClick={select(kind)},enabled=enabled && hasCells && (session.mode!=Mode.TUTORIAL || kind==Hint.LETTER),contentPadding=PaddingValues(horizontal=12.dp,vertical=12.dp),modifier=Modifier.semantics {
-                contentDescription="$label, ${if(session.replay || price==0L) "бесплатно" else "$price монет"}"
-            }) { Column(horizontalAlignment=Alignment.CenterHorizontally) {
-                Text(label,fontWeight=FontWeight.Bold)
-                Text(if(session.replay || price==0L) "Бесплатно" else "$price монет",style=MaterialTheme.typography.labelMedium)
-            } }
-        }
+    if(session.mode==Mode.TUTORIAL && !tutorialDismissed) {
+        TutorialScene(state,level,session,enabled,inputEpoch,::showPause,onSubmit,onShuffle,{dragging=it}) {tutorialDismissed=true;inputEpoch++}
+    } else {
+        PlayScene(state,level,session,enabled,inputEpoch,online,
+            onBack=::showPause,onBonus={inputEpoch++;bonus=true},onSubmit=onSubmit,
+            onShuffle=onShuffle,onDragging={dragging=it},onHint={inputEpoch++;hintKind=it},adVisible=adPhase!="idle")
     }
-}
-@Composable
-private fun HintDialog(level: Level, session: Session, kind: Hint, economy: Economy, coins: Long, onDismiss: () -> Unit, onConfirm: (String) -> Unit, onVideo: (()->Unit)? = null, videoReason: String? = null) {
-    var target by remember(kind) {mutableStateOf<String?>(null)}
-    var selectedCell by remember(kind) {mutableStateOf<Cell?>(null)}
-    val visible=visibleCells(level,session)
-    val candidates=if(kind==Hint.LETTER) level.cells.keys.filter { it.key !in visible }.sortedWith(compareBy<Cell> {it.row}.thenBy {it.column}).map { it.key to "Строка ${it.row+1}, столбец ${it.column+1}" }
-        else level.slots.filter {it.id !in session.solved && (selectedCell==null || selectedCell in it.cells)}.map { slot ->
-            val mask=slot.cells.mapIndexed { i,c ->if(c.key in visible) slot.word[i] else '□'}.joinToString(" ")
-            slot.id to "$mask · ${if(slot.direction==Direction.ACROSS) "горизонтально" else "вертикально"}"
-        }
-    val price=when {session.replay || session.mode==Mode.TUTORIAL && !session.tutorialLetterUsed && kind==Hint.LETTER ->0L;kind==Hint.LETTER ->economy.letter;kind==Hint.WORD ->economy.word;target in session.clues ->0L;else ->economy.clue}
-    AlertDialog(onDismissRequest=onDismiss,title={Text(when(kind) {Hint.LETTER -> "Выбери клетку";Hint.WORD -> "Выбери слово";Hint.CLUE -> "Выбери намёк"})},text={
-        Column(Modifier.heightIn(max=360.dp).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-            Text(if(session.replay) "Подсказки бесплатны. Они учитываются в оценке за повтор." else "Баланс: $coins монет. Списание — только после подтверждения.")
-            Text("Нажми клетку на поле или выбери из списка ниже.")
-            CrosswordBoard(level,session,false,onCell={cell ->
-                if(kind==Hint.LETTER) {if(cell.key !in visible) {target=cell.key;selectedCell=cell}}
-                else {
-                    selectedCell=cell
-                    val slots=level.slots.filter {it.id !in session.solved && cell in it.cells}
-                    target=slots.singleOrNull()?.id
-                }
-            },selectedCell=selectedCell?.key)
-            if(selectedCell!=null && kind!=Hint.LETTER) TextButton(onClick={selectedCell=null;target=null}) {Text("Показать все направления")}
-            candidates.forEach { (id,label) ->
-                Surface(onClick={target=id},color=if(target==id) PaleGreen else MaterialTheme.colorScheme.surface,
-                    shape=androidx.compose.foundation.shape.RoundedCornerShape(12.dp),modifier=Modifier.fillMaxWidth().heightIn(min=48.dp).semantics { this.selected=target==id }) {
-                    Row(Modifier.padding(12.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                        RadioButton(selected=target==id,onClick=null)
-                        Text(label,Modifier.weight(1f))
-                    }
-                }
-            }
-            if(target!=null && coins<price) Text("Нужно ещё ${price-coins} монет. Можно продолжить без подсказки.")
-            if(onVideo!=null) {OutlinedButton(onClick=onVideo,enabled=videoReason==null,modifier=Modifier.fillMaxWidth()) {Text("+${economy.rewarded} монет за видео · Реклама")};if(videoReason!=null) Text(videoReason)}
-            if(kind==Hint.CLUE) Text("Повторное чтение уже оплаченного намёка бесплатно.")
-        }
-    },confirmButton={TextButton(onClick={target?.let(onConfirm)},enabled=target!=null && coins>=price) {Text(if(price==0L) "Открыть бесплатно" else "Открыть за $price")}},dismissButton={TextButton(onClick=onDismiss) {Text("Отмена")}})
+    if(adPhase=="idle") {
+    if(pause) PausePanel(state,session.mode==Mode.DAILY,{pause=false},{pause=false;onMap()},changeSetting)
+    if(bonus) BonusWordsPanel(state,level,session) {bonus=false}
+    hintKind?.let { kind -> HintPanel(state,level,session,kind,
+        dismiss={hintKind=null},confirm={target ->hintKind=null;onHint(kind,target)},
+        video=if(session.replay || session.mode==Mode.TUTORIAL) null else {target ->onVideo(kind,target)},videoReceived=hintVideoReceived) }
+    clueNotice?.let {ClueReadPanel(it.text,onClueRead)}
+    }
 }

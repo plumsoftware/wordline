@@ -15,7 +15,8 @@ fun World.toJson(): JSONObject = JSONObject().apply {
     put("uniqueWords",JSONArray(uniqueWords.sorted()));put("totalWords",totalWords);put("bonusWords",bonusWords);put("chests",chests);put("hints",hints)
     put("noHintLevels",JSONArray(noHintLevels.sorted()));put("trailEvents",JSONArray(trailEvents.sorted()));put("collectibles",JSONArray(collectibles.sorted()))
     put("acknowledgedLocations",JSONArray(acknowledgedLocations.sorted()));put("activeMillis",activeMillis);put("winsSinceInterstitial",winsSinceInterstitial)
-    put("adTickets",JSONObject().apply {adTickets.forEach { (key,a) ->put(key,JSONObject().put("generation",a.generation).put("placement",a.placement).put("date",a.date).put("resultId",a.resultId ?: JSONObject.NULL).put("reward",a.reward).put("status",a.status))}})
+    put("adTickets",JSONObject().apply {adTickets.forEach { (key,a) ->put(key,JSONObject().put("generation",a.generation).put("placement",a.placement).put("date",a.date).put("resultId",a.resultId ?: JSONObject.NULL).put("reward",a.reward).put("status",a.status)
+        .put("hintKind",a.hintKind?.name ?: JSONObject.NULL).put("hintTarget",a.hintTarget ?: JSONObject.NULL).put("hintDefinition",a.hintDefinition ?: JSONObject.NULL))}})
     put("adShowings",JSONArray().apply {adShowings.forEach { a ->put(JSONObject().put("date",a.date).put("wallMillis",a.wallMillis).put("activeMillis",a.activeMillis).put("rewarded",a.rewarded).put("ticketId",a.ticketId)) }})
     put("lastExportAt",lastExportAt);put("clockNotice",clockNotice);put("dailyReport",JSONArray(dailyReport))
 }
@@ -40,7 +41,8 @@ fun worldFromJson(o: JSONObject): World {
     uniqueWords=o.stringSet("uniqueWords"),totalWords=o.getInt("totalWords"),bonusWords=o.getInt("bonusWords"),chests=o.getInt("chests"),hints=o.getInt("hints"),
     noHintLevels=o.optJSONArray("noHintLevels")?.let {a ->(0 until a.length()).map {a.getInt(it)}.toSet()} ?: emptySet(),trailEvents=o.stringSet("trailEvents"),collectibles=o.stringSet("collectibles"),
     acknowledgedLocations=o.optJSONArray("acknowledgedLocations")?.let {a ->(0 until a.length()).map {a.getInt(it)}.toSet()} ?: setOf(0),activeMillis=o.getLong("activeMillis"),winsSinceInterstitial=o.getInt("winsSinceInterstitial"),
-    adTickets=o.objectMap("adTickets").mapValues { (key,a) ->AdTicket(key,a.getString("generation"),a.getString("placement"),a.getString("date"),if(a.isNull("resultId")) null else a.getString("resultId"),a.getLong("reward"),a.getString("status")) },
+    adTickets=o.objectMap("adTickets").mapValues { (key,a) ->AdTicket(key,a.getString("generation"),a.getString("placement"),a.getString("date"),if(a.isNull("resultId")) null else a.getString("resultId"),a.getLong("reward"),a.getString("status"),
+        if(a.isNull("hintKind")) null else Hint.valueOf(a.getString("hintKind")),if(a.isNull("hintTarget")) null else a.getString("hintTarget"),if(a.isNull("hintDefinition")) null else a.getString("hintDefinition")) },
     adShowings = showings,
     lastExportAt=o.optLong("lastExportAt"),clockNotice=o.optBoolean("clockNotice"),dailyReport=o.optJSONArray("dailyReport")?.stringList() ?: emptyList())
 }

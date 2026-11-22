@@ -23,13 +23,13 @@
     75
   ],
   "interstitial": {
-    "noAdsFirstCampaignLevels": 10,
-    "noAdsFirstActiveSeconds": 600,
-    "minWins": 4,
-    "minActiveSeconds": 180,
-    "afterRewardedCooldownSeconds": 120,
-    "rollingHourMax": 3,
-    "dailyMax": 12
+    "noAdsFirstCampaignLevels": 3,
+    "noAdsFirstActiveSeconds": 0,
+    "minWins": 2,
+    "minActiveSeconds": 0,
+    "afterRewardedCooldownSeconds": 0,
+    "rollingHourMax": 0,
+    "dailyMax": 0
   },
-  "status": "предлагаемая конфигурация ТЗ, не подтверждённый игровой баланс"
+  "status": "Первые 3 уровня без рекламы; далее межстраничная при переходе после уровней 5, 7, 9 и далее. Нулевые временные лимиты и квоты межстраничной рекламы не применяются."
 }

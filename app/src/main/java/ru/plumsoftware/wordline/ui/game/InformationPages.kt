@@ -19,33 +19,8 @@ import ru.plumsoftware.wordline.data.Setting
 import ru.plumsoftware.wordline.game.*
 
 @Composable
-fun UnlockScreen(index: Int,done: ()->Unit) {
-    ProgressPage("Новая локация",done) {
-        Paper {
-            Image(painterResource(backgroundResources[index.coerceIn(0,9)]),locationNames[index.coerceIn(0,9)],Modifier.fillMaxWidth())
-            Text(locationNames[index.coerceIn(0,9)],style=MaterialTheme.typography.headlineLarge,fontWeight=FontWeight.Bold)
-            Text("Следующая часть пути открыта. Фон можно выбрать в оформлении.")
-            MainButton("Отправиться",onClick=done)
-            TextButton(onClick=done,modifier=Modifier.fillMaxWidth()) {Text("Позже")}
-        }
-    }
-}
-@Composable
-fun AccessibilityScreen(state: AppState,vm: GameViewModel,back: ()->Unit) {
-    ProgressPage("Удобство",back) {
-        Paper {
-            Text("Предпросмотр: А Б В",style=if(state.settings.largeLetters) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineSmall)
-            listOf(Triple(Setting.LARGE_LETTERS,"Крупные игровые буквы",state.settings.largeLetters),
-                Triple(Setting.TAP_INPUT,"Ввод нажатием",state.settings.tapInput),Triple(Setting.CONTRAST,"Высокий контраст",state.settings.highContrast),
-                Triple(Setting.REDUCE_MOTION,"Уменьшить движение",state.settings.reduceMotion)).forEach { (key,label,value) ->
-                Row(Modifier.fillMaxWidth(),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically) {Text(label,Modifier.weight(1f));Switch(value,{vm.setting(key,it)},enabled=!state.busy,modifier=Modifier.semantics {contentDescription=label})}
-            }
-            Text("Буквы можно выбирать отдельными нажатиями и затем нажать «Проверить». При TalkBack этот режим включается автоматически. При большом системном размере текста круг перестраивается в удобные ряды кнопок.")
-        }
-    }
-}
-@Composable
 fun WalletScreen(state: AppState,vm: GameViewModel,back: ()->Unit) {
+    val received=rememberRewardReceived(state,"wallet_coins")
     ProgressPage("Монеты",back) {
         Paper {
             Balance(state.snapshot?.profile?.coins ?: 0)
@@ -55,32 +30,14 @@ fun WalletScreen(state: AppState,vm: GameViewModel,back: ()->Unit) {
                 Text("Для видео нужна загрузка рекламы. Рекламная сеть обрабатывает сетевые данные; персонализация и определение местоположения отключены. Это необязательно для игры.")
                 OutlinedButton(onClick={vm.setting(Setting.ADS_ALLOWED,true)},enabled=!state.busy,modifier=Modifier.fillMaxWidth()) {Text("Разрешить загрузку видео")}
             }
-            MainButton("+${state.economy.rewarded} монет за видео · Реклама",adUnavailable(state,"wallet_coins")==null && !state.busy,{vm.reward("wallet_coins")})
+            VictoryButton(if(received) "Награда получена" else "+${state.economy.rewarded} монет за видео",!received,
+                Modifier.fillMaxWidth().height(66.dp),1f,adUnavailable(state,"wallet_coins")==null && !state.busy && !received,{vm.reward("wallet_coins")})
             adUnavailable(state,"wallet_coins")?.let {Text(it)}
             val world=state.snapshot?.world
             val used=world?.adTickets?.values?.count {it.date==world.effectiveDate && it.status=="committed"} ?: 0
             Text("Получено наград за видео сегодня: $used из ${state.economy.rewardedMax}. После просмотра монеты зачисляются отдельно от покупки подсказки.")
         }
     }
-}
-@Composable
-fun AboutScreen(back: ()->Unit,article: (String)->Unit,help: ()->Unit,debug: ()->Unit = {}) {
-    val context=LocalContext.current;val clipboard=LocalClipboardManager.current
-    var error by remember {mutableStateOf(false)}
-    ProgressPage("Об игре",back) {
-        Paper {
-            Text("Соедини слова - кроссворды",style=MaterialTheme.typography.headlineMedium,fontWeight=FontWeight.Bold)
-            Text("Версия ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
-            if(BuildConfig.DEBUG) {Text("Тестовая версия · ${BuildConfig.STORE}");TextButton(onClick=debug) {Text("Диагностика видео")}}
-            OutlinedButton(onClick=help,modifier=Modifier.fillMaxWidth()) {Text("Как играть")}
-            OutlinedButton(onClick={article("privacy")},modifier=Modifier.fillMaxWidth()) {Text("Конфиденциальность")}
-            OutlinedButton(onClick={article("licenses")},modifier=Modifier.fillMaxWidth()) {Text("Лицензии")}
-            if(BuildConfig.SUPPORT_EMAIL.isNotBlank()) OutlinedButton(onClick={
-                try {context.startActivity(Intent(Intent.ACTION_SENDTO,Uri.parse("mailto:"+BuildConfig.SUPPORT_EMAIL)))} catch(e: android.content.ActivityNotFoundException) {error=true}
-            },modifier=Modifier.fillMaxWidth()) {Text("Поддержка")}
-        }
-    }
-    if(error) AlertDialog(onDismissRequest={error=false},title={Text("Почтовое приложение не найдено")},text={Text(BuildConfig.SUPPORT_EMAIL)},confirmButton={TextButton(onClick={clipboard.setText(AnnotatedString(BuildConfig.SUPPORT_EMAIL));error=false}) {Text("Скопировать адрес")}},dismissButton={TextButton(onClick={error=false}) {Text("Назад")}})
 }
 @Composable
 fun ArticleScreen(kind: String,back: ()->Unit) {

@@ -1,4 +1,4 @@
-"""Version 2 finite campaign authoring. Stable first 30 targets; original project vocabulary.
+"""Version 3 finite campaign authoring. Original project vocabulary with explicit exclusions.
 No downloaded lexicon, no runtime generation. Editorial acceptance remains a separate task.
 """
 import collections
@@ -18,6 +18,8 @@ for line in (ROOT/'tools/dictionary-ru.tsv').read_text().splitlines():
  key,definition=line.split('|',1)
  key=key.replace('Ё','Е')
  if 3<=len(key)<=7:definitions[key]=definition
+excluded=set(json.loads((ROOT/'tools/excluded-content-words.json').read_text(encoding='utf-8')))
+definitions={word:definition for word,definition in definitions.items() if word not in excluded}
 words=sorted(definitions)
 counters={w:collections.Counter(w) for w in words}
 
@@ -106,10 +108,10 @@ for i in range(1,366):
 plural={'ВОРОТА','СУТКИ'}
 display={'ОСЕЛ':'ОСЁЛ','АКТЕР':'АКТЁР','ШАТЕР':'ШАТЁР','ТЕС':'ТЁС','ПОМЕТ':'ПОМЁТ','ЗАЕМ':'ЗАЁМ'}
 entries=[dict(key=w,display=display.get(w,w),definition=definitions[w],partOfSpeech='noun',pluraliaTantum=w in plural,difficulty=1 if len(w)<=4 else 2 if len(w)<=5 else 3,source='Original project vocabulary and definitions',licenseId='project-original',editorialStatus='pending') for w in words]
-payload=dict(contentVersion=2,dictionaryVersion=2,levels=levels,dailyLevels=daily,dictionary=entries)
+payload=dict(contentVersion=3,dictionaryVersion=3,levels=levels,dailyLevels=daily,dictionary=entries)
 raw=(json.dumps(payload,ensure_ascii=False,indent=2)+'\n').encode()
 (OUT/'campaign-v1.json').write_bytes(raw)
-(OUT/'manifest.json').write_text(json.dumps(dict(contentVersion=2,dictionaryVersion=2,levels=1000,dailyLevels=365,dictionaryEntries=len(entries),sha256=hashlib.sha256(raw).hexdigest()),indent=2)+'\n')
+(OUT/'manifest.json').write_text(json.dumps(dict(contentVersion=3,dictionaryVersion=3,levels=1000,dailyLevels=365,dictionaryEntries=len(entries),sha256=hashlib.sha256(raw).hexdigest()),indent=2)+'\n')
 report=dict(campaign=1000,daily=365,dictionary=len(entries),uniqueTargetConfigurations=len(used),repeatedBagsWithin20=[],editorialStatus='pending',note='All definitions are original. Structural validation is independent from editorial review and device QA.')
 (ROOT/'tools/content-editorial-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print('Prepared 1000 campaign and 365 daily levels',flush=True)

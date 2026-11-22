@@ -35,6 +35,9 @@ interface GameDao {
     @Query("SELECT * FROM sessions WHERE id = :id") suspend fun session(id: String): SessionRow?
     @Query("SELECT * FROM completions WHERE levelId = :id") suspend fun completion(id: Int): CompletionRow?
     @Query("SELECT operationId FROM ledger WHERE operationId = :id") suspend fun operation(id: String): String?
+    @Query("SELECT * FROM ledger WHERE operationId = :id") suspend fun ledgerEntry(id: String): LedgerRow?
+    @Query("SELECT COALESCE(SUM(amount), 0) FROM ledger WHERE sourceId = :sessionId AND reason IN ('bonus-chest', 'bonus-complete')")
+    suspend fun sessionBonusReward(sessionId: String): Long
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun save(row: ProfileRow)
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun save(row: SessionRow)
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun save(row: CompletionRow)

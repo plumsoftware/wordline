@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Android 12+ only permits a solid background in the system-owned launch window.
-         The full S01 artwork is the first application frame; suppress a second logo. -->
+         The layered S01 scene is the first application frame; suppress a second logo. -->
     <style name="Theme.СоединиСлова" parent="Theme.WordLine.Base">
         <item name="android:windowSplashScreenBackground">#45B2E5</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/launch_empty_icon</item>

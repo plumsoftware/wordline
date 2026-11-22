@@ -38,6 +38,7 @@ android {
             val prefix = "wordline.${name}"
             buildConfigField("String", "STORE", "\"${name}\"")
             buildConfigField("String", "REWARDED_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.rewardedAdUnitId").orElse(storeAdUnits.getValue(name).first).get()))
+            buildConfigField("String", "LEVEL_COMPLETE_REWARDED_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.levelCompleteRewardedAdUnitId").orElse(if(name=="rustore") "R-M-20460787-3" else "").get()))
             buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.interstitialAdUnitId").orElse(storeAdUnits.getValue(name).second).get()))
             buildConfigField("String", "SUPPORT_EMAIL", quoted(providers.gradleProperty("$prefix.supportEmail").orElse("").get()))
             buildConfigField("String", "PRIVACY_URL", quoted(providers.gradleProperty("$prefix.privacyUrl").orElse("").get()))
@@ -112,7 +113,7 @@ val validateContent by tasks.registering(Exec::class) {
     group = "verification"
     description = "Validate the bundled crossword package before Android compilation. Requires Python 3."
     workingDir(rootProject.projectDir)
-    commandLine("python3", "tools/validate_content.py")
+    commandLine(if (System.getProperty("os.name").startsWith("Windows")) "python" else "python3", "tools/validate_content.py")
     inputs.dir("src/main/assets/content")
     inputs.file(rootProject.file("tools/validate_content.py"))
 }
