@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "economyVersion": "1.0",
+  "initialCoins": 200,
+  "walletCap": 1000000,
+  "campaignWin": 20,
+  "dailyWin": 30,
+  "bonusChestWords": 5,
+  "bonusChestCoins": 10,
+  "hintLetterCost": 50,
+  "hintWordCost": 100,
+  "hintClueCost": 150,
+  "rewardedCoins": 30,
+  "winExtraCoins": 20,
+  "rewardedDailyMax": 10,
+  "giftCycle": [
+    20,
+    25,
+    30,
+    35,
+    40,
+    50,
+    75
+  ],
+  "interstitial": {
+    "noAdsFirstCampaignLevels": 10,
+    "noAdsFirstActiveSeconds": 600,
+    "minWins": 4,
+    "minActiveSeconds": 180,
+    "afterRewardedCooldownSeconds": 120,
+    "rollingHourMax": 3,
+    "dailyMax": 12
+  },
+  "status": "предлагаемая конфигурация ТЗ, не подтверждённый игровой баланс"
+}

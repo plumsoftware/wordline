@@ -1,0 +1,92 @@
+[
+  {
+    "name": "journey_altai",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: Altai mountains in Russia, a jade alpine lake, Siberian stone pines and snow peaks, dramatic cool morning blues. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-33c8ba90-2f92-4893-a7e6-98ded1ad2775.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_altai.png"
+  },
+  {
+    "name": "journey_bamboo",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: a peaceful Japanese bamboo forest, towering vivid green bamboo trunks, stepping stones and a narrow clear stream, misty golden sunbeams; no temple or writing. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-f8a0b030-c1a5-494d-994d-fd04c3a43613.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_bamboo.png"
+  },
+  {
+    "name": "journey_sahara",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: the Sahara desert, monumental flowing golden dunes, a tiny palm oasis and distant rocky mesas, warm terracotta peach sunset. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-c0afdf39-87ed-410b-9e13-cf3d17c04175.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_sahara.png"
+  },
+  {
+    "name": "journey_moscow",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: Red Square in Moscow with recognizable colorful Saint Basil cathedral domes and elegant historical brick architecture, flowering foreground borders, soft clear summer morning; no flags, banners, symbols, signs, billboards or crowds. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-c51ae24d-e74a-4bfe-9a50-3177227c3a92.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_moscow.png"
+  },
+  {
+    "name": "journey_aurora",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: northern Scandinavia, a frozen fjord and snowy spruce forest beneath a subtle green aurora borealis, cobalt night sky, warm amber highlights in distant unmarked cabin windows. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-861c969a-78ec-4bef-8037-7936862ce257.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_aurora.png"
+  },
+  {
+    "name": "journey_mediterranean",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: Mediterranean coast, turquoise sea and a bright white hillside village, stone terraces, climbing bougainvillea and cypress trees, sunny soft blue sky. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-96c74b6a-20df-4b82-85d9-b6f3286d9860.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_mediterranean.png"
+  },
+  {
+    "name": "journey_canyon",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: vast red sandstone canyon in the American southwest, layered orange cliffs and a winding Colorado-like river, desert shrubs, warm golden afternoon. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-a23d96a1-a92a-4880-b805-5f5e6d487407.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_canyon.png"
+  },
+  {
+    "name": "journey_tuscany",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: Tuscany in Italy, undulating emerald hills, rows of cypress trees and a tiny rustic stone farmhouse, lavender and poppies in the foreground, gentle evening light. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-8d2ee136-02c6-438a-9287-7af4cd6488e6.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_tuscany.png"
+  },
+  {
+    "name": "journey_tropics",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: a Costa Rican tropical rainforest, a tall white cascading waterfall into a teal lagoon, huge fern fronds and bright orchids, humid golden sun rays. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-744e4002-ace2-4b63-b76e-4bec3473826b.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_tropics.png"
+  },
+  {
+    "name": "journey_alps",
+    "prompt": "Use case: illustration-story. Asset type: portrait scenic background and collectible postcard for a family-friendly word puzzle game. Original premium detailed painterly mobile game illustration, full bleed portrait 2:3 aspect ratio. Scene: the Swiss Alps, broad crisp snow valleys and blue glacier mountains, fir trees and a small timber chalet, bright winter morning with pale peach sky. Compose landscape landmarks and sky mainly in the upper half, calm visually uncluttered central area for native UI, detailed foliage or rocks in lower corners. Each location must have its own unmistakable character, palette, flora and architecture, NOT a generic mountain lake. No people, lettering, numbers, logos, flags, political or ideological symbols, weapons, violence, drugs, nudity, sexual content, UI, frames or watermarks. High resolution crisp clean art, beautiful subtle atmospheric light.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-03aa299e-8f28-4726-9e39-7bdd511bde63.png",
+    "target": "app/src/main/res/drawable-nodpi/journey_alps.png"
+  },
+  {
+    "name": "title_collection_hq",
+    "prompt": "Use case: logo-brand. Asset type: transparent illustrated header plaque for a cheerful alpine word game. Very wide horizontal canvas, 5:1 aspect ratio, not square. A gently curved warm ivory cream plaque with rounded organic ends and a subtle polished golden edge; small lush green leaves at both ends and a tiny elegant mountain crest above the center. Large extremely legible bold rounded dark navy Russian text, exactly \"Твои открытия\". Text occupies most of the plaque, no other words. Premium crisp game illustration, tasteful gentle highlights, clean contours. The whole plaque fits fully inside the canvas with small even transparent margin. True transparent background. No scenery, no other UI controls, no confetti, no watermark.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-eb256684-c4bd-4e04-8f54-f8f7936e69bc.png",
+    "target": "app/src/main/res/drawable-nodpi/title_collection_hq.png"
+  },
+  {
+    "name": "title_appearance_hq",
+    "prompt": "Use case: logo-brand. Asset type: transparent illustrated header plaque for a cheerful alpine word game. Very wide horizontal canvas, 5:1 aspect ratio, not square. A gently curved warm ivory cream plaque with rounded organic ends and a subtle polished golden edge; small lush green leaves at both ends and a tiny elegant mountain crest above the center. Large extremely legible bold rounded dark navy Russian text, exactly \"Оформление\". Text occupies most of the plaque, no other words. Premium crisp game illustration, tasteful gentle highlights, clean contours. The whole plaque fits fully inside the canvas with small even transparent margin. True transparent background. No scenery, no other UI controls, no confetti, no watermark.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-ec4e766a-d4d7-49a5-a261-85f0493624a3.png",
+    "target": "app/src/main/res/drawable-nodpi/title_appearance_hq.png"
+  },
+  {
+    "name": "title_achievements_hq",
+    "prompt": "Use case: logo-brand. Asset type: transparent illustrated header plaque for a cheerful alpine word game. Very wide horizontal canvas, 5:1 aspect ratio, not square. A gently curved warm ivory cream plaque with rounded organic ends and a subtle polished golden edge; small lush green leaves at both ends and a tiny elegant mountain crest above the center. Large extremely legible bold rounded dark navy Russian text, exactly \"Достижения\". Text occupies most of the plaque, no other words. Premium crisp game illustration, tasteful gentle highlights, clean contours. The whole plaque fits fully inside the canvas with small even transparent margin. True transparent background. No scenery, no other UI controls, no confetti, no watermark.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-0dd06f5b-7732-45c2-a054-4eba3254b2a2.png",
+    "target": "app/src/main/res/drawable-nodpi/title_achievements_hq.png"
+  },
+  {
+    "name": "title_statistics_hq",
+    "prompt": "Use case: logo-brand. Asset type: transparent illustrated header plaque for a cheerful alpine word game. Very wide horizontal canvas, 5:1 aspect ratio, not square. A gently curved warm ivory cream plaque with rounded organic ends and a subtle polished golden edge; small lush green leaves at both ends and a tiny elegant mountain crest above the center. Large extremely legible bold rounded dark navy Russian text, exactly \"Твой путь\". Text occupies most of the plaque, no other words. Premium crisp game illustration, tasteful gentle highlights, clean contours. The whole plaque fits fully inside the canvas with small even transparent margin. True transparent background. No scenery, no other UI controls, no confetti, no watermark.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-737e421b-ed8c-4902-b990-0e21785e2fcf.png",
+    "target": "app/src/main/res/drawable-nodpi/title_statistics_hq.png"
+  },
+  {
+    "name": "settings_hq",
+    "prompt": "Use case: logo-brand. Asset type: standalone transparent settings icon for the same premium family-friendly alpine word game. One beautiful clean rounded 8-tooth dark midnight navy gear, warm ivory center hole, tasteful polished gold rim and a tiny emerald green enamel accent. Thick clear readable silhouette at 24dp, elegant soft bevels and crisp highlights, no excessive microdetail. Square canvas, centered gear fills 85 percent, real transparent background, no button backing plate, no letters, no shadow cloud, no surrounding decorations, no watermark. Modern playful polished game UI style.",
+    "source": "C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-910f1746-58b2-42f2-8243-af1bd01fe072.png",
+    "target": "app/src/main/res/drawable-nodpi/settings_hq.png"
+  }
+]

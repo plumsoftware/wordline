@@ -1,0 +1,15 @@
+[
+  {
+    "source": "design/screens/S01-launch.png",
+    "target": "app/src/main/res/drawable-nodpi/launch_lake_reference.png",
+    "method": "Built-in image_gen, clean background edit",
+    "prompt": "Use case: precise-object-edit. Edit target: supplied S01-launch.png. Asset type: clean background for Android splash. Remove the entire central СЛОВА Путешествие logo, including its small decorative mountain, five cream tiles, green ribbon and decorative leaves. Also remove the small circular loading spinner at x164 y495 and the Загрузка... caption at x164 y535. Inpaint ONLY those areas with coherent alpine lake scenery. Keep original background composition exactly: top-left hanging green foliage, pink clouds, tall snowy mountain summit at x207 y131, sun at x287 y140, pine shoreline and lake horizon around y405, turquoise lake, foreground flowers and rocks. Keep portrait aspect ratio 327:627. Full bleed square corners, no UI, text, letters, symbols, loading marks or buttons. All labels and logo will be real separate application elements."
+  },
+  {
+    "source": "design/screens/S01-launch.png loading indicator",
+    "target": "app/src/main/res/drawable-nodpi/launch_loading_spinner.png",
+    "method": "Built-in image_gen, transparent generation and refinement; native twelve-capsule clipping in LaunchScreen",
+    "prompt": "Use case: background-extraction. Reference image: S01-launch.png. Asset type: transparent standalone loading spinner sprite for native Android animation. Recreate ONLY the small 12-spoke loading indicator seen at x164 y495 in the reference. A precisely centered ring of twelve identical short rounded capsule spokes, radially oriented, clockwise opacity gradient from faint translucent pale aqua to fully opaque warm white. Clear empty hole in the middle. Circle occupies 84 percent of a square canvas, with even transparent margin around all edges. Flat clean UI geometry matching the reference, no glow, no shadows, no lake, no background, no lettering or caption, no other elements. Real transparent background. The whole sprite will be rotated by app code.",
+    "refinementPrompt": "Use case: precise-object-edit. Edit target: the generated transparent loading spinner. Remove ALL glow, bloom, haze, fog, shadow, grain and noise surrounding or between spokes. Keep ONLY twelve crisp FLAT short capsule shapes in a perfectly spaced circular ring, on actual transparent pixels. This is a 40dp small UI spinner, NOT a glowing illustration. Each spoke must have one uniform solid flat color with rounded ends: a clockwise brightness and opacity progression from pale cyan at 20 percent opacity to white at 100 percent opacity. Spokes do not touch each other; center is completely empty transparent. Canvas square, centered ring fills 84 percent of canvas. No background, no border, no text. Outside capsule boundaries, every pixel must be completely transparent. No effects whatsoever."
+  }
+]

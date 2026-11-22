@@ -1,0 +1,24 @@
+{
+  "priority": "Disabled > Loading для действий; Pressed, Selected и Focused — отдельные оси, focus ring поверх selected. Геометрия не должна прыгать.",
+  "typography": {
+    "titleSp": 24,
+    "bodySp": 16,
+    "captionSp": 14,
+    "minimumHintSp": 12,
+    "letterSp": 32
+  },
+  "button": {
+    "minimumHeightDp": 56,
+    "iconOnlyTargetDp": 48,
+    "paddingHorizontalDp": 20,
+    "paddingVerticalDp": 12,
+    "iconDp": 24,
+    "iconTextGapDp": 8,
+    "disabledClick": false,
+    "loadingClick": false,
+    "allowMultiline": true,
+    "loadingKeepsLabel": true,
+    "textNotBaked": true
+  },
+  "native": "Surface/Shape/Canvas/Text/Icon; keep semantics and interactionSource; no image-only screen."
+}

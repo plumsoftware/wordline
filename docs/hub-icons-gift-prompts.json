@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-22",
+  "assets": [
+    {
+      "name": "hub_achievements_hq",
+      "prompt": "Create one premium high resolution 3D casual mobile game UI item icon. A polished golden trophy cup with emerald enamel center, small symmetric green laurel leaves at base. Front facing, compact legible silhouette. Unified art direction: same cozy premium nature word game, rounded soft sculpted shapes, warm yellow gold beveled edges, jewel emerald accents, soft upper-left studio light, crisp detailed material highlights, gentle contact shadow only beneath item, no scenery, no frame, no letters, no text, no watermarks. Centered isolated item fills 86% of square canvas, truly transparent background. Beautiful readable at 32dp. Save as hub_achievements_hq.png.",
+      "source": "Generated images are saved to C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539 as C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-81a54261-b672-438d-9fe3-ab0a19507e02.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "resource": "app/src/main/res/drawable-nodpi/hub_achievements_hq.png"
+    },
+    {
+      "name": "hub_statistics_hq",
+      "prompt": "Create one premium high resolution 3D casual mobile game UI item icon. Three ascending emerald green bar chart columns on a small polished gold base, a graceful gold upward curved arrow behind. Front facing, compact legible silhouette. Unified art direction: same cozy premium nature word game, rounded soft sculpted shapes, warm yellow gold beveled edges, jewel emerald accents, soft upper-left studio light, crisp detailed material highlights, gentle contact shadow only beneath item, no scenery, no frame, no letters, no text, no watermarks. Centered isolated item fills 86% of square canvas, truly transparent background. Beautiful readable at 32dp. Save as hub_statistics_hq.png.",
+      "source": "Generated images are saved to C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539 as C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-605647f7-b1c8-4e4f-a7d5-9753c9f0cf19.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "resource": "app/src/main/res/drawable-nodpi/hub_statistics_hq.png"
+    },
+    {
+      "name": "hub_appearance_hq",
+      "prompt": "Create one premium high resolution 3D casual mobile game UI item icon. An artist palette of polished gold with three jewel enamel paint dots emerald, turquoise and purple, with one short emerald handled paint brush. Front facing, compact legible silhouette. Unified art direction: same cozy premium nature word game, rounded soft sculpted shapes, warm yellow gold beveled edges, jewel emerald accents, soft upper-left studio light, crisp detailed material highlights, gentle contact shadow only beneath item, no scenery, no frame, no letters, no text, no watermarks. Centered isolated item fills 86% of square canvas, truly transparent background. Beautiful readable at 32dp. Save as hub_appearance_hq.png.",
+      "source": "Generated images are saved to C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539 as C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-38315f3d-82ec-40c3-a75d-b96e9ee6d40c.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "resource": "app/src/main/res/drawable-nodpi/hub_appearance_hq.png"
+    },
+    {
+      "name": "item_gift_open_hq",
+      "prompt": "Create one premium high resolution 3D casual mobile game UI item icon. An opened shiny golden yellow square gift box with rich purple ribbon; lid lifted above and slightly tilted, with purple satin bow, empty softly glowing interior visible, no items or coins emerging. Front three quarter view. This is a claimed daily gift in a cozy word puzzle nature game. Unified art direction: same cozy premium nature word game, rounded soft sculpted shapes, warm yellow gold beveled edges, jewel emerald accents, soft upper-left studio light, crisp detailed material highlights, gentle contact shadow only beneath item, no scenery, no frame, no letters, no text, no watermarks. Centered isolated item fills 86% of square canvas, truly transparent background. Beautiful readable at 32dp. Save as item_gift_open_hq.png.",
+      "source": "Generated images are saved to C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539 as C:\\Users\\yulia\\.codex\\generated_images\\01a1fb39-947e-7733-994a-49cf4f624539\\exec-a2bb4cdf-ecd8-45f4-b7e6-a5a1288deea7.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "resource": "app/src/main/res/drawable-nodpi/item_gift_open_hq.png"
+    }
+  ]
+}

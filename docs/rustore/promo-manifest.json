@@ -1,0 +1,118 @@
+{
+  "headline": {
+    "height": 194,
+    "accentColor": "#078452",
+    "x": 84,
+    "font": "Segoe UI Bold",
+    "plaque": {
+      "fit": "three-slice",
+      "height": 356,
+      "edgeWidth": 92,
+      "width": 1036,
+      "x": 22,
+      "y": 0
+    },
+    "width": 912,
+    "y": 94,
+    "fontSize": 84,
+    "lines": 2
+  },
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "phone": {
+    "height": 1550,
+    "y": 342,
+    "width": 748,
+    "x": 166
+  },
+  "screenViewport": {
+    "height": 1494,
+    "y": 370,
+    "width": 700,
+    "fit": "fill",
+    "x": 190
+  },
+  "files": [
+    {
+      "screen": "promo/screens/01-gameplay.png",
+      "height": 1920,
+      "accent": "буквы",
+      "file": "promo/upload/01-gameplay.jpg",
+      "reference": "S05-word-selection.png",
+      "bytes": 681506,
+      "width": 1080,
+      "headline": [
+        "Соединяй буквы,",
+        "находи слова"
+      ]
+    },
+    {
+      "screen": "promo/screens/02-home.png",
+      "height": 1920,
+      "accent": "мир",
+      "file": "promo/upload/02-home.jpg",
+      "reference": "S02-home.png",
+      "bytes": 716092,
+      "width": 1080,
+      "headline": [
+        "Открывай мир",
+        "слово за словом"
+      ]
+    },
+    {
+      "screen": "promo/screens/03-collection.png",
+      "height": 1920,
+      "accent": "коллекция",
+      "file": "promo/upload/03-collection.jpg",
+      "reference": "S19-collection.png",
+      "bytes": 709313,
+      "width": 1080,
+      "headline": [
+        "Твоя коллекция",
+        "красивых мест"
+      ]
+    },
+    {
+      "screen": "promo/screens/04-map.png",
+      "height": 1920,
+      "accent": "открытиям",
+      "file": "promo/upload/04-map.jpg",
+      "reference": "S03-map.png",
+      "bytes": 804419,
+      "width": 1080,
+      "headline": [
+        "Шаг за шагом —",
+        "к новым открытиям"
+      ]
+    },
+    {
+      "screen": "promo/screens/05-daily.png",
+      "height": 1920,
+      "accent": "кроссворд",
+      "file": "promo/upload/05-daily.jpg",
+      "reference": "S15-daily-crossword.png",
+      "bytes": 650016,
+      "width": 1080,
+      "headline": [
+        "Новый кроссворд",
+        "каждый день"
+      ]
+    },
+    {
+      "screen": "promo/screens/06-gift.png",
+      "height": 1920,
+      "accent": "Подарки",
+      "file": "promo/upload/06-gift.jpg",
+      "reference": "S16-daily-gift.png",
+      "bytes": 683013,
+      "width": 1080,
+      "headline": [
+        "Подарки ждут",
+        "каждый день"
+      ]
+    }
+  ],
+  "version": 2
+}

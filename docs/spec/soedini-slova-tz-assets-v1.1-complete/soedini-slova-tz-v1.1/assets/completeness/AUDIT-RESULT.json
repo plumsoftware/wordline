@@ -1,0 +1,100 @@
+{
+  "version": "1.1",
+  "scope": "Полный набор графики/визуальных состояний S01–S36 и E01–E16, не Android runtime",
+  "screens": 52,
+  "ownElementRows": 610,
+  "inheritedScreenRows": 25,
+  "coverageRows": 635,
+  "componentFamilies": 55,
+  "statesPerTheme": 257,
+  "requiredStateSVG": 514,
+  "requiredStatePNG": 514,
+  "uniqueIconGeometry": 70,
+  "iconColorVariants": 420,
+  "actionStringKeys": 79,
+  "nativeDrawingOrExternalDeclarations": 51,
+  "manifestRecords": 2270,
+  "checkedHtmlFiles": 4,
+  "contrastChecks": [
+    {
+      "theme": "standard",
+      "foreground": "ink",
+      "background": "surface",
+      "ratio": 15.0
+    },
+    {
+      "theme": "standard",
+      "foreground": "white",
+      "background": "primary",
+      "ratio": 5.37
+    },
+    {
+      "theme": "standard",
+      "foreground": "white",
+      "background": "rewarded",
+      "ratio": 8.83
+    },
+    {
+      "theme": "standard",
+      "foreground": "white",
+      "background": "danger",
+      "ratio": 7.05
+    },
+    {
+      "theme": "standard",
+      "foreground": "ink",
+      "background": "selected",
+      "ratio": 13.02
+    },
+    {
+      "theme": "standard",
+      "foreground": "disabledInk",
+      "background": "disabled",
+      "ratio": 4.73
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "ink",
+      "background": "surface",
+      "ratio": 21.0
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "white",
+      "background": "primary",
+      "ratio": 9.0
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "white",
+      "background": "rewarded",
+      "ratio": 12.91
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "white",
+      "background": "danger",
+      "ratio": 9.46
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "ink",
+      "background": "selected",
+      "ratio": 17.79
+    },
+    {
+      "theme": "high-contrast",
+      "foreground": "disabledInk",
+      "background": "disabled",
+      "ratio": 7.76
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "status": "PASS",
+  "notVerified": [
+    "Android compilation of VectorDrawable/adaptive launcher",
+    "Compose runtime/TalkBack on a device",
+    "Unspecified future screens or third-party ad UI"
+  ]
+}

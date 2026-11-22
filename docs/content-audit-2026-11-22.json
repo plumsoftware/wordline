@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-22",
+  "scope": "Shipped project-owned JSON, Kotlin text literals, string resources; media inventory. No data edits.",
+  "dictionaryEntries": 434,
+  "campaignLevels": 1000,
+  "dailyLevels": 365,
+  "textFiles": 56,
+  "mediaFiles": 109,
+  "lexicalFindings": [],
+  "patterns": {
+    "user_requested_topic_exclusions": "\\b(?:лгбт\\w*|lgbt\\w*|гомосексу\\w*|лесбиян\\w*|трансгендер\\w*|гей|геи)\\b",
+    "obscene_language": "\\b(?:хуй\\w*|хуя\\w*|хуё\\w*|пизд\\w*|еба\\w*|ёб\\w*|бляд\\w*|бля|нахуй|сука|суки|жопа)\\b",
+    "adult_explicit": "\\b(?:порно\\w*|порнограф\\w*|эротик\\w*|секс|секса|сексом|сексуаль\\w*)\\b",
+    "drug_self_harm_review": "\\b(?:наркотик\\w*|кокаин|героин|метамфетамин|гашиш|марихуан\\w*|суицид\\w*|самоубий\\w*)\\b",
+    "extremism_symbolism_review": "\\b(?:игил|нацист\\w*|свастик\\w*|терроризм\\w*)\\b"
+  },
+  "editorialContextReview": [
+    {
+      "word": "ПИКА",
+      "definition": "Длинное древковое оружие с острым наконечником.",
+      "campaignLevelsUsingWord": 13,
+      "dailyLevelsUsingWord": 11
+    },
+    {
+      "word": "РАБ",
+      "definition": "Человек, лишённый личной свободы и находящийся во власти хозяина.",
+      "campaignLevelsUsingWord": 71,
+      "dailyLevelsUsingWord": 29
+    },
+    {
+      "word": "ТАНК",
+      "definition": "Бронированная гусеничная машина.",
+      "campaignLevelsUsingWord": 35,
+      "dailyLevelsUsingWord": 27
+    },
+    {
+      "word": "ТИР",
+      "definition": "Место для тренировочной стрельбы по мишеням.",
+      "campaignLevelsUsingWord": 55,
+      "dailyLevelsUsingWord": 18
+    }
+  ],
+  "contentSha256": "bedd10f71fe6f17de769437737f698bfd541a7a6522e68b6e79def3ef857d2c5",
+  "limits": [
+    "Keyword review is not an exhaustive legal classification.",
+    "Third-party SDK binaries, remote advertising, imported saves and future content are not certified.",
+    "Media needs separate visual review; raster text is not detected by this lexical script."
+  ],
+  "visualReview": {
+    "imagesReviewed": 69,
+    "scope": "All drawable-nodpi PNG/WebP contact sheets, including old/new backgrounds, postcards, logos, items and generated headers. GIFs derive from these scenes with procedural leaves/snow particles.",
+    "suspiciousScenesFound": false,
+    "notes": "Scenery, architecture, plants, animals and game reward items. No explicit adult imagery, hate or extremist iconography observed. Cultural/religious architecture is not treated as suspicious by itself."
+  },
+  "audioReview": {
+    "scope": "tools/prepare_audio.py and packaged audio source note",
+    "result": "Original generated tones and ambient synthesis, no recorded speech or lyrics in the source generator."
+  },
+  "legalReference": {
+    "title": "Федеральный список экстремистских материалов — Минюст России",
+    "url": "https://minjust.gov.ru/ru/extremist-materials/",
+    "scope": "Reference for further material-specific legal review; not an exhaustive automated comparison or certification."
+  },
+  "editorialStatusCounts": {
+    "pending": 434
+  },
+  "contentVersion": 3,
+  "wordRemoval": {
+    "words": [
+      "БАР",
+      "МОР",
+      "РОМ",
+      "СЕМЯ"
+    ],
+    "activeDictionaryMatches": 0,
+    "activeTargetMatches": 0,
+    "activeBonusMatches": 0,
+    "compatibilityNote": "Retired identifiers exist only in migration code/metadata to import old progress; they are not playable words."
+  }
+}

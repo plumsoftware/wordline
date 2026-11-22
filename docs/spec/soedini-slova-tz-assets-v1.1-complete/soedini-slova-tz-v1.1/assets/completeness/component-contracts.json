@@ -1,0 +1,2317 @@
+{
+  "schemaVersion": 1,
+  "scope": "Графика и UI-состояния S01–S36/E01–E16; не готовое приложение",
+  "themes": {
+    "standard": {
+      "ink": "#10223F",
+      "surface": "#FFF8E8",
+      "primary": "#087B3E",
+      "rewarded": "#6520AF",
+      "danger": "#A42B36",
+      "selected": "#C7F3D6",
+      "stroke": "#958F80",
+      "disabled": "#D9DFE5",
+      "disabledInk": "#526079",
+      "focus": "#10223F",
+      "track": "#C6D3D5",
+      "white": "#FFFFFF"
+    },
+    "high-contrast": {
+      "ink": "#000000",
+      "surface": "#FFFFFF",
+      "primary": "#00552B",
+      "rewarded": "#46117B",
+      "danger": "#861D28",
+      "selected": "#CEF6D7",
+      "stroke": "#000000",
+      "disabled": "#E2E2E2",
+      "disabledInk": "#424242",
+      "focus": "#000000",
+      "track": "#B0B0B0",
+      "white": "#FFFFFF"
+    }
+  },
+  "components": {
+    "ButtonPrimary": {
+      "id": "ButtonPrimary",
+      "widthReference": 320,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonPrimary/normal.svg",
+          "pressed": "assets/components/standard/ButtonPrimary/pressed.svg",
+          "focused": "assets/components/standard/ButtonPrimary/focused.svg",
+          "disabled": "assets/components/standard/ButtonPrimary/disabled.svg",
+          "loading": "assets/components/standard/ButtonPrimary/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonPrimary/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonPrimary/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonPrimary/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonPrimary/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonPrimary/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonSecondary": {
+      "id": "ButtonSecondary",
+      "widthReference": 320,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonSecondary/normal.svg",
+          "pressed": "assets/components/standard/ButtonSecondary/pressed.svg",
+          "focused": "assets/components/standard/ButtonSecondary/focused.svg",
+          "disabled": "assets/components/standard/ButtonSecondary/disabled.svg",
+          "loading": "assets/components/standard/ButtonSecondary/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonSecondary/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonSecondary/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonSecondary/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonSecondary/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonSecondary/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonRewarded": {
+      "id": "ButtonRewarded",
+      "widthReference": 320,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonRewarded/normal.svg",
+          "pressed": "assets/components/standard/ButtonRewarded/pressed.svg",
+          "focused": "assets/components/standard/ButtonRewarded/focused.svg",
+          "disabled": "assets/components/standard/ButtonRewarded/disabled.svg",
+          "loading": "assets/components/standard/ButtonRewarded/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonRewarded/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonRewarded/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonRewarded/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonRewarded/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonRewarded/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonQuiet": {
+      "id": "ButtonQuiet",
+      "widthReference": 320,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonQuiet/normal.svg",
+          "pressed": "assets/components/standard/ButtonQuiet/pressed.svg",
+          "focused": "assets/components/standard/ButtonQuiet/focused.svg",
+          "disabled": "assets/components/standard/ButtonQuiet/disabled.svg",
+          "loading": "assets/components/standard/ButtonQuiet/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonQuiet/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonQuiet/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonQuiet/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonQuiet/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonQuiet/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonDanger": {
+      "id": "ButtonDanger",
+      "widthReference": 320,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonDanger/normal.svg",
+          "pressed": "assets/components/standard/ButtonDanger/pressed.svg",
+          "focused": "assets/components/standard/ButtonDanger/focused.svg",
+          "disabled": "assets/components/standard/ButtonDanger/disabled.svg",
+          "loading": "assets/components/standard/ButtonDanger/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonDanger/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonDanger/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonDanger/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonDanger/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonDanger/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonIcon": {
+      "id": "ButtonIcon",
+      "widthReference": 64,
+      "heightReference": 64,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonIcon/normal.svg",
+          "pressed": "assets/components/standard/ButtonIcon/pressed.svg",
+          "focused": "assets/components/standard/ButtonIcon/focused.svg",
+          "disabled": "assets/components/standard/ButtonIcon/disabled.svg",
+          "loading": "assets/components/standard/ButtonIcon/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonIcon/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonIcon/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonIcon/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonIcon/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonIcon/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonIconInverse": {
+      "id": "ButtonIconInverse",
+      "widthReference": 64,
+      "heightReference": 64,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonIconInverse/normal.svg",
+          "pressed": "assets/components/standard/ButtonIconInverse/pressed.svg",
+          "focused": "assets/components/standard/ButtonIconInverse/focused.svg",
+          "disabled": "assets/components/standard/ButtonIconInverse/disabled.svg",
+          "loading": "assets/components/standard/ButtonIconInverse/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonIconInverse/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonIconInverse/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonIconInverse/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonIconInverse/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonIconInverse/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ButtonHint": {
+      "id": "ButtonHint",
+      "widthReference": 112,
+      "heightReference": 88,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "loading"
+      ],
+      "primitive": "button",
+      "role": "Button",
+      "layout": "Кнопка от 48dp; текст и icon slot нативные; подпись переносится. Loading оставляет ширину, подавляет повторный callback.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ButtonHint/normal.svg",
+          "pressed": "assets/components/standard/ButtonHint/pressed.svg",
+          "focused": "assets/components/standard/ButtonHint/focused.svg",
+          "disabled": "assets/components/standard/ButtonHint/disabled.svg",
+          "loading": "assets/components/standard/ButtonHint/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ButtonHint/normal.svg",
+          "pressed": "assets/components/high-contrast/ButtonHint/pressed.svg",
+          "focused": "assets/components/high-contrast/ButtonHint/focused.svg",
+          "disabled": "assets/components/high-contrast/ButtonHint/disabled.svg",
+          "loading": "assets/components/high-contrast/ButtonHint/loading.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "NavItem": {
+      "id": "NavItem",
+      "widthReference": 112,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "selected",
+        "selected-focused",
+        "disabled"
+      ],
+      "primitive": "nav",
+      "role": "Tab",
+      "layout": "Три равных элемента; подпись плюс иконка; selectableGroup; selected не равен pressed.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/NavItem/normal.svg",
+          "pressed": "assets/components/standard/NavItem/pressed.svg",
+          "focused": "assets/components/standard/NavItem/focused.svg",
+          "selected": "assets/components/standard/NavItem/selected.svg",
+          "selected-focused": "assets/components/standard/NavItem/selected-focused.svg",
+          "disabled": "assets/components/standard/NavItem/disabled.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/NavItem/normal.svg",
+          "pressed": "assets/components/high-contrast/NavItem/pressed.svg",
+          "focused": "assets/components/high-contrast/NavItem/focused.svg",
+          "selected": "assets/components/high-contrast/NavItem/selected.svg",
+          "selected-focused": "assets/components/high-contrast/NavItem/selected-focused.svg",
+          "disabled": "assets/components/high-contrast/NavItem/disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "LevelNode": {
+      "id": "LevelNode",
+      "widthReference": 80,
+      "heightReference": 80,
+      "states": [
+        "available",
+        "current",
+        "pressed",
+        "focused",
+        "completed",
+        "locked",
+        "completed-focused"
+      ],
+      "primitive": "node",
+      "role": "Button",
+      "layout": "Узел карты с нативным номером, звёздами и условием закрытия.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "available": "assets/components/standard/LevelNode/available.svg",
+          "current": "assets/components/standard/LevelNode/current.svg",
+          "pressed": "assets/components/standard/LevelNode/pressed.svg",
+          "focused": "assets/components/standard/LevelNode/focused.svg",
+          "completed": "assets/components/standard/LevelNode/completed.svg",
+          "locked": "assets/components/standard/LevelNode/locked.svg",
+          "completed-focused": "assets/components/standard/LevelNode/completed-focused.svg"
+        },
+        "high-contrast": {
+          "available": "assets/components/high-contrast/LevelNode/available.svg",
+          "current": "assets/components/high-contrast/LevelNode/current.svg",
+          "pressed": "assets/components/high-contrast/LevelNode/pressed.svg",
+          "focused": "assets/components/high-contrast/LevelNode/focused.svg",
+          "completed": "assets/components/high-contrast/LevelNode/completed.svg",
+          "locked": "assets/components/high-contrast/LevelNode/locked.svg",
+          "completed-focused": "assets/components/high-contrast/LevelNode/completed-focused.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "CalendarDay": {
+      "id": "CalendarDay",
+      "widthReference": 64,
+      "heightReference": 64,
+      "states": [
+        "available",
+        "today",
+        "selected",
+        "selected-focused",
+        "completed",
+        "missed",
+        "future",
+        "outside-month"
+      ],
+      "primitive": "calendar",
+      "role": "Button",
+      "layout": "Ровно 7 колонок; день текстом; today и selected независимы; будущий недоступен.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "available": "assets/components/standard/CalendarDay/available.svg",
+          "today": "assets/components/standard/CalendarDay/today.svg",
+          "selected": "assets/components/standard/CalendarDay/selected.svg",
+          "selected-focused": "assets/components/standard/CalendarDay/selected-focused.svg",
+          "completed": "assets/components/standard/CalendarDay/completed.svg",
+          "missed": "assets/components/standard/CalendarDay/missed.svg",
+          "future": "assets/components/standard/CalendarDay/future.svg",
+          "outside-month": "assets/components/standard/CalendarDay/outside-month.svg"
+        },
+        "high-contrast": {
+          "available": "assets/components/high-contrast/CalendarDay/available.svg",
+          "today": "assets/components/high-contrast/CalendarDay/today.svg",
+          "selected": "assets/components/high-contrast/CalendarDay/selected.svg",
+          "selected-focused": "assets/components/high-contrast/CalendarDay/selected-focused.svg",
+          "completed": "assets/components/high-contrast/CalendarDay/completed.svg",
+          "missed": "assets/components/high-contrast/CalendarDay/missed.svg",
+          "future": "assets/components/high-contrast/CalendarDay/future.svg",
+          "outside-month": "assets/components/high-contrast/CalendarDay/outside-month.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "GiftDay": {
+      "id": "GiftDay",
+      "widthReference": 80,
+      "heightReference": 112,
+      "states": [
+        "available",
+        "current",
+        "claimed",
+        "future",
+        "focused"
+      ],
+      "primitive": "giftday",
+      "role": "Button",
+      "layout": "День/монеты текстом, предмет отдельным PNG; не уменьшать hit-area.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "available": "assets/components/standard/GiftDay/available.svg",
+          "current": "assets/components/standard/GiftDay/current.svg",
+          "claimed": "assets/components/standard/GiftDay/claimed.svg",
+          "future": "assets/components/standard/GiftDay/future.svg",
+          "focused": "assets/components/standard/GiftDay/focused.svg"
+        },
+        "high-contrast": {
+          "available": "assets/components/high-contrast/GiftDay/available.svg",
+          "current": "assets/components/high-contrast/GiftDay/current.svg",
+          "claimed": "assets/components/high-contrast/GiftDay/claimed.svg",
+          "future": "assets/components/high-contrast/GiftDay/future.svg",
+          "focused": "assets/components/high-contrast/GiftDay/focused.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Toggle": {
+      "id": "Toggle",
+      "widthReference": 72,
+      "heightReference": 48,
+      "states": [
+        "off",
+        "on",
+        "off-pressed",
+        "on-pressed",
+        "off-focused",
+        "on-focused",
+        "off-disabled",
+        "on-disabled"
+      ],
+      "primitive": "toggle",
+      "role": "Switch",
+      "layout": "Строка toggleable, один семантический switch; не два вложенных click.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "off": "assets/components/standard/Toggle/off.svg",
+          "on": "assets/components/standard/Toggle/on.svg",
+          "off-pressed": "assets/components/standard/Toggle/off-pressed.svg",
+          "on-pressed": "assets/components/standard/Toggle/on-pressed.svg",
+          "off-focused": "assets/components/standard/Toggle/off-focused.svg",
+          "on-focused": "assets/components/standard/Toggle/on-focused.svg",
+          "off-disabled": "assets/components/standard/Toggle/off-disabled.svg",
+          "on-disabled": "assets/components/standard/Toggle/on-disabled.svg"
+        },
+        "high-contrast": {
+          "off": "assets/components/high-contrast/Toggle/off.svg",
+          "on": "assets/components/high-contrast/Toggle/on.svg",
+          "off-pressed": "assets/components/high-contrast/Toggle/off-pressed.svg",
+          "on-pressed": "assets/components/high-contrast/Toggle/on-pressed.svg",
+          "off-focused": "assets/components/high-contrast/Toggle/off-focused.svg",
+          "on-focused": "assets/components/high-contrast/Toggle/on-focused.svg",
+          "off-disabled": "assets/components/high-contrast/Toggle/off-disabled.svg",
+          "on-disabled": "assets/components/high-contrast/Toggle/on-disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Checkbox": {
+      "id": "Checkbox",
+      "widthReference": 48,
+      "heightReference": 48,
+      "states": [
+        "off",
+        "on",
+        "mixed",
+        "off-pressed",
+        "on-pressed",
+        "off-focused",
+        "on-focused",
+        "mixed-focused",
+        "off-disabled",
+        "on-disabled",
+        "mixed-disabled"
+      ],
+      "primitive": "checkbox",
+      "role": "Checkbox",
+      "layout": "Одна область действия с родительской строкой, stateDescription.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "off": "assets/components/standard/Checkbox/off.svg",
+          "on": "assets/components/standard/Checkbox/on.svg",
+          "mixed": "assets/components/standard/Checkbox/mixed.svg",
+          "off-pressed": "assets/components/standard/Checkbox/off-pressed.svg",
+          "on-pressed": "assets/components/standard/Checkbox/on-pressed.svg",
+          "off-focused": "assets/components/standard/Checkbox/off-focused.svg",
+          "on-focused": "assets/components/standard/Checkbox/on-focused.svg",
+          "mixed-focused": "assets/components/standard/Checkbox/mixed-focused.svg",
+          "off-disabled": "assets/components/standard/Checkbox/off-disabled.svg",
+          "on-disabled": "assets/components/standard/Checkbox/on-disabled.svg",
+          "mixed-disabled": "assets/components/standard/Checkbox/mixed-disabled.svg"
+        },
+        "high-contrast": {
+          "off": "assets/components/high-contrast/Checkbox/off.svg",
+          "on": "assets/components/high-contrast/Checkbox/on.svg",
+          "mixed": "assets/components/high-contrast/Checkbox/mixed.svg",
+          "off-pressed": "assets/components/high-contrast/Checkbox/off-pressed.svg",
+          "on-pressed": "assets/components/high-contrast/Checkbox/on-pressed.svg",
+          "off-focused": "assets/components/high-contrast/Checkbox/off-focused.svg",
+          "on-focused": "assets/components/high-contrast/Checkbox/on-focused.svg",
+          "mixed-focused": "assets/components/high-contrast/Checkbox/mixed-focused.svg",
+          "off-disabled": "assets/components/high-contrast/Checkbox/off-disabled.svg",
+          "on-disabled": "assets/components/high-contrast/Checkbox/on-disabled.svg",
+          "mixed-disabled": "assets/components/high-contrast/Checkbox/mixed-disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Radio": {
+      "id": "Radio",
+      "widthReference": 48,
+      "heightReference": 48,
+      "states": [
+        "off",
+        "on",
+        "off-pressed",
+        "on-pressed",
+        "off-focused",
+        "on-focused",
+        "off-disabled",
+        "on-disabled"
+      ],
+      "primitive": "radio",
+      "role": "RadioButton",
+      "layout": "selectableGroup; поддержать клавиатуру.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "off": "assets/components/standard/Radio/off.svg",
+          "on": "assets/components/standard/Radio/on.svg",
+          "off-pressed": "assets/components/standard/Radio/off-pressed.svg",
+          "on-pressed": "assets/components/standard/Radio/on-pressed.svg",
+          "off-focused": "assets/components/standard/Radio/off-focused.svg",
+          "on-focused": "assets/components/standard/Radio/on-focused.svg",
+          "off-disabled": "assets/components/standard/Radio/off-disabled.svg",
+          "on-disabled": "assets/components/standard/Radio/on-disabled.svg"
+        },
+        "high-contrast": {
+          "off": "assets/components/high-contrast/Radio/off.svg",
+          "on": "assets/components/high-contrast/Radio/on.svg",
+          "off-pressed": "assets/components/high-contrast/Radio/off-pressed.svg",
+          "on-pressed": "assets/components/high-contrast/Radio/on-pressed.svg",
+          "off-focused": "assets/components/high-contrast/Radio/off-focused.svg",
+          "on-focused": "assets/components/high-contrast/Radio/on-focused.svg",
+          "off-disabled": "assets/components/high-contrast/Radio/off-disabled.svg",
+          "on-disabled": "assets/components/high-contrast/Radio/on-disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "CrosswordTile": {
+      "id": "CrosswordTile",
+      "widthReference": 64,
+      "heightReference": 64,
+      "states": [
+        "empty",
+        "selected",
+        "selected-focused",
+        "filled",
+        "correct",
+        "revealed",
+        "error",
+        "disabled"
+      ],
+      "primitive": "tile",
+      "role": "Button",
+      "layout": "Плитка по геометрии контента; выбранная клетка 48dp touch-area по отдельной схеме выбора.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "empty": "assets/components/standard/CrosswordTile/empty.svg",
+          "selected": "assets/components/standard/CrosswordTile/selected.svg",
+          "selected-focused": "assets/components/standard/CrosswordTile/selected-focused.svg",
+          "filled": "assets/components/standard/CrosswordTile/filled.svg",
+          "correct": "assets/components/standard/CrosswordTile/correct.svg",
+          "revealed": "assets/components/standard/CrosswordTile/revealed.svg",
+          "error": "assets/components/standard/CrosswordTile/error.svg",
+          "disabled": "assets/components/standard/CrosswordTile/disabled.svg"
+        },
+        "high-contrast": {
+          "empty": "assets/components/high-contrast/CrosswordTile/empty.svg",
+          "selected": "assets/components/high-contrast/CrosswordTile/selected.svg",
+          "selected-focused": "assets/components/high-contrast/CrosswordTile/selected-focused.svg",
+          "filled": "assets/components/high-contrast/CrosswordTile/filled.svg",
+          "correct": "assets/components/high-contrast/CrosswordTile/correct.svg",
+          "revealed": "assets/components/high-contrast/CrosswordTile/revealed.svg",
+          "error": "assets/components/high-contrast/CrosswordTile/error.svg",
+          "disabled": "assets/components/high-contrast/CrosswordTile/disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "LetterToken": {
+      "id": "LetterToken",
+      "widthReference": 72,
+      "heightReference": 72,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "selected",
+        "selected-focused",
+        "disabled",
+        "correct",
+        "error"
+      ],
+      "primitive": "token",
+      "role": "Button",
+      "layout": "Буква — Text; tokenId уникален; геометрия нажатия из LayoutCoordinates.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/LetterToken/normal.svg",
+          "pressed": "assets/components/standard/LetterToken/pressed.svg",
+          "focused": "assets/components/standard/LetterToken/focused.svg",
+          "selected": "assets/components/standard/LetterToken/selected.svg",
+          "selected-focused": "assets/components/standard/LetterToken/selected-focused.svg",
+          "disabled": "assets/components/standard/LetterToken/disabled.svg",
+          "correct": "assets/components/standard/LetterToken/correct.svg",
+          "error": "assets/components/standard/LetterToken/error.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/LetterToken/normal.svg",
+          "pressed": "assets/components/high-contrast/LetterToken/pressed.svg",
+          "focused": "assets/components/high-contrast/LetterToken/focused.svg",
+          "selected": "assets/components/high-contrast/LetterToken/selected.svg",
+          "selected-focused": "assets/components/high-contrast/LetterToken/selected-focused.svg",
+          "disabled": "assets/components/high-contrast/LetterToken/disabled.svg",
+          "correct": "assets/components/high-contrast/LetterToken/correct.svg",
+          "error": "assets/components/high-contrast/LetterToken/error.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "WordPill": {
+      "id": "WordPill",
+      "widthReference": 240,
+      "heightReference": 56,
+      "states": [
+        "empty",
+        "typing",
+        "correct",
+        "bonus",
+        "duplicate",
+        "invalid"
+      ],
+      "primitive": "pill",
+      "role": "Text",
+      "layout": "Строка не содержит изображения букв; feedback дополнен текстом.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "empty": "assets/components/standard/WordPill/empty.svg",
+          "typing": "assets/components/standard/WordPill/typing.svg",
+          "correct": "assets/components/standard/WordPill/correct.svg",
+          "bonus": "assets/components/standard/WordPill/bonus.svg",
+          "duplicate": "assets/components/standard/WordPill/duplicate.svg",
+          "invalid": "assets/components/standard/WordPill/invalid.svg"
+        },
+        "high-contrast": {
+          "empty": "assets/components/high-contrast/WordPill/empty.svg",
+          "typing": "assets/components/high-contrast/WordPill/typing.svg",
+          "correct": "assets/components/high-contrast/WordPill/correct.svg",
+          "bonus": "assets/components/high-contrast/WordPill/bonus.svg",
+          "duplicate": "assets/components/high-contrast/WordPill/duplicate.svg",
+          "invalid": "assets/components/high-contrast/WordPill/invalid.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "CoinBalance": {
+      "id": "CoinBalance",
+      "widthReference": 144,
+      "heightReference": 48,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled",
+        "capped"
+      ],
+      "primitive": "balance",
+      "role": "Button",
+      "layout": "Монеты art, число локализовано, семантика «N монет».",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/CoinBalance/normal.svg",
+          "pressed": "assets/components/standard/CoinBalance/pressed.svg",
+          "focused": "assets/components/standard/CoinBalance/focused.svg",
+          "disabled": "assets/components/standard/CoinBalance/disabled.svg",
+          "capped": "assets/components/standard/CoinBalance/capped.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/CoinBalance/normal.svg",
+          "pressed": "assets/components/high-contrast/CoinBalance/pressed.svg",
+          "focused": "assets/components/high-contrast/CoinBalance/focused.svg",
+          "disabled": "assets/components/high-contrast/CoinBalance/disabled.svg",
+          "capped": "assets/components/high-contrast/CoinBalance/capped.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/items/png/coin.png"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ProgressTrack": {
+      "id": "ProgressTrack",
+      "widthReference": 280,
+      "heightReference": 24,
+      "states": [
+        "empty",
+        "partial",
+        "full",
+        "indeterminate",
+        "disabled"
+      ],
+      "primitive": "progress",
+      "role": "ProgressBar",
+      "layout": "fraction 0..1; значение текстом вне bar; не кликабелен.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "empty": "assets/components/standard/ProgressTrack/empty.svg",
+          "partial": "assets/components/standard/ProgressTrack/partial.svg",
+          "full": "assets/components/standard/ProgressTrack/full.svg",
+          "indeterminate": "assets/components/standard/ProgressTrack/indeterminate.svg",
+          "disabled": "assets/components/standard/ProgressTrack/disabled.svg"
+        },
+        "high-contrast": {
+          "empty": "assets/components/high-contrast/ProgressTrack/empty.svg",
+          "partial": "assets/components/high-contrast/ProgressTrack/partial.svg",
+          "full": "assets/components/high-contrast/ProgressTrack/full.svg",
+          "indeterminate": "assets/components/high-contrast/ProgressTrack/indeterminate.svg",
+          "disabled": "assets/components/high-contrast/ProgressTrack/disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "BonusProgress": {
+      "id": "BonusProgress",
+      "widthReference": 280,
+      "heightReference": 64,
+      "states": [
+        "empty",
+        "partial",
+        "ready",
+        "claimed"
+      ],
+      "primitive": "bonus",
+      "role": "Button",
+      "layout": "Сундук PNG отдельно; счётчик не обещает недостижимый порог.",
+      "dependencies": [
+        "ProgressTrack"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "empty": "assets/components/standard/BonusProgress/empty.svg",
+          "partial": "assets/components/standard/BonusProgress/partial.svg",
+          "ready": "assets/components/standard/BonusProgress/ready.svg",
+          "claimed": "assets/components/standard/BonusProgress/claimed.svg"
+        },
+        "high-contrast": {
+          "empty": "assets/components/high-contrast/BonusProgress/empty.svg",
+          "partial": "assets/components/high-contrast/BonusProgress/partial.svg",
+          "ready": "assets/components/high-contrast/BonusProgress/ready.svg",
+          "claimed": "assets/components/high-contrast/BonusProgress/claimed.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/items/png/chest-closed.png",
+        "assets/items/png/chest-open.png"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "PostcardCard": {
+      "id": "PostcardCard",
+      "widthReference": 256,
+      "heightReference": 216,
+      "states": [
+        "unlocked",
+        "pressed",
+        "focused",
+        "selected",
+        "locked",
+        "placeholder"
+      ],
+      "primitive": "card",
+      "role": "Button",
+      "layout": "Image crop + native label/condition; замок и статус не baked в фоне.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "unlocked": "assets/components/standard/PostcardCard/unlocked.svg",
+          "pressed": "assets/components/standard/PostcardCard/pressed.svg",
+          "focused": "assets/components/standard/PostcardCard/focused.svg",
+          "selected": "assets/components/standard/PostcardCard/selected.svg",
+          "locked": "assets/components/standard/PostcardCard/locked.svg",
+          "placeholder": "assets/components/standard/PostcardCard/placeholder.svg"
+        },
+        "high-contrast": {
+          "unlocked": "assets/components/high-contrast/PostcardCard/unlocked.svg",
+          "pressed": "assets/components/high-contrast/PostcardCard/pressed.svg",
+          "focused": "assets/components/high-contrast/PostcardCard/focused.svg",
+          "selected": "assets/components/high-contrast/PostcardCard/selected.svg",
+          "locked": "assets/components/high-contrast/PostcardCard/locked.svg",
+          "placeholder": "assets/components/high-contrast/PostcardCard/placeholder.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/postcards/bg-autumn-valley-postcard.png",
+        "assets/postcards/bg-canyon-postcard.png",
+        "assets/postcards/bg-flower-meadow-postcard.png",
+        "assets/postcards/bg-forest-river-postcard.png",
+        "assets/postcards/bg-lake-day-postcard.png",
+        "assets/postcards/bg-lake-evening-postcard.png",
+        "assets/postcards/bg-lotus-lake-postcard.png",
+        "assets/postcards/bg-night-mountains-postcard.png",
+        "assets/postcards/bg-sea-coast-postcard.png",
+        "assets/postcards/bg-snow-valley-postcard.png"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "TaskRow": {
+      "id": "TaskRow",
+      "widthReference": 320,
+      "heightReference": 96,
+      "states": [
+        "in-progress",
+        "ready",
+        "claimed",
+        "disabled",
+        "loading",
+        "focused"
+      ],
+      "primitive": "card",
+      "role": "Group",
+      "layout": "Текст/счётчик/наградная кнопка; claim action отдельный, транзакционен.",
+      "dependencies": [
+        "ProgressTrack",
+        "ButtonPrimary"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "in-progress": "assets/components/standard/TaskRow/in-progress.svg",
+          "ready": "assets/components/standard/TaskRow/ready.svg",
+          "claimed": "assets/components/standard/TaskRow/claimed.svg",
+          "disabled": "assets/components/standard/TaskRow/disabled.svg",
+          "loading": "assets/components/standard/TaskRow/loading.svg",
+          "focused": "assets/components/standard/TaskRow/focused.svg"
+        },
+        "high-contrast": {
+          "in-progress": "assets/components/high-contrast/TaskRow/in-progress.svg",
+          "ready": "assets/components/high-contrast/TaskRow/ready.svg",
+          "claimed": "assets/components/high-contrast/TaskRow/claimed.svg",
+          "disabled": "assets/components/high-contrast/TaskRow/disabled.svg",
+          "loading": "assets/components/high-contrast/TaskRow/loading.svg",
+          "focused": "assets/components/high-contrast/TaskRow/focused.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "AchievementCard": {
+      "id": "AchievementCard",
+      "widthReference": 320,
+      "heightReference": 112,
+      "states": [
+        "in-progress",
+        "ready",
+        "claimed",
+        "locked",
+        "loading",
+        "focused"
+      ],
+      "primitive": "card",
+      "role": "Group",
+      "layout": "Иконка достижения отдельная; прогресс/claim семантически доступны.",
+      "dependencies": [
+        "ProgressTrack",
+        "ButtonPrimary"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "in-progress": "assets/components/standard/AchievementCard/in-progress.svg",
+          "ready": "assets/components/standard/AchievementCard/ready.svg",
+          "claimed": "assets/components/standard/AchievementCard/claimed.svg",
+          "locked": "assets/components/standard/AchievementCard/locked.svg",
+          "loading": "assets/components/standard/AchievementCard/loading.svg",
+          "focused": "assets/components/standard/AchievementCard/focused.svg"
+        },
+        "high-contrast": {
+          "in-progress": "assets/components/high-contrast/AchievementCard/in-progress.svg",
+          "ready": "assets/components/high-contrast/AchievementCard/ready.svg",
+          "claimed": "assets/components/high-contrast/AchievementCard/claimed.svg",
+          "locked": "assets/components/high-contrast/AchievementCard/locked.svg",
+          "loading": "assets/components/high-contrast/AchievementCard/loading.svg",
+          "focused": "assets/components/high-contrast/AchievementCard/focused.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "SettingsRow": {
+      "id": "SettingsRow",
+      "widthReference": 320,
+      "heightReference": 64,
+      "states": [
+        "normal",
+        "pressed",
+        "focused",
+        "disabled"
+      ],
+      "primitive": "row",
+      "role": "Button",
+      "layout": "Название, icon и chevron/toggle; multiline высота растёт.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/SettingsRow/normal.svg",
+          "pressed": "assets/components/standard/SettingsRow/pressed.svg",
+          "focused": "assets/components/standard/SettingsRow/focused.svg",
+          "disabled": "assets/components/standard/SettingsRow/disabled.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/SettingsRow/normal.svg",
+          "pressed": "assets/components/high-contrast/SettingsRow/pressed.svg",
+          "focused": "assets/components/high-contrast/SettingsRow/focused.svg",
+          "disabled": "assets/components/high-contrast/SettingsRow/disabled.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_chevron-right.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "StatusBanner": {
+      "id": "StatusBanner",
+      "widthReference": 320,
+      "heightReference": 56,
+      "states": [
+        "info",
+        "offline",
+        "success",
+        "warning",
+        "error"
+      ],
+      "primitive": "banner",
+      "role": "Status",
+      "layout": "LiveRegion polite для изменения; не modal, причина текстом.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "info": "assets/components/standard/StatusBanner/info.svg",
+          "offline": "assets/components/standard/StatusBanner/offline.svg",
+          "success": "assets/components/standard/StatusBanner/success.svg",
+          "warning": "assets/components/standard/StatusBanner/warning.svg",
+          "error": "assets/components/standard/StatusBanner/error.svg"
+        },
+        "high-contrast": {
+          "info": "assets/components/high-contrast/StatusBanner/info.svg",
+          "offline": "assets/components/high-contrast/StatusBanner/offline.svg",
+          "success": "assets/components/high-contrast/StatusBanner/success.svg",
+          "warning": "assets/components/high-contrast/StatusBanner/warning.svg",
+          "error": "assets/components/high-contrast/StatusBanner/error.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Toast": {
+      "id": "Toast",
+      "widthReference": 320,
+      "heightReference": 56,
+      "states": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "primitive": "banner",
+      "role": "Status",
+      "layout": "Без повторения каждого кадра; исчезновение не теряет данные.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "info": "assets/components/standard/Toast/info.svg",
+          "success": "assets/components/standard/Toast/success.svg",
+          "warning": "assets/components/standard/Toast/warning.svg",
+          "error": "assets/components/standard/Toast/error.svg"
+        },
+        "high-contrast": {
+          "info": "assets/components/high-contrast/Toast/info.svg",
+          "success": "assets/components/high-contrast/Toast/success.svg",
+          "warning": "assets/components/high-contrast/Toast/warning.svg",
+          "error": "assets/components/high-contrast/Toast/error.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ModalPanel": {
+      "id": "ModalPanel",
+      "widthReference": 360,
+      "heightReference": 320,
+      "states": [
+        "normal",
+        "critical",
+        "busy"
+      ],
+      "primitive": "modal",
+      "role": "Dialog",
+      "layout": "Modal фокус, заголовок, контент, actions; размер по тексту.",
+      "dependencies": [
+        "ButtonPrimary",
+        "ButtonSecondary",
+        "ButtonIcon",
+        "StatusBanner"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/ModalPanel/normal.svg",
+          "critical": "assets/components/standard/ModalPanel/critical.svg",
+          "busy": "assets/components/standard/ModalPanel/busy.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/ModalPanel/normal.svg",
+          "critical": "assets/components/high-contrast/ModalPanel/critical.svg",
+          "busy": "assets/components/high-contrast/ModalPanel/busy.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "BottomSheet": {
+      "id": "BottomSheet",
+      "widthReference": 360,
+      "heightReference": 360,
+      "states": [
+        "normal",
+        "busy",
+        "critical"
+      ],
+      "primitive": "sheet",
+      "role": "Dialog",
+      "layout": "Insets/drag-handle; отменяемость по операции, не по наличию handle.",
+      "dependencies": [
+        "ButtonPrimary",
+        "ButtonSecondary",
+        "ButtonIcon"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/BottomSheet/normal.svg",
+          "busy": "assets/components/standard/BottomSheet/busy.svg",
+          "critical": "assets/components/standard/BottomSheet/critical.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/BottomSheet/normal.svg",
+          "busy": "assets/components/high-contrast/BottomSheet/busy.svg",
+          "critical": "assets/components/high-contrast/BottomSheet/critical.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "HintTarget": {
+      "id": "HintTarget",
+      "widthReference": 64,
+      "heightReference": 64,
+      "states": [
+        "available",
+        "hover",
+        "selected",
+        "focused",
+        "unavailable"
+      ],
+      "primitive": "target",
+      "role": "Button",
+      "layout": "Выбор пустой клетки/слота; деньги только после confirm.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "available": "assets/components/standard/HintTarget/available.svg",
+          "hover": "assets/components/standard/HintTarget/hover.svg",
+          "selected": "assets/components/standard/HintTarget/selected.svg",
+          "focused": "assets/components/standard/HintTarget/focused.svg",
+          "unavailable": "assets/components/standard/HintTarget/unavailable.svg"
+        },
+        "high-contrast": {
+          "available": "assets/components/high-contrast/HintTarget/available.svg",
+          "hover": "assets/components/high-contrast/HintTarget/hover.svg",
+          "selected": "assets/components/high-contrast/HintTarget/selected.svg",
+          "focused": "assets/components/high-contrast/HintTarget/focused.svg",
+          "unavailable": "assets/components/high-contrast/HintTarget/unavailable.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "TrailMilestone": {
+      "id": "TrailMilestone",
+      "widthReference": 80,
+      "heightReference": 80,
+      "states": [
+        "locked",
+        "available",
+        "ready",
+        "claimed",
+        "current"
+      ],
+      "primitive": "node",
+      "role": "Button",
+      "layout": "Порог 10/20/30 текстом, reward art отдельно.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "locked": "assets/components/standard/TrailMilestone/locked.svg",
+          "available": "assets/components/standard/TrailMilestone/available.svg",
+          "ready": "assets/components/standard/TrailMilestone/ready.svg",
+          "claimed": "assets/components/standard/TrailMilestone/claimed.svg",
+          "current": "assets/components/standard/TrailMilestone/current.svg"
+        },
+        "high-contrast": {
+          "locked": "assets/components/high-contrast/TrailMilestone/locked.svg",
+          "available": "assets/components/high-contrast/TrailMilestone/available.svg",
+          "ready": "assets/components/high-contrast/TrailMilestone/ready.svg",
+          "claimed": "assets/components/high-contrast/TrailMilestone/claimed.svg",
+          "current": "assets/components/high-contrast/TrailMilestone/current.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "StarRating": {
+      "id": "StarRating",
+      "widthReference": 192,
+      "heightReference": 64,
+      "states": [
+        "zero",
+        "one",
+        "two",
+        "three"
+      ],
+      "primitive": "stars",
+      "role": "Image",
+      "layout": "Число звёзд семантикой; активная/пустая звезда — вектор.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "zero": "assets/components/standard/StarRating/zero.svg",
+          "one": "assets/components/standard/StarRating/one.svg",
+          "two": "assets/components/standard/StarRating/two.svg",
+          "three": "assets/components/standard/StarRating/three.svg"
+        },
+        "high-contrast": {
+          "zero": "assets/components/high-contrast/StarRating/zero.svg",
+          "one": "assets/components/high-contrast/StarRating/one.svg",
+          "two": "assets/components/high-contrast/StarRating/two.svg",
+          "three": "assets/components/high-contrast/StarRating/three.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "TabChip": {
+      "id": "TabChip",
+      "widthReference": 128,
+      "heightReference": 48,
+      "states": [
+        "normal",
+        "pressed",
+        "selected",
+        "focused",
+        "disabled"
+      ],
+      "primitive": "chip",
+      "role": "Tab",
+      "layout": "Переключатель вкладки/фильтра; без скрытых цен.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": 48,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/TabChip/normal.svg",
+          "pressed": "assets/components/standard/TabChip/pressed.svg",
+          "selected": "assets/components/standard/TabChip/selected.svg",
+          "focused": "assets/components/standard/TabChip/focused.svg",
+          "disabled": "assets/components/standard/TabChip/disabled.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/TabChip/normal.svg",
+          "pressed": "assets/components/high-contrast/TabChip/pressed.svg",
+          "selected": "assets/components/high-contrast/TabChip/selected.svg",
+          "focused": "assets/components/high-contrast/TabChip/focused.svg",
+          "disabled": "assets/components/high-contrast/TabChip/disabled.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "PagerDot": {
+      "id": "PagerDot",
+      "widthReference": 24,
+      "heightReference": 24,
+      "states": [
+        "inactive",
+        "active",
+        "focused"
+      ],
+      "primitive": "dot",
+      "role": "Image",
+      "layout": "Декор; отдельная touch-area если выбран интерактивный pager.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "inactive": "assets/components/standard/PagerDot/inactive.svg",
+          "active": "assets/components/standard/PagerDot/active.svg",
+          "focused": "assets/components/standard/PagerDot/focused.svg"
+        },
+        "high-contrast": {
+          "inactive": "assets/components/high-contrast/PagerDot/inactive.svg",
+          "active": "assets/components/high-contrast/PagerDot/active.svg",
+          "focused": "assets/components/high-contrast/PagerDot/focused.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Spinner": {
+      "id": "Spinner",
+      "widthReference": 48,
+      "heightReference": 48,
+      "states": [
+        "frame-0",
+        "frame-1",
+        "frame-2",
+        "frame-3",
+        "frame-4",
+        "frame-5",
+        "frame-6",
+        "frame-7"
+      ],
+      "primitive": "spinner",
+      "role": "ProgressBar",
+      "layout": "В runtime вращается Canvas/индикатор; PNG-кадры — примеры, не обязательная sprite-анимация.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "frame-0": "assets/components/standard/Spinner/frame-0.svg",
+          "frame-1": "assets/components/standard/Spinner/frame-1.svg",
+          "frame-2": "assets/components/standard/Spinner/frame-2.svg",
+          "frame-3": "assets/components/standard/Spinner/frame-3.svg",
+          "frame-4": "assets/components/standard/Spinner/frame-4.svg",
+          "frame-5": "assets/components/standard/Spinner/frame-5.svg",
+          "frame-6": "assets/components/standard/Spinner/frame-6.svg",
+          "frame-7": "assets/components/standard/Spinner/frame-7.svg"
+        },
+        "high-contrast": {
+          "frame-0": "assets/components/high-contrast/Spinner/frame-0.svg",
+          "frame-1": "assets/components/high-contrast/Spinner/frame-1.svg",
+          "frame-2": "assets/components/high-contrast/Spinner/frame-2.svg",
+          "frame-3": "assets/components/high-contrast/Spinner/frame-3.svg",
+          "frame-4": "assets/components/high-contrast/Spinner/frame-4.svg",
+          "frame-5": "assets/components/high-contrast/Spinner/frame-5.svg",
+          "frame-6": "assets/components/high-contrast/Spinner/frame-6.svg",
+          "frame-7": "assets/components/high-contrast/Spinner/frame-7.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Skeleton": {
+      "id": "Skeleton",
+      "widthReference": 320,
+      "heightReference": 80,
+      "states": [
+        "static",
+        "pulse-low",
+        "pulse-high"
+      ],
+      "primitive": "skeleton",
+      "role": "Image",
+      "layout": "Только для локальной загрузки, reduceMotion = static.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "static": "assets/components/standard/Skeleton/static.svg",
+          "pulse-low": "assets/components/standard/Skeleton/pulse-low.svg",
+          "pulse-high": "assets/components/standard/Skeleton/pulse-high.svg"
+        },
+        "high-contrast": {
+          "static": "assets/components/high-contrast/Skeleton/static.svg",
+          "pulse-low": "assets/components/high-contrast/Skeleton/pulse-low.svg",
+          "pulse-high": "assets/components/high-contrast/Skeleton/pulse-high.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "FocusRing": {
+      "id": "FocusRing",
+      "widthReference": 80,
+      "heightReference": 80,
+      "states": [
+        "rounded",
+        "circle"
+      ],
+      "primitive": "focus",
+      "role": "Image",
+      "layout": "Декоративная граница, не отдельный focus target.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "rounded": "assets/components/standard/FocusRing/rounded.svg",
+          "circle": "assets/components/standard/FocusRing/circle.svg"
+        },
+        "high-contrast": {
+          "rounded": "assets/components/high-contrast/FocusRing/rounded.svg",
+          "circle": "assets/components/high-contrast/FocusRing/circle.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "SelectionLine": {
+      "id": "SelectionLine",
+      "widthReference": 256,
+      "heightReference": 128,
+      "states": [
+        "idle",
+        "drawing",
+        "accepted",
+        "rejected"
+      ],
+      "primitive": "line",
+      "role": "Image",
+      "layout": "Canvas соединяет центры букв; ввод отменяется по ACTION_CANCEL.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "idle": "assets/components/standard/SelectionLine/idle.svg",
+          "drawing": "assets/components/standard/SelectionLine/drawing.svg",
+          "accepted": "assets/components/standard/SelectionLine/accepted.svg",
+          "rejected": "assets/components/standard/SelectionLine/rejected.svg"
+        },
+        "high-contrast": {
+          "idle": "assets/components/high-contrast/SelectionLine/idle.svg",
+          "drawing": "assets/components/high-contrast/SelectionLine/drawing.svg",
+          "accepted": "assets/components/high-contrast/SelectionLine/accepted.svg",
+          "rejected": "assets/components/high-contrast/SelectionLine/rejected.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "MapPath": {
+      "id": "MapPath",
+      "widthReference": 320,
+      "heightReference": 240,
+      "states": [
+        "open",
+        "completed",
+        "upcoming"
+      ],
+      "primitive": "path",
+      "role": "Image",
+      "layout": "Canvas; узлы отдельные реальные targets, не часть bitmap.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "open": "assets/components/standard/MapPath/open.svg",
+          "completed": "assets/components/standard/MapPath/completed.svg",
+          "upcoming": "assets/components/standard/MapPath/upcoming.svg"
+        },
+        "high-contrast": {
+          "open": "assets/components/high-contrast/MapPath/open.svg",
+          "completed": "assets/components/high-contrast/MapPath/completed.svg",
+          "upcoming": "assets/components/high-contrast/MapPath/upcoming.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "ChartBar": {
+      "id": "ChartBar",
+      "widthReference": 48,
+      "heightReference": 112,
+      "states": [
+        "zero",
+        "low",
+        "medium",
+        "high",
+        "selected"
+      ],
+      "primitive": "chart",
+      "role": "Image",
+      "layout": "Динамическая высота и текстовая альтернатива по датам.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "zero": "assets/components/standard/ChartBar/zero.svg",
+          "low": "assets/components/standard/ChartBar/low.svg",
+          "medium": "assets/components/standard/ChartBar/medium.svg",
+          "high": "assets/components/standard/ChartBar/high.svg",
+          "selected": "assets/components/standard/ChartBar/selected.svg"
+        },
+        "high-contrast": {
+          "zero": "assets/components/high-contrast/ChartBar/zero.svg",
+          "low": "assets/components/high-contrast/ChartBar/low.svg",
+          "medium": "assets/components/high-contrast/ChartBar/medium.svg",
+          "high": "assets/components/high-contrast/ChartBar/high.svg",
+          "selected": "assets/components/high-contrast/ChartBar/selected.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Tooltip": {
+      "id": "Tooltip",
+      "widthReference": 280,
+      "heightReference": 88,
+      "states": [
+        "normal",
+        "warning"
+      ],
+      "primitive": "tooltip",
+      "role": "Text",
+      "layout": "Объяснение не скрывает основное действие; доступно без long press.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/Tooltip/normal.svg",
+          "warning": "assets/components/standard/Tooltip/warning.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/Tooltip/normal.svg",
+          "warning": "assets/components/high-contrast/Tooltip/warning.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "LetterWheel": {
+      "id": "LetterWheel",
+      "widthReference": 320,
+      "heightReference": 320,
+      "states": [
+        "normal",
+        "active",
+        "disabled"
+      ],
+      "primitive": "wheel",
+      "role": "Group",
+      "layout": "Круг/центр Shuffle отдельно, токены расположены по данным; без baked glyph.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/LetterWheel/normal.svg",
+          "active": "assets/components/standard/LetterWheel/active.svg",
+          "disabled": "assets/components/standard/LetterWheel/disabled.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/LetterWheel/normal.svg",
+          "active": "assets/components/high-contrast/LetterWheel/active.svg",
+          "disabled": "assets/components/high-contrast/LetterWheel/disabled.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_shuffle.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Header": {
+      "id": "Header",
+      "widthReference": 360,
+      "heightReference": 64,
+      "states": [
+        "normal",
+        "game",
+        "offline"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Back/заголовок/баланс, отступы системных панелей.",
+      "dependencies": [
+        "ButtonIcon",
+        "CoinBalance"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/Header/normal.svg",
+          "game": "assets/components/standard/Header/game.svg",
+          "offline": "assets/components/standard/Header/offline.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/Header/normal.svg",
+          "game": "assets/components/high-contrast/Header/game.svg",
+          "offline": "assets/components/high-contrast/Header/offline.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_back.svg",
+        "assets/items/png/coin.png"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "BottomNavigation": {
+      "id": "BottomNavigation",
+      "widthReference": 360,
+      "heightReference": 80,
+      "states": [
+        "path",
+        "tasks",
+        "collection"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Три NavItem с сохранением состояния вкладок.",
+      "dependencies": [
+        "NavItem"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "path": "assets/components/standard/BottomNavigation/path.svg",
+          "tasks": "assets/components/standard/BottomNavigation/tasks.svg",
+          "collection": "assets/components/standard/BottomNavigation/collection.svg"
+        },
+        "high-contrast": {
+          "path": "assets/components/high-contrast/BottomNavigation/path.svg",
+          "tasks": "assets/components/high-contrast/BottomNavigation/tasks.svg",
+          "collection": "assets/components/high-contrast/BottomNavigation/collection.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_map.svg",
+        "assets/ui-icons/svg/ic_tasks.svg",
+        "assets/ui-icons/svg/ic_collection.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "GameBoard": {
+      "id": "GameBoard",
+      "widthReference": 320,
+      "heightReference": 320,
+      "states": [
+        "playing",
+        "selecting",
+        "complete"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Layout сетки и CrosswordTile по валидному контенту.",
+      "dependencies": [
+        "CrosswordTile",
+        "HintTarget"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "playing": "assets/components/standard/GameBoard/playing.svg",
+          "selecting": "assets/components/standard/GameBoard/selecting.svg",
+          "complete": "assets/components/standard/GameBoard/complete.svg"
+        },
+        "high-contrast": {
+          "playing": "assets/components/high-contrast/GameBoard/playing.svg",
+          "selecting": "assets/components/high-contrast/GameBoard/selecting.svg",
+          "complete": "assets/components/high-contrast/GameBoard/complete.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "GameControls": {
+      "id": "GameControls",
+      "widthReference": 360,
+      "heightReference": 96,
+      "states": [
+        "normal",
+        "disabled",
+        "hint-mode"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Три инструмента, цены из конфигурации.",
+      "dependencies": [
+        "ButtonHint"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/GameControls/normal.svg",
+          "disabled": "assets/components/standard/GameControls/disabled.svg",
+          "hint-mode": "assets/components/standard/GameControls/hint-mode.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/GameControls/normal.svg",
+          "disabled": "assets/components/high-contrast/GameControls/disabled.svg",
+          "hint-mode": "assets/components/high-contrast/GameControls/hint-mode.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_letter.svg",
+        "assets/ui-icons/svg/ic_word.svg",
+        "assets/ui-icons/svg/ic_lightbulb.svg",
+        "assets/items/png/coin.png"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "CalendarGrid": {
+      "id": "CalendarGrid",
+      "widthReference": 360,
+      "heightReference": 336,
+      "states": [
+        "normal",
+        "loading"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "7 колонок LocalDate, header month с chevron кнопками.",
+      "dependencies": [
+        "CalendarDay",
+        "ButtonIcon"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/CalendarGrid/normal.svg",
+          "loading": "assets/components/standard/CalendarGrid/loading.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/CalendarGrid/normal.svg",
+          "loading": "assets/components/high-contrast/CalendarGrid/loading.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_chevron-left.svg",
+        "assets/ui-icons/svg/ic_chevron-right.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "TapInputBar": {
+      "id": "TapInputBar",
+      "widthReference": 320,
+      "heightReference": 64,
+      "states": [
+        "empty",
+        "typing",
+        "submitting"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Стереть/Очистить/Проверить, нативный текст.",
+      "dependencies": [
+        "ButtonIcon",
+        "ButtonPrimary",
+        "WordPill"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "empty": "assets/components/standard/TapInputBar/empty.svg",
+          "typing": "assets/components/standard/TapInputBar/typing.svg",
+          "submitting": "assets/components/standard/TapInputBar/submitting.svg"
+        },
+        "high-contrast": {
+          "empty": "assets/components/high-contrast/TapInputBar/empty.svg",
+          "typing": "assets/components/high-contrast/TapInputBar/typing.svg",
+          "submitting": "assets/components/high-contrast/TapInputBar/submitting.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_clear-letter.svg",
+        "assets/ui-icons/svg/ic_check.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "EmptyState": {
+      "id": "EmptyState",
+      "widthReference": 320,
+      "heightReference": 240,
+      "states": [
+        "collection",
+        "tasks",
+        "no-video",
+        "no-file"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Предмет + заголовок + помощь, без скрытого блокирующего действия.",
+      "dependencies": [
+        "ButtonPrimary"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "collection": "assets/components/standard/EmptyState/collection.svg",
+          "tasks": "assets/components/standard/EmptyState/tasks.svg",
+          "no-video": "assets/components/standard/EmptyState/no-video.svg",
+          "no-file": "assets/components/standard/EmptyState/no-file.svg"
+        },
+        "high-contrast": {
+          "collection": "assets/components/high-contrast/EmptyState/collection.svg",
+          "tasks": "assets/components/high-contrast/EmptyState/tasks.svg",
+          "no-video": "assets/components/high-contrast/EmptyState/no-video.svg",
+          "no-file": "assets/components/high-contrast/EmptyState/no-file.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "FileSummary": {
+      "id": "FileSummary",
+      "widthReference": 320,
+      "heightReference": 128,
+      "states": [
+        "current",
+        "imported",
+        "error"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Уровень/монеты/дата/версия, выделить разницу перед импортом.",
+      "dependencies": [
+        "StatusBanner"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "current": "assets/components/standard/FileSummary/current.svg",
+          "imported": "assets/components/standard/FileSummary/imported.svg",
+          "error": "assets/components/standard/FileSummary/error.svg"
+        },
+        "high-contrast": {
+          "current": "assets/components/high-contrast/FileSummary/current.svg",
+          "imported": "assets/components/high-contrast/FileSummary/imported.svg",
+          "error": "assets/components/high-contrast/FileSummary/error.svg"
+        }
+      },
+      "staticAssets": [
+        "assets/ui-icons/svg/ic_file.svg"
+      ],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Article": {
+      "id": "Article",
+      "widthReference": 360,
+      "heightReference": 480,
+      "states": [
+        "help",
+        "privacy",
+        "licenses",
+        "word-definition"
+      ],
+      "primitive": "compound",
+      "role": "Group",
+      "layout": "Нативный текст с прокруткой и back; политика/контакты — реальные данные владельца.",
+      "dependencies": [
+        "Header"
+      ],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "help": "assets/components/standard/Article/help.svg",
+          "privacy": "assets/components/standard/Article/privacy.svg",
+          "licenses": "assets/components/standard/Article/licenses.svg",
+          "word-definition": "assets/components/standard/Article/word-definition.svg"
+        },
+        "high-contrast": {
+          "help": "assets/components/high-contrast/Article/help.svg",
+          "privacy": "assets/components/high-contrast/Article/privacy.svg",
+          "licenses": "assets/components/high-contrast/Article/licenses.svg",
+          "word-definition": "assets/components/high-contrast/Article/word-definition.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "SystemSurface": {
+      "id": "SystemSurface",
+      "widthReference": 360,
+      "heightReference": 480,
+      "states": [
+        "file-picker",
+        "share-chooser",
+        "mail-app",
+        "ad-sdk"
+      ],
+      "primitive": "external",
+      "role": "External",
+      "layout": "Android/SDK рисует внешний экран. Нет собственного рекламного close/countdown и фальшивого file picker.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "file-picker": "assets/components/standard/SystemSurface/file-picker.svg",
+          "share-chooser": "assets/components/standard/SystemSurface/share-chooser.svg",
+          "mail-app": "assets/components/standard/SystemSurface/mail-app.svg",
+          "ad-sdk": "assets/components/standard/SystemSurface/ad-sdk.svg"
+        },
+        "high-contrast": {
+          "file-picker": "assets/components/high-contrast/SystemSurface/file-picker.svg",
+          "share-chooser": "assets/components/high-contrast/SystemSurface/share-chooser.svg",
+          "mail-app": "assets/components/high-contrast/SystemSurface/mail-app.svg",
+          "ad-sdk": "assets/components/high-contrast/SystemSurface/ad-sdk.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Scrim": {
+      "id": "Scrim",
+      "widthReference": 360,
+      "heightReference": 480,
+      "states": [
+        "normal",
+        "critical"
+      ],
+      "primitive": "scrim",
+      "role": "Image",
+      "layout": "Полупрозрачное затемнение под одним modal. Hit target закрытия — в контейнере только если операция отменяема.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/Scrim/normal.svg",
+          "critical": "assets/components/standard/Scrim/critical.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/Scrim/normal.svg",
+          "critical": "assets/components/high-contrast/Scrim/critical.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "Divider": {
+      "id": "Divider",
+      "widthReference": 320,
+      "heightReference": 8,
+      "states": [
+        "normal",
+        "high-contrast"
+      ],
+      "primitive": "divider",
+      "role": "Image",
+      "layout": "Декоративный разделитель, не отдельный focus target.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/Divider/normal.svg",
+          "high-contrast": "assets/components/standard/Divider/high-contrast.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/Divider/normal.svg",
+          "high-contrast": "assets/components/high-contrast/Divider/high-contrast.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    },
+    "TitleRibbon": {
+      "id": "TitleRibbon",
+      "widthReference": 320,
+      "heightReference": 88,
+      "states": [
+        "normal",
+        "success",
+        "warning"
+      ],
+      "primitive": "ribbon",
+      "role": "Text",
+      "layout": "Форма под заголовком; текст отдельный Text, не baked в artwork.",
+      "dependencies": [],
+      "themes": [
+        "standard",
+        "high-contrast"
+      ],
+      "minimumTouchTargetDp": null,
+      "assets": {
+        "standard": {
+          "normal": "assets/components/standard/TitleRibbon/normal.svg",
+          "success": "assets/components/standard/TitleRibbon/success.svg",
+          "warning": "assets/components/standard/TitleRibbon/warning.svg"
+        },
+        "high-contrast": {
+          "normal": "assets/components/high-contrast/TitleRibbon/normal.svg",
+          "success": "assets/components/high-contrast/TitleRibbon/success.svg",
+          "warning": "assets/components/high-contrast/TitleRibbon/warning.svg"
+        }
+      },
+      "staticAssets": [],
+      "textPolicy": "Текст/число/icon slot отдельным Text/Icon; SVG/PNG не содержит динамической строки.",
+      "semanticsPolicy": "Роль/selected/disabled/loading/stateDescription + осмысленная contentDescription; декор исключить.",
+      "stateResolution": "Disabled блокирует action; Loading подавляет повторный action. Selection и focus независимы; selected-focused сохраняет обе признаки. Hover опционален для мыши, не заменяет focus."
+    }
+  }
+}

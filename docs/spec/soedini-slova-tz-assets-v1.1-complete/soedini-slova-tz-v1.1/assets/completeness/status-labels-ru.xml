@@ -1,0 +1,33 @@
+<resources>
+  <string name="status_loading">Загрузка…</string>
+  <string name="status_loading_video">Готовим видео</string>
+  <string name="status_saving">Сохранение…</string>
+  <string name="status_importing">Импорт…</string>
+  <string name="status_received">Получено</string>
+  <string name="status_claim">Забрать</string>
+  <string name="status_completed">Пройдено</string>
+  <string name="status_unavailable">Недоступно</string>
+  <string name="status_tomorrow">Завтра</string>
+  <string name="status_video_unavailable">Видео недоступно</string>
+  <string name="status_offline">Без интернета</string>
+  <string name="status_try_again">Попробуй другое слово</string>
+  <string name="status_already_found">Уже найдено</string>
+  <string name="status_bonus_word">Дополнительное слово</string>
+  <string name="status_choose_letter">Выбери пустую клетку</string>
+  <string name="status_choose_word">Выбери слово</string>
+  <string name="status_current_progress">Текущий прогресс</string>
+  <string name="status_imported_progress">Из файла</string>
+  <string name="status_replace_warning">Текущий прогресс будет заменён</string>
+  <string name="status_rewarded_ad">Реклама</string>
+  <string name="status_repeat_no_reward">Повтор · без наград</string>
+  <string name="status_file_corrupt">Файл повреждён или не поддерживается</string>
+  <string name="status_storage_failed">Не удалось сохранить</string>
+  <string name="status_no_video">Сейчас нет видео</string>
+  <string name="status_no_reward">Бонус не получен</string>
+  <string name="status_reward_received">Бонус получен</string>
+  <string name="status_current_device">На этом устройстве</string>
+  <string name="status_word_definition">Значение слова</string>
+  <string name="status_large_letters">Крупные буквы</string>
+  <string name="status_reduce_motion">Уменьшить анимации</string>
+  <string name="status_high_contrast">Высокий контраст</string>
+</resources>

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "example-1",
+  "levelId": "example-cot-001",
+  "mode": "campaign",
+  "letters": [
+    {
+      "tokenId": "a",
+      "letter": "К"
+    },
+    {
+      "tokenId": "b",
+      "letter": "О"
+    },
+    {
+      "tokenId": "c",
+      "letter": "Т"
+    }
+  ],
+  "rows": 3,
+  "columns": 3,
+  "slots": [
+    {
+      "slotId": "s1",
+      "wordKey": "КОТ",
+      "row": 0,
+      "column": 0,
+      "direction": "across",
+      "clue": "Небольшое домашнее животное семейства кошачьих."
+    },
+    {
+      "slotId": "s2",
+      "wordKey": "ТОК",
+      "row": 0,
+      "column": 2,
+      "direction": "down",
+      "clue": "Упорядоченное движение электрических зарядов."
+    }
+  ],
+  "bonusPool": [],
+  "difficulty": 1,
+  "isExampleOnly": true
+}

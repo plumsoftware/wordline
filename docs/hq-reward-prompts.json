@@ -1,0 +1,20 @@
+[
+  {
+    "source": "app/src/main/res/drawable-nodpi/item_gift.png",
+    "target": "app/src/main/res/drawable-nodpi/item_gift_hq.png",
+    "method": "Built-in image_gen, high resolution transparent edit",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution transparent game reward illustration. A luxurious daily gift: luminous golden-yellow rigid gift box with rich saturated purple satin ribbon crossed vertically and horizontally, an elegant large purple satin bow on top. Three quarter view, sharp clean beveled edges, detailed satin folds and tasteful bright highlights. Match the mobile game's cheerful alpine adventure art. One centered object fills 88 percent of square canvas, generous transparent margin, no platform, no text, no halo or surrounding particles. Extremely crisp high resolution, suitable for rendering 200dp, not a blurry enlarged small icon."
+  },
+  {
+    "source": "app/src/main/res/drawable-nodpi/item_chest_closed.png",
+    "target": "app/src/main/res/drawable-nodpi/item_chest_closed_hq.png",
+    "method": "Built-in image_gen, high resolution transparent edit",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution transparent game reward illustration. Recreate this closed emerald green and polished gold treasure chest as an extremely crisp high resolution premium mobile game item. Maintain emerald green body panels, arched lid, thick polished gold bands, corner feet, central gold lock with green jewel, same three-quarter view and recognizable silhouette. Refine crisp geometric edges, tiny material detail, warm specular gold reflections and rich green enamel; cheerful illustrated game art. Entire chest centered filling 88 percent of square canvas with transparent margin, no base, no lettering, no floating particles or halo. True transparent background."
+  },
+  {
+    "source": "app/src/main/res/drawable-nodpi/item_chest_open.png",
+    "target": "app/src/main/res/drawable-nodpi/item_chest_open_hq.png",
+    "method": "Built-in image_gen, high resolution transparent edit",
+    "prompt": "Use case: precise-object-edit. Asset type: high resolution transparent game reward illustration. Recreate this OPEN emerald green and polished gold treasure chest as an extremely crisp high resolution premium mobile game item. Same emerald green body, arched lid open at about 65 degrees, thick polished gold framing, corner feet and front green jewel lock; inside is a visible generous pile of crisp shiny golden coins. Three-quarter view, meticulous gold reflections, clear coin rims, detailed green enamel, cheerful illustrated mobile game art. Entire object centered filling 88 percent of square canvas with transparent margin, no base, no lettering, no halo or surrounding particles. Match the supplied reference structure; true transparent background."
+  }
+]

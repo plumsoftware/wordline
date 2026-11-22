@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "colors": {
+    "ink": "#10223F",
+    "surface": "#FFF8E8",
+    "primary": "#087B3E",
+    "primaryLight": "#C7F3D6",
+    "rewarded": "#6520AF",
+    "gold": "#F4B43B",
+    "error": "#A42B36"
+  },
+  "spacingDp": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "cornerDp": {
+    "tile": 12,
+    "card": 20,
+    "sheet": 28
+  },
+  "touchTargetMinDp": 48,
+  "fullAppName": "Соедини слова - кроссворды"
+}

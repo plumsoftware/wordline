@@ -1,0 +1,93 @@
+{
+  "results": [
+    {
+      "file": "index.html",
+      "width": 390,
+      "overflow": false,
+      "bodyText": 122436,
+      "broken": []
+    },
+    {
+      "file": "index.html",
+      "width": 800,
+      "overflow": false,
+      "bodyText": 122436,
+      "broken": []
+    },
+    {
+      "file": "index.html",
+      "width": 1440,
+      "overflow": false,
+      "bodyText": 122436,
+      "broken": []
+    },
+    {
+      "file": "assets/gallery.html",
+      "width": 390,
+      "overflow": false,
+      "bodyText": 6289,
+      "broken": []
+    },
+    {
+      "file": "assets/gallery.html",
+      "width": 800,
+      "overflow": false,
+      "bodyText": 6289,
+      "broken": []
+    },
+    {
+      "file": "assets/gallery.html",
+      "width": 1440,
+      "overflow": false,
+      "bodyText": 6289,
+      "broken": []
+    },
+    {
+      "file": "assets/state-catalog.html",
+      "width": 390,
+      "overflow": false,
+      "bodyText": 14379,
+      "broken": []
+    },
+    {
+      "file": "assets/state-catalog.html",
+      "width": 800,
+      "overflow": false,
+      "bodyText": 14379,
+      "broken": []
+    },
+    {
+      "file": "assets/state-catalog.html",
+      "width": 1440,
+      "overflow": false,
+      "bodyText": 14379,
+      "broken": []
+    },
+    {
+      "file": "assets/completeness/screen-coverage.html",
+      "width": 390,
+      "overflow": false,
+      "bodyText": 45867,
+      "broken": []
+    },
+    {
+      "file": "assets/completeness/screen-coverage.html",
+      "width": 800,
+      "overflow": false,
+      "bodyText": 45867,
+      "broken": []
+    },
+    {
+      "file": "assets/completeness/screen-coverage.html",
+      "width": 1440,
+      "overflow": false,
+      "bodyText": 45867,
+      "broken": []
+    }
+  ],
+  "pageErrors": [],
+  "themeSwitchPassed": true,
+  "disabledButtonSamples": 16,
+  "iconSampleWidth": 24,
+  "stateSamples": 257
+}
