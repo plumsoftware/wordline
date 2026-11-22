@@ -30,7 +30,7 @@ wordline.huaweiAppGallery.interstitialAdUnitId=
 
 Для RuStore заданы блоки владельца: rewarded `R-M-20460787-2`, interstitial `R-M-20460787-1`. Для других магазинов ID пока не предоставлены. Для каждого префикса предусмотрены `.supportEmail`, `.privacyUrl`, `.audience` (`general` или `children`); эти сведения ещё ожидаются. Debug всегда использует `demo-rewarded-yandex`/`demo-interstitial-yandex`; release не подставляет их вместо настоящих ID. `validateReleaseInputs` блокирует release без сведений издателя. Ключ подписи в проект не добавлялся. Подготовка подписанного релиза и публикация требуют данных владельца и отдельной приёмки.
 
-Build types: `debug` с suffix `.debug`, `qa` с suffix `.qa` и отключённой рекламой, `release` с полным R8/resource shrinking. Основной applicationId остаётся `ru.plumsoftware.wordline`; у store-flavor он одинаковый. Если магазины потребуют отдельные applicationId, это нужно согласовать до регистрации блоков и подписания.
+Build types: `debug`, `qa` с отключённой рекламой и `release` с полным R8/resource shrinking. Во всех вариантах сборки и магазинах applicationId — `ru.plumsoftware.wordline`, без суффиксов; namespace совпадает с ним.
 
 ## Стек
 

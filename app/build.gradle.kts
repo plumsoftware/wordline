@@ -47,13 +47,11 @@ android {
     }
     buildTypes {
         debug {
-            applicationIdSuffix = ".debug"
             buildConfigField("boolean", "ADS_ENABLED", providers.gradleProperty("wordline.adsEnabled").orElse("true").get())
         }
         create("qa") {
             initWith(getByName("debug"))
             matchingFallbacks += "debug"
-            applicationIdSuffix = ".qa"
             buildConfigField("boolean", "ADS_ENABLED", "false")
         }
         release {
