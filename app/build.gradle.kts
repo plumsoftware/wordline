@@ -1,16 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    // KSP генерирует реализацию Room по аннотациям базы данных и DAO.
     alias(libs.plugins.ksp)
+    // Преобразует google-services.json в Android-ресурсы конфигурации Firebase.
+    alias(libs.plugins.google.gms.google.services)
 }
-
-// Independent production ad units per store. Fill these later or override with -Pwordline.<store>.*.
-val storeAdUnits = mapOf(
-    "rustore" to ("R-M-20460787-2" to "R-M-20460787-1"), // rewarded, interstitial
-    "googlePlay" to ("" to ""),
-    "huaweiAppGallery" to ("" to "")
-)
-fun quoted(value: String): String = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r") + "\""
 
 android {
     namespace = "ru.plumsoftware.wordline"
@@ -28,27 +23,63 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // Создаёт отдельные варианты приложения для RuStore, Google Play и Huawei AppGallery.
     flavorDimensions += "store"
     productFlavors {
-        create("rustore") { dimension = "store" }
-        create("googlePlay") { dimension = "store" }
-        create("huaweiAppGallery") { dimension = "store" }
-        all {
-            // Override each store independently in ~/.gradle/gradle.properties or CI -P arguments.
-            val prefix = "wordline.${name}"
-            buildConfigField("String", "STORE", "\"${name}\"")
-            buildConfigField("String", "REWARDED_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.rewardedAdUnitId").orElse(storeAdUnits.getValue(name).first).get()))
-            buildConfigField("String", "LEVEL_COMPLETE_REWARDED_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.levelCompleteRewardedAdUnitId").orElse(if(name=="rustore") "R-M-20460787-3" else "").get()))
-            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", quoted(providers.gradleProperty("$prefix.interstitialAdUnitId").orElse(storeAdUnits.getValue(name).second).get()))
-            buildConfigField("String", "SUPPORT_EMAIL", quoted(providers.gradleProperty("$prefix.supportEmail").orElse("").get()))
-            buildConfigField("String", "PRIVACY_URL", quoted(providers.gradleProperty("$prefix.privacyUrl").orElse("").get()))
-            buildConfigField("String", "AUDIENCE", quoted(providers.gradleProperty("$prefix.audience").orElse("").get()))
+        create("rustore") {
+            dimension = "store"
+            buildConfigField("String", "STORE", "\"rustore\"")
+            // Контакт поддержки.
+            buildConfigField("String", "SUPPORT_EMAIL", "\"Plumsoftware@yandex.ru\"")
+            // Ссылка на политику конфиденциальности.
+            buildConfigField("String", "PRIVACY_URL", "\"https://raw.githubusercontent.com/plumsoftware/privacy-policy-pool/refs/heads/main/wordline/privacy-policy.md\"")
+            // Аудитория: general или children.
+            buildConfigField("String", "AUDIENCE", "\"general\"")
+            // Видео с наградой.
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"R-M-20460787-2\"")
+            // Видео с наградой после уровня.
+            buildConfigField("String", "LEVEL_COMPLETE_REWARDED_AD_UNIT_ID", "\"R-M-20460787-3\"")
+            // Межстраничная реклама.
+            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", "\"R-M-20460787-1\"")
+        }
+        create("googlePlay") {
+            dimension = "store"
+            buildConfigField("String", "STORE", "\"googlePlay\"")
+            // Контакт поддержки.
+            buildConfigField("String", "SUPPORT_EMAIL", "\"\"")
+            // Ссылка на политику конфиденциальности.
+            buildConfigField("String", "PRIVACY_URL", "\"\"")
+            // Аудитория: general или children.
+            buildConfigField("String", "AUDIENCE", "\"\"")
+            // Видео с наградой.
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"\"")
+            // Видео с наградой после уровня.
+            buildConfigField("String", "LEVEL_COMPLETE_REWARDED_AD_UNIT_ID", "\"\"")
+            // Межстраничная реклама.
+            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", "\"\"")
+        }
+        create("huaweiAppGallery") {
+            dimension = "store"
+            buildConfigField("String", "STORE", "\"huaweiAppGallery\"")
+            // Контакт поддержки.
+            buildConfigField("String", "SUPPORT_EMAIL", "\"\"")
+            // Ссылка на политику конфиденциальности.
+            buildConfigField("String", "PRIVACY_URL", "\"\"")
+            // Аудитория: general или children.
+            buildConfigField("String", "AUDIENCE", "\"\"")
+            // Видео с наградой.
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"\"")
+            // Видео с наградой после уровня.
+            buildConfigField("String", "LEVEL_COMPLETE_REWARDED_AD_UNIT_ID", "\"\"")
+            // Межстраничная реклама.
+            buildConfigField("String", "INTERSTITIAL_AD_UNIT_ID", "\"\"")
         }
     }
     buildTypes {
         debug {
-            buildConfigField("boolean", "ADS_ENABLED", providers.gradleProperty("wordline.adsEnabled").orElse("true").get())
+            buildConfigField("boolean", "ADS_ENABLED", "true")
         }
+        // Вариант для ручной проверки интерфейса: настройки debug, но реклама отключена.
         create("qa") {
             initWith(getByName("debug"))
             matchingFallbacks += "debug"
@@ -58,7 +89,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("boolean", "ADS_ENABLED", providers.gradleProperty("wordline.adsEnabled").orElse("true").get())
+            buildConfigField("boolean", "ADS_ENABLED", "true")
         }
     }
     compileOptions {
@@ -69,6 +100,7 @@ android {
         compose = true
         buildConfig = true
     }
+    // Передаёт JVM-тестам путь к игровому контенту без Android Context и устройства.
     testOptions {
         unitTests.all {
             it.systemProperty("gameContentDir", file("src/main/assets/content").absolutePath)
@@ -77,6 +109,10 @@ android {
 }
 
 dependencies {
+    // WorkManager запускает DailyTasksWorker: фоновая проверка новых ежедневных заданий.
+    implementation(libs.androidx.work.runtime)
+    // Firebase Cloud Messaging принимает push-сообщения; обработчик — WordLineMessagingService.
+    implementation(libs.firebase.messaging)
     implementation(libs.yandex.ads)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
@@ -103,10 +139,13 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 }
 
+// Сохраняет JSON-схемы Room в app/schemas для истории изменений и проверки миграций.
 ksp {
     arg("room.schemaLocation", "$projectDir/schemas")
 }
 
+// Перед сборкой запускает tools/validate_content.py через Python 3 из корня проекта.
+// Скрипт проверяет комплектность и корректность встроенных кроссвордов; ошибка останавливает сборку.
 val validateContent by tasks.registering(Exec::class) {
     group = "verification"
     description = "Validate the bundled crossword package before Android compilation. Requires Python 3."
@@ -115,35 +154,55 @@ val validateContent by tasks.registering(Exec::class) {
     inputs.dir("src/main/assets/content")
     inputs.file(rootProject.file("tools/validate_content.py"))
 }
+// Подключает проверку контента ко всем вариантам сборки, включая debug, qa и release.
 tasks.named("preBuild") { dependsOn(validateContent) }
 
-val requestedReleaseTasks = gradle.startParameter.taskNames.joinToString(" ").lowercase()
-val releaseStores = listOf("rustore", "googlePlay", "huaweiAppGallery").filter {
-    requestedReleaseTasks.contains(it.lowercase())
-}.ifEmpty { listOf("rustore", "googlePlay", "huaweiAppGallery") }
-val releaseValues = releaseStores.associateWith { store ->
-    listOf("rewardedAdUnitId", "interstitialAdUnitId", "supportEmail", "privacyUrl", "audience").associateWith { key ->
-        providers.gradleProperty("wordline.$store.$key").orElse(when (key) { "rewardedAdUnitId" -> storeAdUnits.getValue(store).first; "interstitialAdUnitId" -> storeAdUnits.getValue(store).second; else -> "" }).get()
-    }
-}
-val releaseAdsEnabled = providers.gradleProperty("wordline.adsEnabled").orElse("true").get().toBooleanStrict()
+// Общая задача для ручной проверки всех релизных вариантов.
 val validateReleaseInputs by tasks.registering {
     group = "verification"
-    inputs.properties(releaseValues.flatMap { (store, values) -> values.map { (key, value) -> "$store.$key" to value } }.toMap())
-    doLast {
-        releaseValues.forEach { (store, values) ->
-            values.forEach { (key, value) ->
-                if (releaseAdsEnabled || key !in setOf("rewardedAdUnitId", "interstitialAdUnitId")) {
-                    require(value.isNotBlank() && !value.startsWith("demo-")) { "Provide wordline.$store.$key before a production release" }
+    description = "Validate BuildConfig values for all release variants."
+}
+
+// В AGP 9 поля читаются через Variant API, после объединения flavor и build type.
+// Каждый релиз проверяет только собственные значения, заданные напрямую выше.
+androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        val variantName = variant.name
+        val capitalizedName = variantName.replaceFirstChar { it.uppercaseChar() }
+        val fields = requireNotNull(variant.buildConfigFields).map { values ->
+            values.mapValues { (_, field) -> field.value.toString() }
+        }
+        val validateVariantInputs = tasks.register("validate${capitalizedName}Inputs") {
+            group = "verification"
+            description = "Validate BuildConfig values for $variantName."
+            inputs.property("buildConfigFields", fields)
+            doLast {
+                val values = fields.get()
+                val adsEnabled = values.getValue("ADS_ENABLED").toBooleanStrict()
+                val requiredFields = listOf("SUPPORT_EMAIL", "PRIVACY_URL", "AUDIENCE") +
+                    if (adsEnabled) listOf("REWARDED_AD_UNIT_ID", "INTERSTITIAL_AD_UNIT_ID") else emptyList()
+                requiredFields.forEach { name ->
+                    val value = values.getValue(name).removeSurrounding("\"")
+                    require(value.isNotBlank() && !value.startsWith("demo-")) {
+                        "Configure $name for $variantName in buildConfigField in app/build.gradle.kts"
+                    }
+                }
+                require(values.getValue("PRIVACY_URL").removeSurrounding("\"").startsWith("https://")) {
+                    "Production privacy URL must use HTTPS"
+                }
+                require(values.getValue("AUDIENCE").removeSurrounding("\"") in setOf("general", "children")) {
+                    "Configure the production audience: general or children"
+                }
+                require('@' in values.getValue("SUPPORT_EMAIL").removeSurrounding("\"")) {
+                    "Configure a valid support contact"
                 }
             }
-            require(values.getValue("privacyUrl").startsWith("https://")) { "Production privacy URL must use HTTPS" }
-            require(values.getValue("audience") in setOf("general", "children")) { "Configure the production audience: general or children" }
-            require('@' in values.getValue("supportEmail")) { "Configure a valid support contact" }
+        }
+        validateReleaseInputs.configure { dependsOn(validateVariantInputs) }
+        tasks.configureEach {
+            if (name == "pre${capitalizedName}Build") dependsOn(validateVariantInputs)
         }
     }
 }
-tasks.configureEach {
-    if (name.startsWith("pre") && name.endsWith("ReleaseBuild")) dependsOn(validateReleaseInputs)
-}
+// Включает фиксацию разрешённых версий зависимостей; lock-файлы создаются через --write-locks.
 dependencyLocking { lockAllConfigurations() }

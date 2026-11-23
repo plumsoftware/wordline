@@ -14,8 +14,11 @@ datastore = "1.2.0"
 navigation = "2.9.7"
 jsonTest = "20240303"
 yandexAds = "8.6.0"
+googleGmsGoogleServices = "4.6.0"
+firebaseMessaging = "26.0.2"
 
 [libraries]
+androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version = "2.10.5" }
 yandex-ads = { module = "com.yandex.android:mobileads", version.ref = "yandexAds" }
 json-test = { module = "org.json:json", version.ref = "jsonTest" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -39,9 +42,11 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 

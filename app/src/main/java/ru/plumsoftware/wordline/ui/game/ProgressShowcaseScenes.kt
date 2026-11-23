@@ -137,50 +137,49 @@ private fun ThemeTile(title: String, picture: Int, unlocked: Boolean, selected: 
 fun AchievementsScreen(state: AppState, vm: GameViewModel, back: ()->Unit) {
     val snapshot=requireNotNull(state.snapshot)
     val all=achievements(snapshot.world,snapshot.completions.size)
-    val first=listOf("ACH04","ACH07","ACH12")
-    val ordered=first.map { id ->all.first {it.id==id} }+all.filter {it.id !in first}
+    val ordered=all.sortedBy { if("achievement:${it.id}" in snapshot.world.claims) 2 else if(it.progress>=it.target) 0 else 1 }
     ReferenceStage(686f,highContrast=state.settings.highContrast,background=hubArtwork(state)) {
         ReferenceBack(frame(12,14,42,38),back)
         ReferenceBalance(snapshot.profile?.coins ?: 0,frame(220,15,93,37),scale)
         GeneratedPageTitle("Достижения",pageTitleFrame())
-        val sy=height.value/referenceHeight
-        Column(frame(9,145,309,438).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy((12*sy).dp)) {
-            ordered.forEachIndexed { index,item ->
-                val cardHeight=when(index) {0->162f;2->128f;else->124f}
-                AchievementCard(item,"achievement:${item.id}" in snapshot.world.claims,state.busy,
-                    Modifier.fillMaxWidth().height((cardHeight*sy).dp),cardHeight,index==0) {vm.claimAchievement(item.id)}
+        Column(frame(9,145,309,438).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+            val earned=all.count {"achievement:${it.id}" in snapshot.world.claims}
+            PlaySurface(Modifier.fillMaxWidth().heightIn(min=44.dp),22.dp) {
+                ReferenceText("Награды получены: $earned из ${all.size}",Modifier.padding(10.dp),17f)
+            }
+            ordered.forEach { item ->
+                AchievementCard(item,"achievement:${item.id}" in snapshot.world.claims,state.busy) {vm.claimAchievement(item.id)}
             }
         }
     }
 }
 
 @Composable
-private fun AchievementCard(item: AchievementSpec, claimed: Boolean, busy: Boolean, modifier: Modifier,
-                              cardHeight: Float, tall: Boolean, claim: ()->Unit) {
+private fun AchievementCard(item: AchievementSpec, claimed: Boolean, busy: Boolean, claim: ()->Unit) {
     val ready=item.progress>=item.target
-    val title=when(item.id) {"ACH04"->"Первые\n100 слов";"ACH07"->"Без\nподсказок";"ACH12"->"Исследователь";else->item.title}
-    val artwork=when(item.id) {"ACH07"->R.drawable.item_medal;"ACH12"->R.drawable.item_compass;else->R.drawable.item_trophy}
-    PlaySurface(modifier,28.dp) {
-        CardCoordinates(cardHeight,Modifier.fillMaxSize()) {
-            Image(painterResource(artwork),null,frame(17,if(tall) 13 else 10,106,if(tall) 111 else 102))
-            VictoryLeaves(frame(10,if(tall) 64 else 58,38,43),true)
-            VictoryLeaves(frame(88,if(tall) 64 else 58,38,43),false)
-            ReferenceText(title,frame(130,15,168,49),if(item.id=="ACH12") 23*scale else 24*scale,align=TextAlign.Left,maxLines=2)
-            if(tall) {
-                ReferenceProgress(item.progress.toFloat()/item.target,frame(132,74,148,17))
-                if(ready) ReferenceCheck(frame(265,67,29,29))
-                if(ready && !claimed) AchievementClaim(item.reward,frame(101,105,199,44),scale,!busy,claim)
-                else PlaySurface(frame(125,105,173,37),22.dp) {
-                    ReferenceText(if(claimed) "Получено" else "${item.progress.coerceAtMost(item.target)}/${item.target}",Modifier.fillMaxSize(),20*scale)
-                }
-            } else if(ready && !claimed) AchievementClaim(item.reward,frame(126,72,172,41),scale*.87f,!busy,claim)
-            else PlaySurface(frame(125,70,173,35),22.dp) {
-                Row(Modifier.fillMaxSize().padding(horizontal=7.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(9.dp)) {
-                    ReferenceProgress(item.progress.toFloat()/item.target,Modifier.weight(1f).height((20*scale).dp))
-                    if(claimed) ReferenceCheck(Modifier.size((25*scale).dp))
-                    else ReferenceText("${item.progress.coerceAtMost(item.target)}/${item.target}",size=21*scale,maxLines=1)
+    val artwork=when(item.id) {
+        "ACH07","ACH18","ACH19"->R.drawable.item_medal
+        "ACH12","ACH15","ACH28"->R.drawable.item_compass
+        else->R.drawable.item_trophy
+    }
+    PlaySurface(Modifier.fillMaxWidth(),28.dp) {
+        Column(Modifier.fillMaxWidth().padding(16.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+                Image(painterResource(artwork),null,Modifier.size(62.dp))
+                Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(5.dp)) {
+                    ReferenceText(item.title,Modifier.fillMaxWidth(),23f,align=TextAlign.Left)
+                    ReferenceText(if(claimed) "Награда получена" else if(ready) "Выполнено · забери награду" else "Награда: +${item.reward} монет",
+                        Modifier.fillMaxWidth(),15f,align=TextAlign.Left)
                 }
             }
+            ReferenceText(item.requirement,Modifier.fillMaxWidth(),17f,
+                weight=androidx.compose.ui.text.font.FontWeight.Medium,align=TextAlign.Left)
+            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)) {
+                ReferenceProgress((item.progress.toFloat()/item.target).coerceIn(0f,1f),Modifier.weight(1f).height(16.dp))
+                ReferenceText("${item.progress.coerceIn(0,item.target)} / ${item.target}",size=17f)
+                if(claimed) ReferenceCheck(Modifier.size(26.dp))
+            }
+            if(ready && !claimed) AchievementClaim(item.reward,Modifier.fillMaxWidth().heightIn(min=48.dp),.85f,!busy,claim)
         }
     }
 }

@@ -22,7 +22,7 @@ import ru.plumsoftware.wordline.audio.AudioEngine
 import ru.plumsoftware.wordline.game.*
 
 @Composable
-fun WordLineApp(vm: GameViewModel) {
+fun WordLineApp(vm: GameViewModel, openTasks: Boolean = false, consumeNotification: ()->Unit = {}) {
     ImmersiveGameScreen()
     val state by vm.state.collectAsStateWithLifecycle()
     val ad by vm.ads.state.collectAsStateWithLifecycle()
@@ -64,6 +64,35 @@ fun WordLineApp(vm: GameViewModel) {
         val nav=rememberNavController()
         val backStack by nav.currentBackStackEntryAsState()
         val route=backStack?.destination?.route.orEmpty()
+        LaunchedEffect(openTasks,route,state.settings.onboardingCompleted) {
+            if(openTasks && state.settings.onboardingCompleted && route !in setOf("","entry","welcome")) {
+                if(route!="tasks") nav.navigate("tasks") {launchSingleTop=true}
+                consumeNotification()
+            }
+        }
+        var notificationPrompt by rememberSaveable {mutableStateOf(false)}
+        LaunchedEffect(route,state.settings.notificationPrompted) {
+            if(route=="tasks" && !state.settings.notificationPrompted) notificationPrompt=true
+        }
+        if(notificationPrompt) NotificationPreferences(state,vm::setting) {
+            notificationPrompt=false
+            vm.setting(ru.plumsoftware.wordline.data.Setting.NOTIFICATION_PROMPTED,true)
+        }
+        var previousDay by rememberSaveable(initialSnapshot.world.generation) {mutableStateOf(initialSnapshot.world.effectiveDate)}
+        var newTasks by rememberSaveable(initialSnapshot.world.generation) {mutableStateOf(false)}
+        LaunchedEffect(initialSnapshot.world.effectiveDate) {
+            if(initialSnapshot.world.effectiveDate>previousDay) newTasks=true
+            previousDay=initialSnapshot.world.effectiveDate
+        }
+        if(newTasks && route in setOf("home","tasks") && !notificationPrompt) ReferenceModal({newTasks=false},240f,bottom=false) {
+            ReferenceText("Новые задания!",frame(20,24,287,42),28*scale)
+            ReferenceText("Ежедневные задания обновились. Находи слова и забирай монеты!",frame(25,82,277,64),20*scale)
+            ReferenceAction("К заданиям",frame(38,166,251,48),scale*.8f,onClick={
+                newTasks=false
+                if(route!="tasks") nav.navigate("tasks") {launchSingleTop=true}
+            })
+        }
+
         Landscape(state.settings.highContrast,background,theme,animate=route in setOf("article/{kind}","wallet","help","debugAds","extraPostcard/{id}")) {
             var gameUnpaused by remember {mutableStateOf(true)}
             val adActive=ad.phase in setOf("loading","showing","committing","storageError")

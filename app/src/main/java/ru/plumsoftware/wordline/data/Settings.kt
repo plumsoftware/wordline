@@ -10,8 +10,9 @@ data class GameSettings(val onboardingCompleted: Boolean = false, val highContra
     val largeLetters: Boolean = false, val tapInput: Boolean = false, val reduceMotion: Boolean = false,
     val tutorialEnabled: Boolean = false, val music: Boolean = true, val effects: Boolean = true,
     val vibration: Boolean = true, val adsAllowed: Boolean = true,
-    val background: Int = 0, val theme: String = "day", val seenContent: Set<String> = emptySet())
-enum class Setting { ONBOARDING, CONTRAST, LARGE_LETTERS, TAP_INPUT, REDUCE_MOTION, TUTORIAL, MUSIC, EFFECTS, VIBRATION, ADS_ALLOWED }
+    val background: Int = 0, val theme: String = "day", val seenContent: Set<String> = emptySet(),
+    val taskNotifications: Boolean = false, val notificationPrompted: Boolean = false)
+enum class Setting { ONBOARDING, CONTRAST, LARGE_LETTERS, TAP_INPUT, REDUCE_MOTION, TUTORIAL, MUSIC, EFFECTS, VIBRATION, ADS_ALLOWED, TASK_NOTIFICATIONS, NOTIFICATION_PROMPTED }
 class SettingsRepository(context: Context) {
     private val store=context.applicationContext.gameSettings
     private fun key(setting: Setting)=booleanPreferencesKey(setting.name)
@@ -23,7 +24,8 @@ class SettingsRepository(context: Context) {
         p[key(Setting.TAP_INPUT)] ?: false,p[key(Setting.REDUCE_MOTION)] ?: false,
         p[key(Setting.TUTORIAL)] ?: false,p[key(Setting.MUSIC)] ?: true,p[key(Setting.EFFECTS)] ?: true,
         p[key(Setting.VIBRATION)] ?: true,p[key(Setting.ADS_ALLOWED)] ?: true,
-        p[backgroundKey] ?: 0,p[themeKey] ?: "day",p[seenKey] ?: emptySet())}
+        p[backgroundKey] ?: 0,p[themeKey] ?: "day",p[seenKey] ?: emptySet(),
+        p[key(Setting.TASK_NOTIFICATIONS)] ?: false,p[key(Setting.NOTIFICATION_PROMPTED)] ?: false)}
     suspend fun markSeen(keys: Set<String>) {if(keys.isNotEmpty()) store.edit {it[seenKey]=(it[seenKey] ?: emptySet())+keys}}
     suspend fun set(setting: Setting,value: Boolean) {store.edit {it[key(setting)]=value}}
     suspend fun appearance(background: Int,theme: String) {store.edit {it[backgroundKey]=background;it[themeKey]=theme}}

@@ -49,23 +49,26 @@ internal fun SettingsItem(label: String, icon: Int, modifier: Modifier, scale: F
 fun SettingsScreen(state: AppState, back: ()->Unit, change: (Setting,Boolean)->Unit, help: ()->Unit,
                    save: ()->Unit = {}, about: ()->Unit = {}, accessibility: ()->Unit = {}) {
     var videoSettings by remember {mutableStateOf(false)}
+    var notificationSettings by remember {mutableStateOf(false)}
     ReferenceStage(highContrast=state.settings.highContrast,background=R.drawable.game_lake_day,backgroundTopFraction=.17f) {
         PreferencesHeader("Настройки",R.drawable.settings_hq,back,{videoSettings=true},"Настройки видеорекламы")
-        PlaySurface(frame(15,179,300,385),31.dp) {}
+        PlaySurface(frame(15,179,300,438),31.dp) {}
         SettingsItem("Музыка",R.drawable.game_ic_music,frame(43,191,250,51),scale,!state.busy,state.settings.music,
             change={change(Setting.MUSIC,it)})
         SettingsItem("Звуки",R.drawable.game_ic_sound_on,frame(43,247,250,51),scale,!state.busy,state.settings.effects,
             change={change(Setting.EFFECTS,it)})
         SettingsItem("Вибрация",R.drawable.game_ic_vibration,frame(43,303,250,51),scale,!state.busy,state.settings.vibration,
             change={change(Setting.VIBRATION,it)})
-        listOf(243,298,360,412,459,507).forEach { y ->
+        listOf(243,298,360,412,459,507,560).forEach { y ->
             Box(frame(37,y,256,1).background(Color(0xFFD4C8B0)))
         }
         SettingsItem("Удобство",R.drawable.game_ic_accessibility,frame(43,364,249,46),scale,click=accessibility)
         SettingsItem("Сохранение",R.drawable.game_ic_save,frame(43,413,249,44),scale,click=save)
         SettingsItem("Как играть",R.drawable.game_ic_help,frame(43,461,249,44),scale,click=help)
         SettingsItem("Об игре",R.drawable.game_ic_info,frame(43,509,249,44),scale,click=about)
+        SettingsItem("Уведомления",R.drawable.ic_notification_bell,frame(43,565,249,44),scale,click={notificationSettings=true})
     }
+    if(notificationSettings) NotificationPreferences(state,change) {notificationSettings=false}
     if(videoSettings) ReferenceModal({videoSettings=false},322f,bottom=false,widthFraction=.92f) {
         ReferenceText("Видео с наградой",frame(20,20,287,42),27*scale)
         SettingsItem("Загрузка видео",R.drawable.game_ic_play,frame(29,72,269,53),scale,!state.busy,state.settings.adsAllowed,
@@ -194,4 +197,53 @@ fun SaveScreen(state: AppState, vm: GameViewModel, back: ()->Unit) {
         onDismissRequest={if(phase=="reading") vm.cancelFile()},
         title={Text(when(phase) {"reading"->"Проверяем файл";"applying"->"Загружаем прогресс";else->"Готовим сохранение"})},
         text={CircularProgressIndicator()},confirmButton={if(phase=="reading") TextButton(onClick=vm::cancelFile) {Text("Отмена")}})
+}
+
+@Composable
+internal fun NotificationPreferences(state: AppState, change: (Setting, Boolean)->Unit, dismiss: ()->Unit) {
+    val context=androidx.compose.ui.platform.LocalContext.current
+    val owner=androidx.lifecycle.compose.LocalLifecycleOwner.current
+    var allowed by remember {mutableStateOf(ru.plumsoftware.wordline.notifications.GameNotifications.canPost(context,
+        ru.plumsoftware.wordline.notifications.GameNotifications.TASKS_CHANNEL))}
+    val permission=rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        allowed=granted && ru.plumsoftware.wordline.notifications.GameNotifications.canPost(context,
+            ru.plumsoftware.wordline.notifications.GameNotifications.TASKS_CHANNEL)
+        if(allowed) change(Setting.TASK_NOTIFICATIONS,true)
+    }
+    DisposableEffect(owner) {
+        val observer=androidx.lifecycle.LifecycleEventObserver {_,event ->
+            if(event==androidx.lifecycle.Lifecycle.Event.ON_RESUME) allowed=
+                ru.plumsoftware.wordline.notifications.GameNotifications.canPost(context,
+                    ru.plumsoftware.wordline.notifications.GameNotifications.TASKS_CHANNEL)
+        }
+        owner.lifecycle.addObserver(observer)
+        onDispose {owner.lifecycle.removeObserver(observer)}
+    }
+    ReferenceModal(dismiss,466f,bottom=false,widthFraction=.94f) {
+        Column(Modifier.fillMaxSize().padding(20.dp).verticalScroll(rememberScrollState()),
+            horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(14.dp)) {
+            Icon(painterResource(R.drawable.ic_notification_bell),null,Modifier.size(42.dp),tint=Color(0xFF00873D))
+            ReferenceText("Новые задания",Modifier.fillMaxWidth(),27f)
+            ReferenceText("Каждый день — новые слова и награды. Напомним, когда обновятся ежедневные задания.",
+                Modifier.fillMaxWidth(),18f,weight=androidx.compose.ui.text.font.FontWeight.Medium)
+            ReferenceText(if(!allowed) "Разреши уведомления в Android, чтобы получать напоминания."
+                else if(state.settings.taskNotifications) "Напоминания о заданиях включены" else "Напоминания о заданиях выключены",
+                Modifier.fillMaxWidth(),16f)
+            ReferenceAction(if(state.settings.taskNotifications && allowed) "Выключить напоминания" else "Включить напоминания",
+                Modifier.fillMaxWidth().heightIn(min=50.dp),.8f,enabled=!state.busy,onClick={
+                    if(state.settings.taskNotifications && allowed) change(Setting.TASK_NOTIFICATIONS,false)
+                    else if(android.os.Build.VERSION.SDK_INT>=33 && androidx.core.content.ContextCompat.checkSelfPermission(context,
+                            android.Manifest.permission.POST_NOTIFICATIONS)!=android.content.pm.PackageManager.PERMISSION_GRANTED)
+                        permission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    else if(allowed) change(Setting.TASK_NOTIFICATIONS,true)
+                    else context.startActivity(android.content.Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE,context.packageName))
+                })
+            if(!allowed) ReferenceAction("Настройки Android",Modifier.fillMaxWidth().heightIn(min=48.dp),.75f,onClick={
+                context.startActivity(android.content.Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE,context.packageName))
+            })
+            ReferenceAction("Готово",Modifier.fillMaxWidth().heightIn(min=48.dp),.8f,onClick=dismiss)
+        }
+    }
 }

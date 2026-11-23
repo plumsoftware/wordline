@@ -39,20 +39,39 @@ fun tasks(world: World, date: String, campaignFinished: Boolean): List<TaskSpec>
         else TaskSpec("levels","Пройди 3 новых уровня",day.wins,3,20),
         TaskSpec("bonus","Найди дополнительное слово",day.bonus,1,10))
 }
-data class AchievementSpec(val id: String, val title: String, val progress: Int, val target: Int, val reward: Long)
+data class AchievementSpec(val id: String, val title: String, val progress: Int, val target: Int,
+                           val reward: Long, val requirement: String)
 fun achievements(world: World, campaignWins: Int): List<AchievementSpec> = listOf(
-    AchievementSpec("ACH01","Первые шаги",campaignWins,10,20),
-    AchievementSpec("ACH02","Сотня открытий",campaignWins,100,50),
-    AchievementSpec("ACH03","Большое путешествие",campaignWins,500,100),
-    AchievementSpec("ACH04","Сто слов",world.totalWords,100,30),
-    AchievementSpec("ACH05","Тысяча слов",world.totalWords,1000,75),
-    AchievementSpec("ACH06","Разнообразный словарь",world.uniqueWords.size,100,40),
-    AchievementSpec("ACH07","Без подсказок",world.noHintLevels.size,10,30),
-    AchievementSpec("ACH08","Искатель бонусов",world.bonusWords,50,40),
-    AchievementSpec("ACH09","Сундуки открытий",world.chests,10,40),
-    AchievementSpec("ACH10","Неделя вместе",world.bestStreak,7,50),
-    AchievementSpec("ACH11","Каждый день",world.dailyCompleted.size,20,75),
-    AchievementSpec("ACH12","Новые горизонты",(campaignWins/100+1).coerceAtMost(10),5,100))
+    AchievementSpec("ACH01","Первые шаги",campaignWins,10,20,"Пройди 10 уровней путешествия."),
+    AchievementSpec("ACH02","Сотня открытий",campaignWins,100,50,"Пройди 100 уровней путешествия."),
+    AchievementSpec("ACH03","Большое путешествие",campaignWins,500,100,"Пройди 500 уровней путешествия."),
+    AchievementSpec("ACH04","Сто слов",world.totalWords,100,30,"Найди 100 слов. Повторное прохождение не учитывается."),
+    AchievementSpec("ACH05","Тысяча слов",world.totalWords,1000,75,"Найди 1 000 слов. Повторное прохождение не учитывается."),
+    AchievementSpec("ACH06","Разнообразный словарь",world.uniqueWords.size,100,40,"Найди 100 разных слов. Каждое слово считается один раз."),
+    AchievementSpec("ACH07","Без подсказок",world.noHintLevels.size,10,30,"Пройди 10 разных уровней путешествия без подсказок."),
+    AchievementSpec("ACH08","Искатель бонусов",world.bonusWords,50,40,"Найди 50 дополнительных слов вне сетки кроссворда."),
+    AchievementSpec("ACH09","Сундуки открытий",world.chests,10,40,"Открой 10 сундуков за дополнительные слова."),
+    AchievementSpec("ACH10","Неделя вместе",world.bestStreak,7,50,"Заходи в игру 7 дней подряд. Учитывается лучшая серия."),
+    AchievementSpec("ACH11","Каждый день",world.dailyCompleted.size,20,75,"Заверши ежедневные кроссворды за 20 разных дат."),
+    AchievementSpec("ACH12","Новые горизонты",(campaignWins/100+1).coerceAtMost(10),5,100,"Открой 5 локаций путешествия: пройди 400 уровней."),
+    AchievementSpec("ACH13","Первое открытие",campaignWins,1,10,"Пройди первый уровень путешествия."),
+    AchievementSpec("ACH14","В пути",campaignWins,50,35,"Пройди 50 уровней путешествия."),
+    AchievementSpec("ACH15","Все горизонты",campaignWins,1000,150,"Пройди все 1 000 уровней путешествия."),
+    AchievementSpec("ACH16","Мастер слов",world.totalWords,5000,120,"Найди 5 000 слов. Повторное прохождение не учитывается."),
+    AchievementSpec("ACH17","Словесная сокровищница",world.uniqueWords.size,500,90,"Найди 500 разных слов. Каждое слово считается один раз."),
+    AchievementSpec("ACH18","Своя голова",world.noHintLevels.size,50,70,"Пройди 50 разных уровней путешествия без подсказок."),
+    AchievementSpec("ACH19","Мастер без подсказок",world.noHintLevels.size,100,100,"Пройди 100 разных уровней путешествия без подсказок."),
+    AchievementSpec("ACH20","Первая находка",world.bonusWords,1,10,"Найди дополнительное слово, которого нет в сетке."),
+    AchievementSpec("ACH21","Охотник за словами",world.bonusWords,200,90,"Найди 200 дополнительных слов вне сетки кроссворда."),
+    AchievementSpec("ACH22","Первый сундук",world.chests,1,15,"Собери 5 дополнительных слов в одном кроссворде и открой сундук."),
+    AchievementSpec("ACH23","Коллекционер сундуков",world.chests,50,100,"Открой 50 сундуков за дополнительные слова."),
+    AchievementSpec("ACH24","Три дня вместе",world.bestStreak,3,20,"Заходи в игру 3 дня подряд. Учитывается лучшая серия."),
+    AchievementSpec("ACH25","Месяц вместе",world.bestStreak,30,120,"Заходи в игру 30 дней подряд. Учитывается лучшая серия."),
+    AchievementSpec("ACH26","Кроссворд дня",world.dailyCompleted.size,1,15,"Полностью заверши один ежедневный кроссворд."),
+    AchievementSpec("ACH27","Неделя кроссвордов",world.dailyCompleted.size,7,40,"Заверши ежедневные кроссворды за 7 разных дат, необязательно подряд."),
+    AchievementSpec("ACH28","Дальняя тропа",world.trailEvents.size,30,80,"Заверши 30 этапов тропы: новые уровни или ежедневные кроссворды."),
+    AchievementSpec("ACH29","Коллекция воспоминаний",world.collectibles.size,5,60,"Получи 5 открыток за путешествие, тропу и ежедневные кроссворды."),
+    AchievementSpec("ACH30","Десять встреч",world.visits.size,10,35,"Заходи в игру в 10 разных дней, необязательно подряд."))
 
 val giftRewards=listOf(20L,25L,30L,35L,40L,50L,75L)
 val trailRewards=mapOf(10 to 50L,20 to 75L,30 to 100L)

@@ -17,18 +17,9 @@ Android/Jetpack Compose-игра по `soedini-slova-tz-assets-v1.1-complete.zip
 
 ## Три магазина
 
-В [app/build.gradle.kts](app/build.gradle.kts) созданы `rustore`, `googlePlay`, `huaweiAppGallery`, dimension `store`. В начале файла находится `storeAdUnits`: для каждого магазина отдельно пара `(rewarded, interstitial)`. Эти строки можно заполнить позже; значения Gradle properties имеют приоритет:
+В [app/build.gradle.kts](app/build.gradle.kts) созданы `rustore`, `googlePlay`, `huaweiAppGallery`, dimension `store`. В каждом `create(...)` рекламные ID задаются непосредственно строками в `buildConfigField`: `REWARDED_AD_UNIT_ID`, `LEVEL_COMPLETE_REWARDED_AD_UNIT_ID`, `INTERSTITIAL_AD_UNIT_ID`. Редактируйте значение прямо в нужном поле; таблица `storeAdUnits` и переопределения рекламных ID через Gradle properties не используются.
 
-```properties
-wordline.rustore.rewardedAdUnitId=
-wordline.rustore.interstitialAdUnitId=
-wordline.googlePlay.rewardedAdUnitId=
-wordline.googlePlay.interstitialAdUnitId=
-wordline.huaweiAppGallery.rewardedAdUnitId=
-wordline.huaweiAppGallery.interstitialAdUnitId=
-```
-
-Для RuStore заданы блоки владельца: rewarded `R-M-20460787-2`, interstitial `R-M-20460787-1`. Для других магазинов ID пока не предоставлены. Для каждого префикса предусмотрены `.supportEmail`, `.privacyUrl`, `.audience` (`general` или `children`); эти сведения ещё ожидаются. Debug всегда использует `demo-rewarded-yandex`/`demo-interstitial-yandex`; release не подставляет их вместо настоящих ID. `validateReleaseInputs` блокирует release без сведений издателя. Ключ подписи в проект не добавлялся. Подготовка подписанного релиза и публикация требуют данных владельца и отдельной приёмки.
+Для RuStore заданы блоки владельца: rewarded `R-M-20460787-2`, rewarded после уровня `R-M-20460787-3`, interstitial `R-M-20460787-1`. Для других магазинов ID пока не предоставлены. В каждом `create(flavor)` прямо в `buildConfigField` задаются также `STORE`, `SUPPORT_EMAIL`, `PRIVACY_URL`, `AUDIENCE` (`general` или `children`). Сведения издателя пока пустые. `ADS_ENABLED` задан прямым значением в каждом build type. Debug всегда использует `demo-rewarded-yandex`/`demo-interstitial-yandex`; release не подставляет их вместо настоящих ID. `validateReleaseInputs` блокирует release без сведений издателя. Ключ подписи в проект не добавлялся. Подготовка подписанного релиза и публикация требуют данных владельца и отдельной приёмки.
 
 Build types: `debug`, `qa` с отключённой рекламой и `release` с полным R8/resource shrinking. Во всех вариантах сборки и магазинах applicationId — `ru.plumsoftware.wordline`, без суффиксов; namespace совпадает с ним.
 
